@@ -6,13 +6,13 @@ Robert A. Muenchen - [The Popularity of Data Science Software](http://r4stats.co
 
 ![](img/pop_r1.png)
 
-# R
+## R
 
 Bazowa wersja R jest do pobrania ze strony [r-project.org](https://cloud.r-project.org/). 
 
 ![](img/r.png)
 
-# RStudio
+## RStudio
 
 RStudio to zintegrowane środowisko programistyczne (IDE) dla języka R dostępne za darmo na stronie [RStudio](https://www.rstudio.com/products/rstudio/download/).
 
@@ -22,7 +22,7 @@ Z R można także korzystać w [Microsoft Visual Studio](https://www.visualstudi
 
 **W codziennej pracy RStudio jest wygodniejsze, jednak długotrwałe obliczenia lepiej uruchamiać w zwykłym R.**
 
-# Pakiety
+## Pakiety
 
 Podstawowe możliwości R są dosyć ograniczone. Rozszerzają je pakiety, których obecnie jest ponad 12 tysięcy. Można je przeglądać według kategorii w [CRAN Task Views](https://cran.r-project.org/web/views/) lub w wygodnej wyszukiwarce [METACRAN](https://www.r-pkg.org/).
 

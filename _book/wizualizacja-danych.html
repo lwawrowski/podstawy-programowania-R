@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Podstawy programowania R</title>
+  <meta name="description" content="Materiały dydaktyczne do kursu Podstawy programowania.">
+  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Podstawy programowania R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Materiały dydaktyczne do kursu Podstawy programowania." />
+  <meta name="github-repo" content="lwawrowski/podstawy-programowania-R" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Podstawy programowania R" />
+  
+  <meta name="twitter:description" content="Materiały dydaktyczne do kursu Podstawy programowania." />
+  
+
+<meta name="author" content="Łukasz Wawrowski">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="programowanie-w-r.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Podstawy programowania</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Wprowadzenie</a></li>
+<li class="chapter" data-level="1" data-path="wprowadzenie-do-r.html"><a href="wprowadzenie-do-r.html"><i class="fa fa-check"></i><b>1</b> Wprowadzenie do R</a><ul>
+<li class="chapter" data-level="1.1" data-path="wprowadzenie-do-r.html"><a href="wprowadzenie-do-r.html#r"><i class="fa fa-check"></i><b>1.1</b> R</a></li>
+<li class="chapter" data-level="1.2" data-path="wprowadzenie-do-r.html"><a href="wprowadzenie-do-r.html#rstudio"><i class="fa fa-check"></i><b>1.2</b> RStudio</a></li>
+<li class="chapter" data-level="1.3" data-path="wprowadzenie-do-r.html"><a href="wprowadzenie-do-r.html#pakiety"><i class="fa fa-check"></i><b>1.3</b> Pakiety</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="struktury-danych.html"><a href="struktury-danych.html"><i class="fa fa-check"></i><b>2</b> Struktury danych</a><ul>
+<li class="chapter" data-level="2.1" data-path="struktury-danych.html"><a href="struktury-danych.html#wektor"><i class="fa fa-check"></i><b>2.1</b> Wektor</a></li>
+<li class="chapter" data-level="2.2" data-path="struktury-danych.html"><a href="struktury-danych.html#macierz"><i class="fa fa-check"></i><b>2.2</b> Macierz</a></li>
+<li class="chapter" data-level="2.3" data-path="struktury-danych.html"><a href="struktury-danych.html#faktorczynnik"><i class="fa fa-check"></i><b>2.3</b> Faktor/czynnik</a></li>
+<li class="chapter" data-level="2.4" data-path="struktury-danych.html"><a href="struktury-danych.html#lista"><i class="fa fa-check"></i><b>2.4</b> Lista</a></li>
+<li class="chapter" data-level="2.5" data-path="struktury-danych.html"><a href="struktury-danych.html#ramka-danych"><i class="fa fa-check"></i><b>2.5</b> Ramka danych</a></li>
+<li class="chapter" data-level="2.6" data-path="struktury-danych.html"><a href="struktury-danych.html#braki-danych"><i class="fa fa-check"></i><b>2.6</b> Braki danych</a></li>
+<li class="chapter" data-level="2.7" data-path="struktury-danych.html"><a href="struktury-danych.html#import-danych"><i class="fa fa-check"></i><b>2.7</b> Import danych</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="przetwarzanie-danych.html"><a href="przetwarzanie-danych.html"><i class="fa fa-check"></i><b>3</b> Przetwarzanie danych</a><ul>
+<li class="chapter" data-level="3.1" data-path="przetwarzanie-danych.html"><a href="przetwarzanie-danych.html#pakiet-tidyverse"><i class="fa fa-check"></i><b>3.1</b> Pakiet tidyverse</a></li>
+<li class="chapter" data-level="3.2" data-path="przetwarzanie-danych.html"><a href="przetwarzanie-danych.html#wybieranie-kolumn"><i class="fa fa-check"></i><b>3.2</b> Wybieranie kolumn</a></li>
+<li class="chapter" data-level="3.3" data-path="przetwarzanie-danych.html"><a href="przetwarzanie-danych.html#filtrowanie"><i class="fa fa-check"></i><b>3.3</b> Filtrowanie</a></li>
+<li class="chapter" data-level="3.4" data-path="przetwarzanie-danych.html"><a href="przetwarzanie-danych.html#dodawanie-nowych-zmiennych"><i class="fa fa-check"></i><b>3.4</b> Dodawanie nowych zmiennych</a></li>
+<li class="chapter" data-level="3.5" data-path="przetwarzanie-danych.html"><a href="przetwarzanie-danych.html#grupowanie"><i class="fa fa-check"></i><b>3.5</b> Grupowanie</a></li>
+<li class="chapter" data-level="3.6" data-path="przetwarzanie-danych.html"><a href="przetwarzanie-danych.html#podsumowanie"><i class="fa fa-check"></i><b>3.6</b> Podsumowanie</a></li>
+<li class="chapter" data-level="3.7" data-path="przetwarzanie-danych.html"><a href="przetwarzanie-danych.html#aczenie-zbiorow"><i class="fa fa-check"></i><b>3.7</b> Łączenie zbiorów</a></li>
+<li class="chapter" data-level="3.8" data-path="przetwarzanie-danych.html"><a href="przetwarzanie-danych.html#waska-i-szeroka-reprezentacja-danych"><i class="fa fa-check"></i><b>3.8</b> Wąska i szeroka reprezentacja danych</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="programowanie-w-r.html"><a href="programowanie-w-r.html"><i class="fa fa-check"></i><b>4</b> Programowanie w R</a><ul>
+<li class="chapter" data-level="4.1" data-path="programowanie-w-r.html"><a href="programowanie-w-r.html#funkcje"><i class="fa fa-check"></i><b>4.1</b> Funkcje</a></li>
+<li class="chapter" data-level="4.2" data-path="programowanie-w-r.html"><a href="programowanie-w-r.html#petle"><i class="fa fa-check"></i><b>4.2</b> Pętle</a></li>
+<li class="chapter" data-level="4.3" data-path="programowanie-w-r.html"><a href="programowanie-w-r.html#instrukcje-warunkowe"><i class="fa fa-check"></i><b>4.3</b> Instrukcje warunkowe</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="wizualizacja-danych.html"><a href="wizualizacja-danych.html"><i class="fa fa-check"></i><b>5</b> Wizualizacja danych</a><ul>
+<li class="chapter" data-level="5.1" data-path="wizualizacja-danych.html"><a href="wizualizacja-danych.html#wbudowane-funkcje"><i class="fa fa-check"></i><b>5.1</b> Wbudowane funkcje</a></li>
+<li class="chapter" data-level="5.2" data-path="wizualizacja-danych.html"><a href="wizualizacja-danych.html#pakiet-ggplot2"><i class="fa fa-check"></i><b>5.2</b> Pakiet ggplot2</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Podstawy programowania R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="wizualizacja-danych" class="section level1">
+<h1><span class="header-section-number">5</span> Wizualizacja danych</h1>
+<div id="wbudowane-funkcje" class="section level2">
+<h2><span class="header-section-number">5.1</span> Wbudowane funkcje</h2>
+</div>
+<div id="pakiet-ggplot2" class="section level2">
+<h2><span class="header-section-number">5.2</span> Pakiet ggplot2</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="programowanie-w-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
