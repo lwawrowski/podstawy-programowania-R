@@ -1,0 +1,16 @@
+# Struktury danych
+
+## Wektor
+
+## Macierz
+
+## Faktor/czynnik
+
+## Lista
+
+## Ramka danych
+
+## Braki danych
+
+## Import danych
+

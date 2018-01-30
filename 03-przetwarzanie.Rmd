@@ -1,0 +1,17 @@
+# Przetwarzanie danych 
+
+## Pakiet tidyverse
+
+## Wybieranie kolumn
+
+## Filtrowanie
+
+## Dodawanie nowych zmiennych
+
+## Grupowanie
+
+## Podsumowanie
+
+## Łączenie zbiorów
+
+## Wąska i szeroka reprezentacja danych

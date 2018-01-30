@@ -1,0 +1,7 @@
+# Programowanie w R
+
+## Funkcje
+
+## Pętle
+
+## Instrukcje warunkowe

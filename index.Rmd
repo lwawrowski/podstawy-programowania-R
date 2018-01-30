@@ -1,0 +1,29 @@
+--- 
+title: "Podstawy programowania R"
+author: "Łukasz Wawrowski"
+date: ""
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: lwawrowski/podstawy-programowania-R
+description: "Materiały dydaktyczne do kursu Podstawy programowania."
+---
+
+# Wprowadzenie {-}
+
+Literatura podstawowa:
+
+- Przemysław Biecek - [_Przewodnik po pakiecie R_](http://pbiecek.github.io/Przewodnik/)
+- Marek Gągolewski - [_Programowanie w języku R. Analiza danych, obliczenia, symulacje._](http://www.gagolewski.com/publications/programowanier/)
+- Garret Grolemund, Hadley Wickham - [_R for Data Science_](http://r4ds.had.co.nz/)
+
+Literatura dodatkowa:
+
+- [inne pozycje po polsku](https://github.com/mi2-warsaw/SER/blob/master/histoRia/README.md)
+- [inne pozycje po angielsku](https://bookdown.org/)
+
+
+
