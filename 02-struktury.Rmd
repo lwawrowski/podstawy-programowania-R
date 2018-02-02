@@ -554,11 +554,50 @@ $$b=(X'X)^{-1}X'y$$
 
 Zmienna $x_1$ przyjmuje wartości `2,4,1,6,9,3,2,9,10,7`, zmienna $x_2$ `1.5,0.2,0.1,2,3.1,1.2,0.4,2.9,2.5,1.9`, a zmienna $x_0$ to wektor jedynek. Te trzy zmienne tworzą macierz $X$. Z kolei wartości zmiennej $y$ są następujące `12,15,10,19,26,13,13,21,29,18`. Wyznacz wartość $b$.
 
-## Faktor/czynnik
+## Czynnik
 
+Czynnik (ang. _factor_) służy do przechowywania danych jakościowych o mało licznej liczbie kategorii, mierzonych na skali nominalnej i porządkowej.
 
+Rozważmy informacje o wykształceniu:
+
+```{r}
+wyk <- rep(c("podstawowe", "średnie", "wyższe"), c(5,3,2))
+wyk
+```
+
+i dokonajmy transformacji na czynnik:
+
+```{r}
+wyk_f <- factor(wyk)
+wyk_f
+```
+
+Funkcja `summary()` wywołana na czynniku zwraca wynik innego typu aniżeli na wektorze tekstowym:
+
+```{r}
+summary(wyk)
+summary(wyk_f)
+```
+
+Jeśli chcemy zakcentować fakt, że zmienne są mierzone na skali porządkowej dodajemy argument `ordered=TRUE`:
+
+```{r}
+wyk_of <- factor(wyk, ordered = TRUE)
+wyk_of
+```
+
+W łatwy sposób możemy edytować etykiety:
+
+```{r}
+levels(wyk_of) <- c("pod.", "śr.", "wyż.")
+wyk_of
+```
+
+Czynniki mają szczególne znaczenie w przypadku tworzenia wykresów, gdy chcemy określić porządek wyświetlania.
 
 ## Lista
+
+
 
 ## Ramka danych
 
