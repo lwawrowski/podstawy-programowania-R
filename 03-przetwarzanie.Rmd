@@ -2,6 +2,8 @@
 
 ## Pakiet tidyverse
 
+## Import danych
+
 ## Wybieranie kolumn
 
 ## Filtrowanie

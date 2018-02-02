@@ -637,7 +637,65 @@ ln$num[2]
 
 ## Ramka danych
 
-### Braki danych
+Ramka danych to tabela, która przypomina tą z Excela zawierająca dane o różnych typach. Tworzona za pomocą funkcji `data.frame`:
 
-## Import danych
+```{r}
+df <- data.frame(plec=c("m", "k", "k", "m", "k", "m", "m", "m"),
+                 wzrost=c(173, 170, 163, 178, 169, 180, 175, NA),
+                 pali=c(T, F, F, F, T, F, NA, T))
+```
 
+W RStudio po wybraniu tego obiektu w zakładce `Environment` pojawia się przyjazne okno do przeglądania oraz poglądowego filtrowania i sortowania danych ze zbioru.
+
+Możemy zobaczyć podsumowanie całego zbioru wywołując na nim funkcję `summary()`:
+
+```{r}
+summary(df)
+```
+
+
+Ramki danych można indeksować w taki sam sposób jak macierze lub z wykorzystaniem operatora `$`:
+
+```{r}
+df[,2] # druga kolumna
+df$wzrost # kolumna wzrost
+
+df[,c("plec", "pali")]
+```
+
+Z kolei do wyboru obserwacji można wykorzystać warunek:
+
+```{r}
+df[df$plec=="m",]
+```
+
+Wyodrębnienie informacji o wzroście tylko dla kobiet i wyznacznie średniej:
+
+```{r}
+wzrost_k <- df$wzrost[df$plec == "k"]
+wzrost_k
+mean(wzrost_k)
+```
+
+
+Widzimy, że dla mężczyzn nie udało się ustalić wszystkich informacji i jeden z nich nie ma podanego wzrostu, a dla drugiego brakuje informacji o paleniu papierosów. Możemy usunąć braki danych w kolumnach korzystając z funkcji `complete.cases()`:
+
+```{r}
+df[complete.cases(df$wzrost),] # tylko zmienna wzrost
+df[complete.cases(df),] # wszystkie zmienne
+```
+
+Zbiory danych przechowywane są także w R i pochodzą z różnych pakietów. Wywołując funkcję `data("zbior")` ładujemy dany zbiór do pamięci. Do szybkiego podglądu zebranych danych służy funkcja `head()`, która domyślnie wyświetla 6 pierwszych obserwacji ze zbioru:
+
+```{r}
+data("iris")
+head(iris)
+```
+
+### Zadania
+
+Załaduj do pamięci zbiór o nazwie ChickWeight.
+
+1. Ile razy jedzenie otrzymał kurczak o numerze 15?
+2. Ile wynosi mediana wagi kurczaka o numerze 35?
+3. Ile średnio ważyły kurczaki na diecie nr 1, a ile na diecie nr 2.
