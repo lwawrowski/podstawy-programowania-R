@@ -48,6 +48,43 @@
 
 
 
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -70,15 +107,30 @@
 <li class="chapter" data-level="1.1" data-path="wprowadzenie-do-r.html"><a href="wprowadzenie-do-r.html#r"><i class="fa fa-check"></i><b>1.1</b> R</a></li>
 <li class="chapter" data-level="1.2" data-path="wprowadzenie-do-r.html"><a href="wprowadzenie-do-r.html#rstudio"><i class="fa fa-check"></i><b>1.2</b> RStudio</a></li>
 <li class="chapter" data-level="1.3" data-path="wprowadzenie-do-r.html"><a href="wprowadzenie-do-r.html#pakiety"><i class="fa fa-check"></i><b>1.3</b> Pakiety</a></li>
+<li class="chapter" data-level="1.4" data-path="wprowadzenie-do-r.html"><a href="wprowadzenie-do-r.html#wazne-informacje"><i class="fa fa-check"></i><b>1.4</b> Ważne informacje</a></li>
+<li class="chapter" data-level="1.5" data-path="wprowadzenie-do-r.html"><a href="wprowadzenie-do-r.html#r-jako-kalkulator"><i class="fa fa-check"></i><b>1.5</b> R jako kalkulator</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="struktury-danych.html"><a href="struktury-danych.html"><i class="fa fa-check"></i><b>2</b> Struktury danych</a><ul>
-<li class="chapter" data-level="2.1" data-path="struktury-danych.html"><a href="struktury-danych.html#wektor"><i class="fa fa-check"></i><b>2.1</b> Wektor</a></li>
+<li class="chapter" data-level="2.1" data-path="struktury-danych.html"><a href="struktury-danych.html#wektor"><i class="fa fa-check"></i><b>2.1</b> Wektor</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="struktury-danych.html"><a href="struktury-danych.html#wektor-wartosci-logicznych"><i class="fa fa-check"></i><b>2.1.1</b> Wektor wartości logicznych</a></li>
+<li class="chapter" data-level="2.1.2" data-path="struktury-danych.html"><a href="struktury-danych.html#wektor-wartosci-liczbowych"><i class="fa fa-check"></i><b>2.1.2</b> Wektor wartości liczbowych</a></li>
+<li class="chapter" data-level="2.1.3" data-path="struktury-danych.html"><a href="struktury-danych.html#wektor-wartosci-tekstowych"><i class="fa fa-check"></i><b>2.1.3</b> Wektor wartości tekstowych</a></li>
+<li class="chapter" data-level="2.1.4" data-path="struktury-danych.html"><a href="struktury-danych.html#przeciazanie-wektora"><i class="fa fa-check"></i><b>2.1.4</b> Przeciążanie wektora</a></li>
+<li class="chapter" data-level="2.1.5" data-path="struktury-danych.html"><a href="struktury-danych.html#operacje-na-wektorach"><i class="fa fa-check"></i><b>2.1.5</b> Operacje na wektorach</a></li>
+<li class="chapter" data-level="2.1.6" data-path="struktury-danych.html"><a href="struktury-danych.html#operacje-agregujace"><i class="fa fa-check"></i><b>2.1.6</b> Operacje agregujące</a></li>
+<li class="chapter" data-level="2.1.7" data-path="struktury-danych.html"><a href="struktury-danych.html#sprawdzanie-typu-wektora"><i class="fa fa-check"></i><b>2.1.7</b> Sprawdzanie typu wektora</a></li>
+<li class="chapter" data-level="2.1.8" data-path="struktury-danych.html"><a href="struktury-danych.html#rzutowanie-wektorow"><i class="fa fa-check"></i><b>2.1.8</b> Rzutowanie wektorów</a></li>
+<li class="chapter" data-level="2.1.9" data-path="struktury-danych.html"><a href="struktury-danych.html#indeksowanie-wektorow"><i class="fa fa-check"></i><b>2.1.9</b> Indeksowanie wektorów</a></li>
+<li class="chapter" data-level="2.1.10" data-path="struktury-danych.html"><a href="struktury-danych.html#wartosci-nieliczbowe"><i class="fa fa-check"></i><b>2.1.10</b> Wartości nieliczbowe</a></li>
+<li class="chapter" data-level="2.1.11" data-path="struktury-danych.html"><a href="struktury-danych.html#zadania"><i class="fa fa-check"></i><b>2.1.11</b> Zadania</a></li>
+</ul></li>
 <li class="chapter" data-level="2.2" data-path="struktury-danych.html"><a href="struktury-danych.html#macierz"><i class="fa fa-check"></i><b>2.2</b> Macierz</a></li>
 <li class="chapter" data-level="2.3" data-path="struktury-danych.html"><a href="struktury-danych.html#faktorczynnik"><i class="fa fa-check"></i><b>2.3</b> Faktor/czynnik</a></li>
 <li class="chapter" data-level="2.4" data-path="struktury-danych.html"><a href="struktury-danych.html#lista"><i class="fa fa-check"></i><b>2.4</b> Lista</a></li>
-<li class="chapter" data-level="2.5" data-path="struktury-danych.html"><a href="struktury-danych.html#ramka-danych"><i class="fa fa-check"></i><b>2.5</b> Ramka danych</a></li>
-<li class="chapter" data-level="2.6" data-path="struktury-danych.html"><a href="struktury-danych.html#braki-danych"><i class="fa fa-check"></i><b>2.6</b> Braki danych</a></li>
-<li class="chapter" data-level="2.7" data-path="struktury-danych.html"><a href="struktury-danych.html#import-danych"><i class="fa fa-check"></i><b>2.7</b> Import danych</a></li>
+<li class="chapter" data-level="2.5" data-path="struktury-danych.html"><a href="struktury-danych.html#ramka-danych"><i class="fa fa-check"></i><b>2.5</b> Ramka danych</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="struktury-danych.html"><a href="struktury-danych.html#braki-danych"><i class="fa fa-check"></i><b>2.5.1</b> Braki danych</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="struktury-danych.html"><a href="struktury-danych.html#import-danych"><i class="fa fa-check"></i><b>2.6</b> Import danych</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="przetwarzanie-danych.html"><a href="przetwarzanie-danych.html"><i class="fa fa-check"></i><b>3</b> Przetwarzanie danych</a><ul>
 <li class="chapter" data-level="3.1" data-path="przetwarzanie-danych.html"><a href="przetwarzanie-danych.html#pakiet-tidyverse"><i class="fa fa-check"></i><b>3.1</b> Pakiet tidyverse</a></li>
@@ -121,8 +173,333 @@
             <section class="normal" id="section-">
 <div id="struktury-danych" class="section level1">
 <h1><span class="header-section-number">2</span> Struktury danych</h1>
+<p>W R praktycznie wszystko jest obiektem. Może to być zbiór danych, ale także wykres czy mapa. Zasadnicza różnica to klasa tych obiektów i operacje jakie mogą być na nich wykonywane.</p>
+<p>Funkcje w R wymagają jako argumentów określonych typów obiektów - stąd tak ważna jak znajomość istniejących struktur.</p>
+<p>Każdy obiekt w R możemy przypisać do tzw. obiektu nazwanego. Wówczas jest przechowywany w pamięci i można się do niego odwołać. Przypisanie odbywa się za pomocą operatora <code>&lt;-</code>.</p>
+<pre><code>nazwa &lt;- obiekt
+obiekt -&gt; nazwa</code></pre>
+<p>Można także przypisywać obiekty z wykorzystaniem znaku równości <code>=</code>, ale nie jest to zalecane ponieważ symbol ten jest używany w innych miejscach np. do deklarowania wartości argumentów w funkcji.</p>
+<p>W R dostępna jest funkcja <code>assign</code>, która także umożliwia przypisanie nazwy do obiektu:</p>
+<pre><code>assign(&quot;nazwa&quot;, obiekt)
+</code></pre>
 <div id="wektor" class="section level2">
 <h2><span class="header-section-number">2.1</span> Wektor</h2>
+<p>Wektor jest najprostszym typem danych w R. Najczęściej korzysta się z trzech typów wektorów:</p>
+<ul>
+<li>logicznych</li>
+<li>liczbowych</li>
+<li>tekstowych</li>
+</ul>
+<p>Wektor tworzy się z wykorzystaniem funkcji <code>c()</code>.</p>
+<div id="wektor-wartosci-logicznych" class="section level3">
+<h3><span class="header-section-number">2.1.1</span> Wektor wartości logicznych</h3>
+<p>Przyjmuje wartości <em>prawda</em> lub <em>fałsz</em>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">FALSE</span>, <span class="ot">FALSE</span>)</code></pre></div>
+<pre><code>## [1]  TRUE FALSE FALSE</code></pre>
+<p>lub w skróconej wersji:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(T, F, F)</code></pre></div>
+<pre><code>## [1]  TRUE FALSE FALSE</code></pre>
+<p>Do sprawdzenia długości wektora używa się funkcji <code>length</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(<span class="kw">c</span>(T, F, F))</code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<p>lub korzystając z obiektu nazwanego:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wart_log &lt;-<span class="st"> </span><span class="kw">c</span>(T,F,F)
+<span class="kw">length</span>(wart_log)</code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<p>Wektory można także utworzyć poprzez replikację określonej wartości lub wektora z wykorzystaniem funkcji <code>rep</code>. Funkcja ta przyjmuje co najmniej dwa argumenty: obowiązkowo <code>x</code> - wektor wejściowy oraz jeden z następujących: <code>times</code> - liczba powtórzeń elementów wektora <code>x</code>, <code>each</code> - liczba powtórzeń elementów wektora <code>x</code> (wyjaśnienie różnicy poniżej) lub <code>length.out</code> - oczekiwana długość wektora wynikowego.</p>
+<p>Trzy równoważne zapisy:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="dt">x =</span> <span class="kw">c</span>(T,F), <span class="dt">times =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>## [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="kw">c</span>(T,F), <span class="dt">times =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>## [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="kw">c</span>(T,F), <span class="dv">3</span>)</code></pre></div>
+<pre><code>## [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE</code></pre>
+<p>A tak to wygląda z argumentem <code>each</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="kw">c</span>(T,F), <span class="dt">each =</span> <span class="dv">3</span>)</code></pre></div>
+<pre><code>## [1]  TRUE  TRUE  TRUE FALSE FALSE FALSE</code></pre>
+<p>Wykorzystanie argumentu <code>length.out</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rep</span>(<span class="kw">c</span>(T,F), <span class="dt">length.out =</span> <span class="dv">5</span>)</code></pre></div>
+<pre><code>## [1]  TRUE FALSE  TRUE FALSE  TRUE</code></pre>
+</div>
+<div id="wektor-wartosci-liczbowych" class="section level3">
+<h3><span class="header-section-number">2.1.2</span> Wektor wartości liczbowych</h3>
+<p>W wektorze możemy przechowywać także liczby:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="op">-</span><span class="dv">5</span>, <span class="fl">2.5</span>, .<span class="dv">6</span>) <span class="co"># nie trzeba pisać zera przed ułamkiem</span></code></pre></div>
+<pre><code>## [1]  1.0  3.0 -5.0  2.5  0.6</code></pre>
+<p>Połączenie dwóch wektorów to także wektor:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="kw">c</span>(<span class="fl">3.5</span>,<span class="dv">4</span>,<span class="fl">4.5</span>))</code></pre></div>
+<pre><code>## [1] 1.0 2.0 3.0 3.5 4.0 4.5</code></pre>
+<p>Pojedyncza liczba też jest jednoelementowym wektorem:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">length</span>(<span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>Proste ciągi o różnicy równej 1 można generować wykorzystując dwukropek:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>lub</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="op">-</span><span class="dv">5</span><span class="op">:-</span><span class="dv">1</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)</code></pre></div>
+<pre><code>##  [1] -5 -4 -3 -2 -1  1  2  3  4  5</code></pre>
+<p>Do generowania ciągów liczbowych o różnych różnicach wykorzystuje się funkcję <code>seq</code>, która przyjmuje następujące argumenty. Wartość początkową <code>from</code>, wartość końcową <code>to</code> oraz jeden z następujących: <code>by</code> - krok lub <code>length.out</code> - oczekiwana długość wektora.</p>
+<p>To samo co <code>1:10</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">1</span>)</code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<p>Wartości niecałkowite:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="fl">0.2</span>)</code></pre></div>
+<pre><code>## [1] 1.0 1.2 1.4 1.6 1.8 2.0</code></pre>
+<p>Wektor wartości malejących:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dv">10</span>, <span class="dv">1</span>, <span class="dt">by=</span><span class="dv">1</span>) <span class="co"># błędny zapis</span></code></pre></div>
+<pre><code>## Error in seq.default(10, 1, by = 1): wrong sign in &#39;by&#39; argument</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dv">10</span>, <span class="dv">1</span>, <span class="dt">by=</span><span class="op">-</span><span class="dv">1</span>) <span class="co"># poprawny zapis</span></code></pre></div>
+<pre><code>##  [1] 10  9  8  7  6  5  4  3  2  1</code></pre>
+<p>Tworzenie wektora w oparciu o argument <code>length.out</code> - funkcja sama dobiera krok:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">7</span>, <span class="dt">length.out =</span> <span class="dv">13</span>)</code></pre></div>
+<pre><code>##  [1] 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0 5.5 6.0 6.5 7.0</code></pre>
+<p>Do generowania liczb pseudolosowych służy funkcja <code>runif(n)</code>, która do poprawnego wywołania wymaga tylko jednego argumentu - długości wektora wynikowego. Domyślnie losowane są liczby z przedziału <span class="math inline">\([0;1]\)</span> (tak jak w funkcji <code>los()</code> w Excelu), można to jednak zmienić podając odpowiednie wartości argumentów <code>min</code> i <code>max</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">runif</span>(<span class="dv">6</span>)</code></pre></div>
+<pre><code>## [1] 0.4885311 0.4620574 0.6238518 0.5087863 0.5263712 0.6072019</code></pre>
+<p>Obserwacje można także generować z innych rozkładów:</p>
+<ul>
+<li><code>rnorm</code> - rozkład normalny,</li>
+<li><code>rchisq</code> - rozkład <span class="math inline">\(\chi^2\)</span>,</li>
+<li><code>rt</code> - rozkład t-studenta,</li>
+<li>itp.</li>
+</ul>
+<p>Wykaz wszystkich dostępnych w R rozkładów uzyskamy wywołując polecenie <code>help(&quot;Distributions&quot;)</code>.</p>
+<p>Za każdym uruchomieniem jednej z wymienionych wyżej funkcji losujących wartości z danego rozkładu otrzymamy inne wartości:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">runif</span>(<span class="dv">5</span>)</code></pre></div>
+<pre><code>## [1] 0.272083414 0.811998094 0.368914624 0.003222018 0.639503940</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">runif</span>(<span class="dv">5</span>)</code></pre></div>
+<pre><code>## [1] 0.3577362 0.7545406 0.3569972 0.6718384 0.1890608</code></pre>
+<p>Powtarzalność wyników możemy uzyskać ustalając ziarno generatora:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123</span>)
+<span class="kw">runif</span>(<span class="dv">5</span>)</code></pre></div>
+<pre><code>## [1] 0.2875775 0.7883051 0.4089769 0.8830174 0.9404673</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">123</span>)
+<span class="kw">runif</span>(<span class="dv">5</span>)</code></pre></div>
+<pre><code>## [1] 0.2875775 0.7883051 0.4089769 0.8830174 0.9404673</code></pre>
+</div>
+<div id="wektor-wartosci-tekstowych" class="section level3">
+<h3><span class="header-section-number">2.1.3</span> Wektor wartości tekstowych</h3>
+<p>W wektorze może być przechowywany tekst - wówczas poszczególne elementy zapisujemy w cudzysłowie lub apostrofach:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="st">&quot;ala&quot;</span>, <span class="st">&quot;ma&quot;</span>, <span class="st">&quot;kota&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;ala&quot;  &quot;ma&quot;   &quot;kota&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="st">&#39;ala&#39;</span>, <span class="st">&#39;ma&#39;</span>, <span class="st">&#39;kota&#39;</span>)</code></pre></div>
+<pre><code>## [1] &quot;ala&quot;  &quot;ma&quot;   &quot;kota&quot;</code></pre>
+<p>W RStudio wygodniej używać cudzysłowu, ponieważ program automatycznie go zamyka.</p>
+<p>Istnieje także stała zawierająca litery alfabetu:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">letters</code></pre></div>
+<pre><code>##  [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot; &quot;f&quot; &quot;g&quot; &quot;h&quot; &quot;i&quot; &quot;j&quot; &quot;k&quot; &quot;l&quot; &quot;m&quot; &quot;n&quot; &quot;o&quot; &quot;p&quot; &quot;q&quot;
+## [18] &quot;r&quot; &quot;s&quot; &quot;t&quot; &quot;u&quot; &quot;v&quot; &quot;w&quot; &quot;x&quot; &quot;y&quot; &quot;z&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">LETTERS</code></pre></div>
+<pre><code>##  [1] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; &quot;E&quot; &quot;F&quot; &quot;G&quot; &quot;H&quot; &quot;I&quot; &quot;J&quot; &quot;K&quot; &quot;L&quot; &quot;M&quot; &quot;N&quot; &quot;O&quot; &quot;P&quot; &quot;Q&quot;
+## [18] &quot;R&quot; &quot;S&quot; &quot;T&quot; &quot;U&quot; &quot;V&quot; &quot;W&quot; &quot;X&quot; &quot;Y&quot; &quot;Z&quot;</code></pre>
+</div>
+<div id="przeciazanie-wektora" class="section level3">
+<h3><span class="header-section-number">2.1.4</span> Przeciążanie wektora</h3>
+<p>Jeśli w wektorze pomieszamy kilka typów zmiennych to R przekształci poszczególne wartości, tak aby stracić jak najmniej informacji:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="dv">2</span>, <span class="dv">5</span>)</code></pre></div>
+<pre><code>## [1] 1 2 5</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">3</span>, <span class="st">&quot;cztery&quot;</span>, <span class="dv">5</span>)</code></pre></div>
+<pre><code>## [1] &quot;3&quot;      &quot;cztery&quot; &quot;5&quot;</code></pre>
+<p>W pierwszym przypadku wartość <code>TRUE</code> została przekształcona na odpowiednik liczbowy - 1. Z kolei w drugim przykładzie podane liczby zostały przekonwertowane na tekst.</p>
+</div>
+<div id="operacje-na-wektorach" class="section level3">
+<h3><span class="header-section-number">2.1.5</span> Operacje na wektorach</h3>
+<p>Na wektorach logicznych i liczbowych można wykonywać operacje arytmetyczne np. mnożenie:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span><span class="op">*</span><span class="dv">2</span></code></pre></div>
+<pre><code>##  [1]  2  4  6  8 10 12 14 16 18 20</code></pre>
+<p>Wektor liczbowy plus wektor liczbowy:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)</code></pre></div>
+<pre><code>##  [1]  2  4  4  6  6  8  8 10 10 12</code></pre>
+<p>Wektor liczbowy razy wektor liczbowy:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)</code></pre></div>
+<pre><code>##  [1]  1  4  3  8  5 12  7 16  9 20</code></pre>
+<p>Wektor liczbowy razy wektor logiczny:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(T, F)</code></pre></div>
+<pre><code>##  [1] 1 0 3 0 5 0 7 0 9 0</code></pre>
+<p>Długości obu wektorów muszą być odpowiednie:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">:</span><span class="dv">10</span> <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(T,F,T)</code></pre></div>
+<pre><code>## Warning in 1:10 * c(T, F, T): longer object length is not a multiple of
+## shorter object length</code></pre>
+<pre><code>##  [1]  1  0  3  4  0  6  7  0  9 10</code></pre>
+<p>Dłuższy z wektorów musi być wielokrotnością krótszego.</p>
+<p>Siłą rzeczy działania arytmetyczne na wektorach tekstowych nie są możliwe:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="st">&quot;jeden&quot;</span>, <span class="st">&quot;dwa&quot;</span>, <span class="st">&quot;trzy&quot;</span>, <span class="st">&quot;cztery&quot;</span>) <span class="op">*</span><span class="st"> </span><span class="kw">c</span>(T,F)</code></pre></div>
+<pre><code>## Error in c(&quot;jeden&quot;, &quot;dwa&quot;, &quot;trzy&quot;, &quot;cztery&quot;) * c(T, F): non-numeric argument to binary operator</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="st">&quot;jeden&quot;</span>, <span class="st">&quot;dwa&quot;</span>, <span class="st">&quot;trzy&quot;</span>, <span class="st">&quot;cztery&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)</code></pre></div>
+<pre><code>## Error in c(&quot;jeden&quot;, &quot;dwa&quot;, &quot;trzy&quot;, &quot;cztery&quot;) + c(1, 2): non-numeric argument to binary operator</code></pre>
+</div>
+<div id="operacje-agregujace" class="section level3">
+<h3><span class="header-section-number">2.1.6</span> Operacje agregujące</h3>
+<p>Na wektorach można także wykonywać operacje agregujące:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Funkcja</th>
+<th>Działanie</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">mean()</td>
+<td>średnia elementów</td>
+</tr>
+<tr class="even">
+<td align="center">sum()</td>
+<td>suma elementów</td>
+</tr>
+<tr class="odd">
+<td align="center">prod()</td>
+<td>iloczyn elementów</td>
+</tr>
+<tr class="even">
+<td align="center">var()</td>
+<td>wariancja elementów</td>
+</tr>
+<tr class="odd">
+<td align="center">sd()</td>
+<td>odchylenie standardowe elementów</td>
+</tr>
+<tr class="even">
+<td align="center">median()</td>
+<td>mediana elementów</td>
+</tr>
+<tr class="odd">
+<td align="center">quantile()</td>
+<td>kwantyl danego rzędu</td>
+</tr>
+<tr class="even">
+<td align="center">min()</td>
+<td>minimum</td>
+</tr>
+<tr class="odd">
+<td align="center">max()</td>
+<td>maksimum</td>
+</tr>
+</tbody>
+</table>
+<p>Obliczenie skośności i kurtozy jest możliwe po zainstalowaniu pakietu <code>e1071</code>. Wówczas mamy dostęp do funkcji:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Funkcja</th>
+<th>Działanie</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">skewness()</td>
+<td>skośność elementów</td>
+</tr>
+<tr class="even">
+<td align="center">kurtosis()</td>
+<td>kurtoza elementów</td>
+</tr>
+</tbody>
+</table>
+<p>Suma wektora numerycznego:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</code></pre></div>
+<pre><code>## [1] 55</code></pre>
+<p>Suma i średnia wektora logicznego:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(<span class="kw">c</span>(T, F, F, T))</code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mean</span>(<span class="kw">c</span>(T, F, F, T))</code></pre></div>
+<pre><code>## [1] 0.5</code></pre>
+<p>Korzystanie z funkcji pochodzących z pakietów zewnętrznych wymaga wskazania skąd pochodzi dana funkcja. Można to zrobić na dwa sposoby: funkcją <code>library(pakiet)</code> - wówczas wszystkie funkcje z tego pakietu są wczytywane do pamięci i można do nich sięgać bezpośrednio lub wskazując przed nazwą funkcji z jakiego pakietu pochodzi.</p>
+<p>Wczytanie pakietu:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(e1071)
+<span class="kw">skewness</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">13</span>))</code></pre></div>
+<pre><code>## [1] 0.3451259</code></pre>
+<p>lub równoważnie:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">e1071<span class="op">::</span><span class="kw">skewness</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">9</span>,<span class="dv">11</span>,<span class="dv">13</span>))</code></pre></div>
+<pre><code>## [1] 0.3451259</code></pre>
+<p>Podsumowanie rozkładu wektora można także uzyskać z wykorzystaniem funkcji <code>summary(x)</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1.00    3.25    5.50    5.50    7.75   10.00</code></pre>
+<p>Działa także na wektorach tekstowych:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(<span class="kw">c</span>(<span class="st">&quot;jeden&quot;</span>, <span class="st">&quot;dwa&quot;</span>, <span class="st">&quot;trzy&quot;</span>, <span class="st">&quot;cztery&quot;</span>))</code></pre></div>
+<pre><code>##    Length     Class      Mode 
+##         4 character character</code></pre>
+</div>
+<div id="sprawdzanie-typu-wektora" class="section level3">
+<h3><span class="header-section-number">2.1.7</span> Sprawdzanie typu wektora</h3>
+<p>Do określenia typu wektora służy funkcja <code>typeof</code> lub <code>mode</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(wart_log)</code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<p>Sprawdzenie czy obiekt jest danego typu odbywa się z wykorzystaniem dedykowanych funkcji z przyrostkiem <code>is.</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.logical</span>(wart_log)</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">is.character</span>(wart_log)</code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+</div>
+<div id="rzutowanie-wektorow" class="section level3">
+<h3><span class="header-section-number">2.1.8</span> Rzutowanie wektorów</h3>
+<p>Czasami jako np. argument funkcji będzie wymagany inny typ wektora aniżeli aktualnie posiadany w pamięci. Można wówczas spróbować przekształcić taki wektor z wykorzystaniem funkcji rozpoczynającej się od <code>as.</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(wart_log)</code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">as.numeric</span>(wart_log)</code></pre></div>
+<pre><code>## [1] 1 0 0</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">typeof</span>(<span class="kw">as.numeric</span>(wart_log))</code></pre></div>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+</div>
+<div id="indeksowanie-wektorow" class="section level3">
+<h3><span class="header-section-number">2.1.9</span> Indeksowanie wektorów</h3>
+<p>Aby uzyskać dostęp do części wektora korzysta się z indeksatora w postaci nawiasów kwadratowych. Utworzymy nowy wektor zawierający liczby całkowite od 10 do 20:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wart_10_<span class="dv">20</span> &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">10</span>,<span class="dv">20</span>)
+wart_10_<span class="dv">20</span></code></pre></div>
+<pre><code>##  [1] 10 11 12 13 14 15 16 17 18 19 20</code></pre>
+<p>a następnie wybieramy trzecią obserwację:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wart_10_<span class="dv">20</span>[<span class="dv">3</span>]</code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<p>Możemy także odwołać się do większego zakresu:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wart_10_<span class="dv">20</span>[<span class="dv">3</span><span class="op">:</span><span class="dv">5</span>]</code></pre></div>
+<pre><code>## [1] 12 13 14</code></pre>
+<p>I wybranych elementów:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wart_10_<span class="dv">20</span>[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>)]</code></pre></div>
+<pre><code>## [1] 10 12 14</code></pre>
+<p>Wybór obserwacji większych od 15:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wart_10_<span class="dv">20</span>[wart_10_<span class="dv">20</span><span class="op">&gt;</span><span class="dv">15</span>]</code></pre></div>
+<pre><code>## [1] 16 17 18 19 20</code></pre>
+<p>Z kolei następujący zapis zwróci nam wektor wartości logicznych:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wart_10_<span class="dv">20</span> <span class="op">&gt;</span><span class="st"> </span><span class="dv">15</span></code></pre></div>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
+</div>
+<div id="wartosci-nieliczbowe" class="section level3">
+<h3><span class="header-section-number">2.1.10</span> Wartości nieliczbowe</h3>
+<p>Brak danych w R jest przedstawiany jako wartość <code>NA</code> (ang. <em>not available</em>) i może powodować trudności z wywoływaniem niektórych funkcji:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">v_na &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="ot">NA</span>,<span class="dv">1</span>)
+v_na</code></pre></div>
+<pre><code>## [1]  1  2  1 NA  1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(v_na)</code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<p>W związku z tym większość funkcji ma zaimplementowany dodatkowy argument służący do obsługi tego typu wartości, który najczęściej nie uwzględnia tych wartości w obliczeniach:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(v_na, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<p>Oprócz braku danych podczas obliczeń możemy natrafić na wartości nieokreślone <code>NaN</code> (ang. <em>not a number</em>) oraz nieskończone <code>Inf</code> (ang. <em>infinity</em>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">0</span><span class="op">/</span><span class="dv">0</span></code></pre></div>
+<pre><code>## [1] NaN</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">1</span><span class="op">/</span><span class="dv">0</span></code></pre></div>
+<pre><code>## [1] Inf</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sqrt</span>(<span class="op">-</span><span class="dv">10</span>)</code></pre></div>
+<pre><code>## Warning in sqrt(-10): NaNs produced</code></pre>
+<pre><code>## [1] NaN</code></pre>
+<p>W R istnieje także wartość <code>NULL</code>, która jest podstawowym typem danych a nie wartością. <code>NULL</code> można traktować jako odpowiednik zbioru pustego. Jest stosowany np. w funkcjach, które niczego nie zwracają.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">v_null &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="ot">NULL</span>,<span class="dv">1</span>)
+v_null</code></pre></div>
+<pre><code>## [1] 1 2 1 1</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sum</span>(v_null)</code></pre></div>
+<pre><code>## [1] 5</code></pre>
+</div>
+<div id="zadania" class="section level3">
+<h3><span class="header-section-number">2.1.11</span> Zadania</h3>
+<ol style="list-style-type: decimal">
+<li>Ile wynosi suma elementów większych od 10 dla następujących liczb: <code>12, 5, 20, 18, 8.5, 10, 4, 101, -2</code>?</li>
+<li>Utwórz następujący wektor: <code>2 0 0 4 0 0 6 0 0 8 0 0</code>.</li>
+<li>Dane są dwa wektory - a: <code>2, 3, 7, 8, 2</code>, b: <code>9, 1, 2, 0, 2</code>. Jakiego typu będzie wektor będący wynikiem działania <code>a&lt;=b</code>?</li>
+<li>Uzupełnij wektor <code>letters</code> o polskie litery diakrytyzowane. Jaką długość ma nowo utworzony wektor?</li>
+<li>Wylosuj z rozkładu normalnego 1000 obserwacji z ziarnem równym 76. Ile wynosi kurtoza tych wartości?</li>
+</ol>
+</div>
 </div>
 <div id="macierz" class="section level2">
 <h2><span class="header-section-number">2.2</span> Macierz</h2>
@@ -135,12 +512,12 @@
 </div>
 <div id="ramka-danych" class="section level2">
 <h2><span class="header-section-number">2.5</span> Ramka danych</h2>
+<div id="braki-danych" class="section level3">
+<h3><span class="header-section-number">2.5.1</span> Braki danych</h3>
 </div>
-<div id="braki-danych" class="section level2">
-<h2><span class="header-section-number">2.6</span> Braki danych</h2>
 </div>
 <div id="import-danych" class="section level2">
-<h2><span class="header-section-number">2.7</span> Import danych</h2>
+<h2><span class="header-section-number">2.6</span> Import danych</h2>
 
 </div>
 </div>
@@ -182,7 +559,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"download": ["Wawrowski_PPR.pdf", "Wawrowski_PPR.epub"],
 "toc": {
 "collapse": "subsection"
 }
@@ -190,6 +567,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

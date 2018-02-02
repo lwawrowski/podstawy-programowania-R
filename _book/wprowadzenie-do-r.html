@@ -48,6 +48,43 @@
 
 
 
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -70,15 +107,30 @@
 <li class="chapter" data-level="1.1" data-path="wprowadzenie-do-r.html"><a href="wprowadzenie-do-r.html#r"><i class="fa fa-check"></i><b>1.1</b> R</a></li>
 <li class="chapter" data-level="1.2" data-path="wprowadzenie-do-r.html"><a href="wprowadzenie-do-r.html#rstudio"><i class="fa fa-check"></i><b>1.2</b> RStudio</a></li>
 <li class="chapter" data-level="1.3" data-path="wprowadzenie-do-r.html"><a href="wprowadzenie-do-r.html#pakiety"><i class="fa fa-check"></i><b>1.3</b> Pakiety</a></li>
+<li class="chapter" data-level="1.4" data-path="wprowadzenie-do-r.html"><a href="wprowadzenie-do-r.html#wazne-informacje"><i class="fa fa-check"></i><b>1.4</b> Ważne informacje</a></li>
+<li class="chapter" data-level="1.5" data-path="wprowadzenie-do-r.html"><a href="wprowadzenie-do-r.html#r-jako-kalkulator"><i class="fa fa-check"></i><b>1.5</b> R jako kalkulator</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="struktury-danych.html"><a href="struktury-danych.html"><i class="fa fa-check"></i><b>2</b> Struktury danych</a><ul>
-<li class="chapter" data-level="2.1" data-path="struktury-danych.html"><a href="struktury-danych.html#wektor"><i class="fa fa-check"></i><b>2.1</b> Wektor</a></li>
+<li class="chapter" data-level="2.1" data-path="struktury-danych.html"><a href="struktury-danych.html#wektor"><i class="fa fa-check"></i><b>2.1</b> Wektor</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="struktury-danych.html"><a href="struktury-danych.html#wektor-wartosci-logicznych"><i class="fa fa-check"></i><b>2.1.1</b> Wektor wartości logicznych</a></li>
+<li class="chapter" data-level="2.1.2" data-path="struktury-danych.html"><a href="struktury-danych.html#wektor-wartosci-liczbowych"><i class="fa fa-check"></i><b>2.1.2</b> Wektor wartości liczbowych</a></li>
+<li class="chapter" data-level="2.1.3" data-path="struktury-danych.html"><a href="struktury-danych.html#wektor-wartosci-tekstowych"><i class="fa fa-check"></i><b>2.1.3</b> Wektor wartości tekstowych</a></li>
+<li class="chapter" data-level="2.1.4" data-path="struktury-danych.html"><a href="struktury-danych.html#przeciazanie-wektora"><i class="fa fa-check"></i><b>2.1.4</b> Przeciążanie wektora</a></li>
+<li class="chapter" data-level="2.1.5" data-path="struktury-danych.html"><a href="struktury-danych.html#operacje-na-wektorach"><i class="fa fa-check"></i><b>2.1.5</b> Operacje na wektorach</a></li>
+<li class="chapter" data-level="2.1.6" data-path="struktury-danych.html"><a href="struktury-danych.html#operacje-agregujace"><i class="fa fa-check"></i><b>2.1.6</b> Operacje agregujące</a></li>
+<li class="chapter" data-level="2.1.7" data-path="struktury-danych.html"><a href="struktury-danych.html#sprawdzanie-typu-wektora"><i class="fa fa-check"></i><b>2.1.7</b> Sprawdzanie typu wektora</a></li>
+<li class="chapter" data-level="2.1.8" data-path="struktury-danych.html"><a href="struktury-danych.html#rzutowanie-wektorow"><i class="fa fa-check"></i><b>2.1.8</b> Rzutowanie wektorów</a></li>
+<li class="chapter" data-level="2.1.9" data-path="struktury-danych.html"><a href="struktury-danych.html#indeksowanie-wektorow"><i class="fa fa-check"></i><b>2.1.9</b> Indeksowanie wektorów</a></li>
+<li class="chapter" data-level="2.1.10" data-path="struktury-danych.html"><a href="struktury-danych.html#wartosci-nieliczbowe"><i class="fa fa-check"></i><b>2.1.10</b> Wartości nieliczbowe</a></li>
+<li class="chapter" data-level="2.1.11" data-path="struktury-danych.html"><a href="struktury-danych.html#zadania"><i class="fa fa-check"></i><b>2.1.11</b> Zadania</a></li>
+</ul></li>
 <li class="chapter" data-level="2.2" data-path="struktury-danych.html"><a href="struktury-danych.html#macierz"><i class="fa fa-check"></i><b>2.2</b> Macierz</a></li>
 <li class="chapter" data-level="2.3" data-path="struktury-danych.html"><a href="struktury-danych.html#faktorczynnik"><i class="fa fa-check"></i><b>2.3</b> Faktor/czynnik</a></li>
 <li class="chapter" data-level="2.4" data-path="struktury-danych.html"><a href="struktury-danych.html#lista"><i class="fa fa-check"></i><b>2.4</b> Lista</a></li>
-<li class="chapter" data-level="2.5" data-path="struktury-danych.html"><a href="struktury-danych.html#ramka-danych"><i class="fa fa-check"></i><b>2.5</b> Ramka danych</a></li>
-<li class="chapter" data-level="2.6" data-path="struktury-danych.html"><a href="struktury-danych.html#braki-danych"><i class="fa fa-check"></i><b>2.6</b> Braki danych</a></li>
-<li class="chapter" data-level="2.7" data-path="struktury-danych.html"><a href="struktury-danych.html#import-danych"><i class="fa fa-check"></i><b>2.7</b> Import danych</a></li>
+<li class="chapter" data-level="2.5" data-path="struktury-danych.html"><a href="struktury-danych.html#ramka-danych"><i class="fa fa-check"></i><b>2.5</b> Ramka danych</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="struktury-danych.html"><a href="struktury-danych.html#braki-danych"><i class="fa fa-check"></i><b>2.5.1</b> Braki danych</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="struktury-danych.html"><a href="struktury-danych.html#import-danych"><i class="fa fa-check"></i><b>2.6</b> Import danych</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="przetwarzanie-danych.html"><a href="przetwarzanie-danych.html"><i class="fa fa-check"></i><b>3</b> Przetwarzanie danych</a><ul>
 <li class="chapter" data-level="3.1" data-path="przetwarzanie-danych.html"><a href="przetwarzanie-danych.html#pakiet-tidyverse"><i class="fa fa-check"></i><b>3.1</b> Pakiet tidyverse</a></li>
@@ -143,11 +195,96 @@
 
 </div>
 <p>Z R można także korzystać w <a href="https://www.visualstudio.com/pl/vs/rtvs/">Microsoft Visual Studio</a>.</p>
-<p><strong>W codziennej pracy RStudio jest wygodniejsze, jednak długotrwałe obliczenia lepiej uruchamiać w zwykłym R.</strong></p>
+<ul>
+<li><strong>Katalog roboczy</strong></li>
+</ul>
+<p>Ważnym pojęciem w R jest katalog roboczy (ang. working directory), który określa gdzie zostaną zapisane pliki, wykresy, zbiory, itp. jeśli nie podamy dokładnej ścieżki do pliku. Katalog roboczy przypisuje się z wykorzystaniem funkcji <code>setwd(&quot;ścieżka do katalogu&quot;)</code>, a jego wartość można sprawdzić funkcją <code>getwd()</code>. W RStudio przypisanie katalogu roboczego odbywa się w momencie utworzenia projektu.</p>
+<ul>
+<li><strong>Projekt</strong></li>
+</ul>
+<p>Katalog na dysku, w którym znajdują się wszystkie pliki projektu wraz z plikiem o rozszerzeniu .Rproj skojarzonym z RStudio.</p>
+<ul>
+<li><strong>Korzystanie z pomocy</strong></li>
+</ul>
+<p>Dostęp do pomocy odnośnie wybranej funkcji można uzyskać na dwa sposoby. Pierwszym z nich jest poprzedzenie nazwy funkcji w konsoli znakiem zapytania np. <code>?getwd</code> lub wywołanie funkcji help na nazwie funkcji <code>help(&quot;getwd&quot;)</code>. Drugim sposobem jest umieszczenie kursora w dowolnym miejscu nazwy funkcji i wciśnięcie klawisza F1.</p>
+<p>Internet - przede wszystkim <a href="https://stackoverflow.com/questions/tagged/r">stackoverflow</a>.</p>
+<ul>
+<li><strong>Komentarze</strong></li>
+</ul>
+<blockquote>
+<p>Real programmers don’t comment their code. If it was hard to write it should be hard to understand.</p>
+</blockquote>
+<p>Dobrze napisany kod jest czytelny bez komentarzy. W R komentarze rozpoczynają się od symbolu #. Skrót klawiaturowy w RStudio to CTRL + SHIFT + C (do wstawiania i usuwania komentarzy).</p>
+<ul>
+<li><strong>Podpowiadanie składni</strong></li>
+</ul>
+<p>RStudio ma zaimplementowaną funkcję podpowiadania składni. Listę możliwych funkcji i obiektów wywołuję się klawiszem TAB lub CTRL + SPACJA po wpisaniu co najmniej jednej litery. Kolejne naciśnięcie TAB lub ENTER powoduje uzupełnienie kodu o wybraną funkcję lub obiekt.</p>
 </div>
 <div id="pakiety" class="section level2">
 <h2><span class="header-section-number">1.3</span> Pakiety</h2>
-<p>Podstawowe możliwości R są dosyć ograniczone. Rozszerzają je pakiety, których obecnie jest ponad 12 tysięcy. Można je przeglądać według kategorii w <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> lub w wygodnej wyszukiwarce <a href="https://www.r-pkg.org/">METACRAN</a>.</p>
+<p>Podstawowe możliwości R są dosyć ograniczone. Rozszerzają je pakiety, których obecnie jest ponad 12 tysięcy. Można je przeglądać według kategorii w <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a> lub w wygodnej wyszukiwarce <a href="https://www.r-pkg.org/">METACRAN</a> i <a href="https://rdrr.io/">rdrr.io</a>.</p>
+</div>
+<div id="wazne-informacje" class="section level2">
+<h2><span class="header-section-number">1.4</span> Ważne informacje</h2>
+<p><strong>R jest wrażliwy na wielkość liter.</strong></p>
+<p><strong>Separatorem części dziesiętnej liczby liczby jest kropka.</strong></p>
+<p><strong>W codziennej pracy RStudio jest wygodniejsze, jednak długotrwałe obliczenia lepiej uruchamiać w trybie wsadowym w zwykłym R.</strong></p>
+</div>
+<div id="r-jako-kalkulator" class="section level2">
+<h2><span class="header-section-number">1.5</span> R jako kalkulator</h2>
+<p>Działania matematycznie w R:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Operator</th>
+<th align="center">Operacja</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">+</td>
+<td align="center">dodawanie</td>
+</tr>
+<tr class="even">
+<td align="center">-</td>
+<td align="center">odejmowanie</td>
+</tr>
+<tr class="odd">
+<td align="center">*</td>
+<td align="center">mnożenie</td>
+</tr>
+<tr class="even">
+<td align="center">/</td>
+<td align="center">dzielenie</td>
+</tr>
+<tr class="odd">
+<td align="center">^ lub **</td>
+<td align="center">potęgowanie</td>
+</tr>
+<tr class="even">
+<td align="center">sqrt()</td>
+<td align="center">pierwiastkowanie</td>
+</tr>
+</tbody>
+</table>
+<p>W R istnieje także stała wbudowana <code>pi</code> przechowująca wartość liczby pi.</p>
+<p>Funkcja <code>factorial(x)</code> zwraca silnię z podanej wartości x, a <code>sign(x)</code> sprawdza znak wyrażenia i zwraca odpowiednio wartość -1 jeśli wyrażenie jest ujemne, 0 jeśli jest równe 0 i 1 dla wyrażeń dodatnich.</p>
+<p>Funkcja <code>exp(x)</code> zwraca wartość wyrażenia <span class="math inline">\(e^x\)</span>, natomiast funkcja <code>log(x)</code> zwraca logarytm z podanej liczby. Domyślnie jest to logarytm naturalny, ale można zmienić podstawę podając wartość argumentu <code>base</code>.</p>
+<p>Funkcja <code>abs(x)</code> zwraca wartość absolutną wyrażenia.</p>
+<p><strong>Ćwiczenie</strong></p>
+<p>Oblicz wartość wyrażenia: <span class="math inline">\(2\cdot \sqrt{\pi} + log_28\)</span>.</p>
+<p>Rozwiązanie:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="dv">2</span><span class="op">*</span><span class="kw">sqrt</span>(pi)<span class="op">+</span><span class="kw">log</span>(<span class="dv">8</span>,<span class="dv">2</span>)</code></pre></div>
+<pre><code>## [1] 6.544908</code></pre>
+<p><strong>Zadania</strong></p>
+<p>Oblicz wartość wyrażeń:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\frac{2^3\cdot6^2}{(\frac{1}{2})^2\cdot(\frac{4}{5})^3}\)</span></li>
+<li><span class="math inline">\(\sqrt[3]{\frac{6-3.5}{2^{11}}}\)</span></li>
+<li><span class="math inline">\(\pi+\sqrt{e^4}\)</span></li>
+<li><span class="math inline">\(5! - log_{10}100\)</span></li>
+<li><span class="math inline">\(|1-e|\)</span></li>
+</ol>
 
 </div>
 </div>
@@ -189,7 +326,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"download": ["Wawrowski_PPR.pdf", "Wawrowski_PPR.epub"],
 "toc": {
 "collapse": "subsection"
 }
@@ -197,6 +334,17 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(script.src))
+      script.src  = script.src.replace(/^https?:/, '');
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

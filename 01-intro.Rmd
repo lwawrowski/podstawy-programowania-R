@@ -20,9 +20,79 @@ RStudio to zintegrowane środowisko programistyczne (IDE) dla języka R dostępn
 
 Z R można także korzystać w [Microsoft Visual Studio](https://www.visualstudio.com/pl/vs/rtvs/).
 
-**W codziennej pracy RStudio jest wygodniejsze, jednak długotrwałe obliczenia lepiej uruchamiać w zwykłym R.**
+- **Katalog roboczy**
+
+Ważnym pojęciem w R jest katalog roboczy (ang. working directory), który określa gdzie zostaną zapisane pliki, wykresy, zbiory, itp. jeśli nie podamy dokładnej ścieżki do pliku. Katalog roboczy przypisuje się z wykorzystaniem funkcji `setwd("ścieżka do katalogu")`, a jego wartość można sprawdzić funkcją `getwd()`. W RStudio przypisanie katalogu roboczego odbywa się w momencie utworzenia projektu.
+
+- **Projekt**
+
+Katalog na dysku, w którym znajdują się wszystkie pliki projektu wraz z plikiem o rozszerzeniu .Rproj skojarzonym z RStudio.
+
+- **Korzystanie z pomocy**
+
+Dostęp do pomocy odnośnie wybranej funkcji można uzyskać na dwa sposoby. Pierwszym z nich jest poprzedzenie nazwy funkcji w konsoli znakiem zapytania np. `?getwd` lub wywołanie funkcji help na nazwie funkcji `help("getwd")`. Drugim sposobem jest umieszczenie kursora w dowolnym miejscu nazwy funkcji i wciśnięcie klawisza F1. 
+
+Internet - przede wszystkim [stackoverflow](https://stackoverflow.com/questions/tagged/r).
+
+- **Komentarze**
+
+> Real programmers don't comment their code. If it was hard to write it should be hard to understand.
+
+Dobrze napisany kod jest czytelny bez komentarzy. W R komentarze rozpoczynają się od symbolu #. Skrót klawiaturowy w RStudio to CTRL + SHIFT + C (do wstawiania i usuwania komentarzy).
+
+- **Podpowiadanie składni**
+
+RStudio ma zaimplementowaną funkcję podpowiadania składni. Listę możliwych funkcji i obiektów wywołuję się klawiszem TAB lub CTRL + SPACJA po wpisaniu co najmniej jednej litery. Kolejne naciśnięcie TAB lub ENTER powoduje uzupełnienie kodu o wybraną funkcję lub obiekt.
 
 ## Pakiety
 
-Podstawowe możliwości R są dosyć ograniczone. Rozszerzają je pakiety, których obecnie jest ponad 12 tysięcy. Można je przeglądać według kategorii w [CRAN Task Views](https://cran.r-project.org/web/views/) lub w wygodnej wyszukiwarce [METACRAN](https://www.r-pkg.org/).
+Podstawowe możliwości R są dosyć ograniczone. Rozszerzają je pakiety, których obecnie jest ponad 12 tysięcy. Można je przeglądać według kategorii w [CRAN Task Views](https://cran.r-project.org/web/views/) lub w wygodnej wyszukiwarce [METACRAN](https://www.r-pkg.org/) i [rdrr.io](https://rdrr.io/).
 
+## Ważne informacje
+
+**R jest wrażliwy na wielkość liter.**
+
+**Separatorem części dziesiętnej liczby liczby jest kropka.**
+
+**W codziennej pracy RStudio jest wygodniejsze, jednak długotrwałe obliczenia lepiej uruchamiać w trybie wsadowym w zwykłym R.**
+
+## R jako kalkulator
+
+Działania matematycznie w R:
+
+| Operator | Operacja |
+|:----------:|:----------:|
+| + | dodawanie |
+| - | odejmowanie |
+| * | mnożenie |
+| / | dzielenie |
+| ^ lub ** | potęgowanie |
+| sqrt() | pierwiastkowanie |
+
+W R istnieje także stała wbudowana `pi` przechowująca wartość liczby pi.
+
+Funkcja `factorial(x)` zwraca silnię z podanej wartości x, a `sign(x)` sprawdza znak wyrażenia i zwraca odpowiednio wartość -1 jeśli wyrażenie jest ujemne, 0 jeśli jest równe 0 i 1 dla wyrażeń dodatnich.
+
+Funkcja `exp(x)` zwraca wartość wyrażenia $e^x$, natomiast funkcja `log(x)` zwraca logarytm z podanej liczby. Domyślnie jest to logarytm naturalny, ale można zmienić podstawę podając wartość argumentu `base`. 
+
+Funkcja `abs(x)` zwraca wartość absolutną wyrażenia.
+
+**Ćwiczenie**
+
+Oblicz wartość wyrażenia: $2\cdot \sqrt{\pi} + log_28$.
+
+Rozwiązanie:
+
+```{r}
+2*sqrt(pi)+log(8,2)
+```
+
+**Zadania**
+
+Oblicz wartość wyrażeń:
+
+1. $\frac{2^3\cdot6^2}{(\frac{1}{2})^2\cdot(\frac{4}{5})^3}$
+2. $\sqrt[3]{\frac{6-3.5}{2^{11}}}$
+3. $\pi+\sqrt{e^4}$
+4. $5! - log_{10}100$
+5. $|1-e|$

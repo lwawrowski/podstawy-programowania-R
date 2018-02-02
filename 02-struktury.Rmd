@@ -1,6 +1,413 @@
 # Struktury danych
 
+W R praktycznie wszystko jest obiektem. Może to być zbiór danych, ale także wykres czy mapa. Zasadnicza różnica to klasa tych obiektów i operacje jakie mogą być na nich wykonywane. 
+
+Funkcje w R wymagają jako argumentów określonych typów obiektów - stąd tak ważna jak znajomość istniejących struktur.
+
+Każdy obiekt w R możemy przypisać do tzw. obiektu nazwanego. Wówczas jest przechowywany w pamięci i można się do niego odwołać. Przypisanie odbywa się za pomocą operatora `<-`.
+
+```
+nazwa <- obiekt
+obiekt -> nazwa
+```
+
+Można także przypisywać obiekty z wykorzystaniem znaku równości `=`, ale nie jest to zalecane ponieważ symbol ten jest używany w innych miejscach np. do deklarowania wartości argumentów w funkcji.
+
+W R dostępna jest funkcja `assign`, która także umożliwia przypisanie nazwy do obiektu:
+
+```
+assign("nazwa", obiekt)
+
+```
+
 ## Wektor
+
+Wektor jest najprostszym typem danych w R. Najczęściej korzysta się z trzech typów wektorów:
+
+- logicznych
+- liczbowych
+- tekstowych
+
+Wektor tworzy się z wykorzystaniem funkcji `c()`.
+
+### Wektor wartości logicznych
+
+Przyjmuje wartości _prawda_ lub _fałsz_:
+
+```{r}
+c(TRUE, FALSE, FALSE)
+```
+
+lub w skróconej wersji:
+
+```{r}
+c(T, F, F)
+```
+
+Do sprawdzenia długości wektora używa się funkcji `length`:
+
+```{r}
+length(c(T, F, F))
+```
+
+lub korzystając z obiektu nazwanego:
+
+```{r}
+wart_log <- c(T,F,F)
+length(wart_log)
+```
+
+
+Wektory można także utworzyć poprzez replikację określonej wartości lub wektora z wykorzystaniem funkcji `rep`. Funkcja ta przyjmuje co najmniej dwa argumenty: obowiązkowo `x` - wektor wejściowy oraz jeden z następujących: `times` - liczba powtórzeń elementów wektora `x`, `each` - liczba powtórzeń elementów wektora `x` (wyjaśnienie różnicy poniżej) lub `length.out` - oczekiwana długość wektora wynikowego.
+
+Trzy równoważne zapisy:
+
+```{r}
+rep(x = c(T,F), times = 3)
+rep(c(T,F), times = 3)
+rep(c(T,F), 3)
+```
+
+A tak to wygląda z argumentem `each`:
+
+```{r}
+rep(c(T,F), each = 3)
+```
+
+Wykorzystanie argumentu `length.out`:
+
+```{r}
+rep(c(T,F), length.out = 5)
+```
+
+### Wektor wartości liczbowych
+
+W wektorze możemy przechowywać także liczby:
+
+```{r}
+c(1, 3, -5, 2.5, .6) # nie trzeba pisać zera przed ułamkiem
+```
+
+Połączenie dwóch wektorów to także wektor:
+
+```{r}
+c(c(1,2,3), c(3.5,4,4.5))
+```
+
+Pojedyncza liczba też jest jednoelementowym wektorem:
+
+```{r}
+length(2)
+```
+
+Proste ciągi o różnicy równej 1 można generować wykorzystując dwukropek:
+
+```{r}
+1:10
+```
+
+lub 
+
+```{r}
+c(-5:-1,1:5)
+```
+
+Do generowania ciągów liczbowych o różnych różnicach wykorzystuje się funkcję `seq`, która przyjmuje następujące argumenty. Wartość początkową `from`, wartość końcową `to` oraz jeden z następujących: `by` - krok lub `length.out` - oczekiwana długość wektora.
+
+To samo co `1:10`
+
+```{r}
+seq(1, 10, 1)
+```
+
+Wartości niecałkowite:
+
+```{r}
+seq(1, 2, 0.2)
+```
+
+Wektor wartości malejących:
+
+```{r error=TRUE}
+seq(10, 1, by=1) # błędny zapis
+
+seq(10, 1, by=-1) # poprawny zapis
+```
+
+Tworzenie wektora w oparciu o argument `length.out` - funkcja sama dobiera krok:
+
+```{r}
+seq(1, 7, length.out = 13)
+```
+
+Do generowania liczb pseudolosowych służy funkcja `runif(n)`, która do poprawnego wywołania wymaga tylko jednego argumentu - długości wektora wynikowego. Domyślnie losowane są liczby z przedziału $[0;1]$ (tak jak w funkcji `los()` w Excelu), można to jednak zmienić podając odpowiednie wartości argumentów `min` i `max`.
+
+```{r}
+runif(6)
+```
+
+Obserwacje można także generować z innych rozkładów:
+
+- `rnorm` - rozkład normalny,
+- `rchisq` - rozkład $\chi^2$,
+- `rt` - rozkład t-studenta,
+- itp.
+
+Wykaz wszystkich dostępnych w R rozkładów uzyskamy wywołując polecenie `help("Distributions")`.
+
+Za każdym uruchomieniem jednej z wymienionych wyżej funkcji losujących wartości z danego rozkładu otrzymamy inne wartości:
+
+```{r}
+runif(5)
+runif(5)
+```
+
+Powtarzalność wyników możemy uzyskać ustalając ziarno generatora:
+
+```{r}
+set.seed(123)
+runif(5)
+set.seed(123)
+runif(5)
+```
+
+### Wektor wartości tekstowych
+
+W wektorze może być przechowywany tekst - wówczas poszczególne elementy zapisujemy w cudzysłowie lub apostrofach:
+
+```{r}
+c("ala", "ma", "kota")
+c('ala', 'ma', 'kota')
+```
+
+W RStudio wygodniej używać cudzysłowu, ponieważ program automatycznie go zamyka.
+
+Istnieje także stała zawierająca litery alfabetu:
+
+```{r}
+letters
+LETTERS
+```
+
+### Przeciążanie wektora
+
+Jeśli w wektorze pomieszamy kilka typów zmiennych to R przekształci poszczególne wartości, tak aby stracić jak najmniej informacji:
+
+```{r}
+c(TRUE, 2, 5)
+c(3, "cztery", 5)
+```
+
+W pierwszym przypadku wartość `TRUE` została przekształcona na odpowiednik liczbowy - 1. Z kolei w drugim przykładzie podane liczby zostały przekonwertowane na tekst.
+
+### Operacje na wektorach
+
+Na wektorach logicznych i liczbowych można wykonywać operacje arytmetyczne np. mnożenie:
+
+```{r}
+1:10*2
+```
+
+Wektor liczbowy plus wektor liczbowy:
+
+```{r}
+1:10 + c(1,2)
+```
+
+Wektor liczbowy razy wektor liczbowy:
+
+```{r}
+1:10 * c(1,2)
+```
+
+Wektor liczbowy razy wektor logiczny:
+
+```{r}
+1:10 * c(T, F)
+```
+
+Długości obu wektorów muszą być odpowiednie:
+
+```{r error=TRUE}
+1:10 * c(T,F,T)
+```
+
+Dłuższy z wektorów musi być wielokrotnością krótszego.
+
+Siłą rzeczy działania arytmetyczne na wektorach tekstowych nie są możliwe:
+
+```{r error=TRUE}
+c("jeden", "dwa", "trzy", "cztery") * c(T,F)
+c("jeden", "dwa", "trzy", "cztery") + c(1,2)
+```
+
+### Operacje agregujące
+
+Na wektorach można także wykonywać operacje agregujące:
+
+| Funkcja | Działanie |
+|:-------:|-----------|
+| mean() | średnia elementów |
+| sum() | suma elementów |
+| prod() | iloczyn elementów |
+| var() | wariancja elementów |
+| sd() | odchylenie standardowe elementów |
+| median() | mediana elementów |
+| quantile() | kwantyl danego rzędu |
+| min() | minimum |
+| max() | maksimum |
+
+Obliczenie skośności i kurtozy jest możliwe po zainstalowaniu pakietu `e1071`. Wówczas mamy dostęp do funkcji:
+
+| Funkcja | Działanie |
+|:-------:|-----------|
+| skewness() | skośność elementów |
+| kurtosis() | kurtoza elementów |
+
+Suma wektora numerycznego:
+
+```{r}
+sum(1:10)
+```
+
+Suma i średnia wektora logicznego:
+
+```{r}
+sum(c(T, F, F, T))
+mean(c(T, F, F, T))
+```
+
+Korzystanie z funkcji pochodzących z pakietów zewnętrznych wymaga wskazania skąd pochodzi dana funkcja. Można to zrobić na dwa sposoby: funkcją `library(pakiet)` - wówczas wszystkie funkcje z tego pakietu są wczytywane do pamięci i można do nich sięgać bezpośrednio lub wskazując przed nazwą funkcji z jakiego pakietu pochodzi.
+
+Wczytanie pakietu:
+
+```{r}
+library(e1071)
+skewness(c(1,2,3,4,5,7,9,11,13))
+```
+
+lub równoważnie:
+
+```{r}
+e1071::skewness(c(1,2,3,4,5,7,9,11,13))
+```
+
+Podsumowanie rozkładu wektora można także uzyskać z wykorzystaniem funkcji `summary(x)`:
+
+```{r}
+summary(1:10)
+```
+
+Działa także na wektorach tekstowych:
+
+```{r}
+summary(c("jeden", "dwa", "trzy", "cztery"))
+```
+
+### Sprawdzanie typu wektora
+
+Do określenia typu wektora służy funkcja `typeof` lub `mode`.
+
+```{r}
+typeof(wart_log)
+```
+
+Sprawdzenie czy obiekt jest danego typu odbywa się z wykorzystaniem dedykowanych funkcji z przyrostkiem `is.`
+
+```{r}
+is.logical(wart_log)
+is.character(wart_log)
+```
+
+### Rzutowanie wektorów
+
+Czasami jako np. argument funkcji będzie wymagany inny typ wektora aniżeli aktualnie posiadany w pamięci. Można wówczas spróbować przekształcić taki wektor z wykorzystaniem funkcji rozpoczynającej się od `as.`:
+
+```{r}
+typeof(wart_log)
+as.numeric(wart_log)
+typeof(as.numeric(wart_log))
+```
+
+### Indeksowanie wektorów
+
+Aby uzyskać dostęp do części wektora korzysta się z indeksatora w postaci nawiasów kwadratowych. Utworzymy nowy wektor zawierający liczby całkowite od 10 do 20:
+
+```{r}
+wart_10_20 <- seq(10,20)
+wart_10_20
+```
+
+a następnie wybieramy trzecią obserwację:
+
+```{r}
+wart_10_20[3]
+```
+
+Możemy także odwołać się do większego zakresu:
+
+```{r}
+wart_10_20[3:5]
+```
+
+I wybranych elementów:
+
+```{r}
+wart_10_20[c(1,3,5)]
+```
+
+Wybór obserwacji większych od 15:
+
+```{r}
+wart_10_20[wart_10_20>15]
+```
+
+Z kolei następujący zapis zwróci nam wektor wartości logicznych:
+
+```{r}
+wart_10_20 > 15
+```
+
+### Wartości nieliczbowe
+
+Brak danych w R jest przedstawiany jako wartość `NA` (ang. _not available_) i może powodować trudności z wywoływaniem niektórych funkcji:
+
+```{r}
+v_na <- c(1,2,1,NA,1)
+v_na
+sum(v_na)
+```
+
+W związku z tym większość funkcji ma zaimplementowany dodatkowy argument służący do obsługi tego typu wartości, który najczęściej nie uwzględnia tych wartości w obliczeniach:
+
+```{r}
+sum(v_na, na.rm = TRUE)
+```
+
+Oprócz braku danych podczas obliczeń możemy natrafić na wartości nieokreślone `NaN` (ang. _not a number_) oraz nieskończone `Inf` (ang. _infinity_).
+
+```{r}
+0/0
+1/0
+sqrt(-10)
+```
+
+W R istnieje także wartość `NULL`, która jest podstawowym typem danych a nie wartością. `NULL` można traktować jako odpowiednik zbioru pustego. Jest stosowany np. w funkcjach, które niczego nie zwracają.
+
+```{r}
+v_null <- c(1,2,1,NULL,1)
+v_null
+sum(v_null)
+
+```
+
+### Zadania
+
+1. Ile wynosi suma elementów większych od 10 dla następujących liczb: `12, 5, 20, 18, 8.5, 10, 4, 101, -2`?
+2. Utwórz następujący wektor: `2 0 0 4 0 0 6 0 0 8 0 0`.
+3. Dane są dwa wektory - a: `2, 3, 7, 8, 2`, b: `9, 1, 2, 0, 2`. Jakiego typu będzie wektor będący wynikiem działania `a<=b`?
+4. Uzupełnij wektor `letters` o polskie litery diakrytyzowane. Jaką długość ma nowo utworzony wektor?
+5. Wylosuj z rozkładu normalnego 1000 obserwacji z ziarnem równym 76. Ile wynosi kurtoza tych wartości?
 
 ## Macierz
 
@@ -10,7 +417,7 @@
 
 ## Ramka danych
 
-## Braki danych
+### Braki danych
 
 ## Import danych
 
