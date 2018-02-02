@@ -475,7 +475,7 @@ cbind(m, matrix(101:104, nrow=2))
 
 ### Indeksowanie macierzy
 
-Dostęp do poszczególnych elementów macierzy odbywa się z wykorzystaniem nawiasów kwadratowych, ale można podać dwie wartość - `obiekt[wiersz,kolunmna]`:
+Dostęp do poszczególnych elementów macierzy odbywa się z wykorzystaniem nawiasów kwadratowych, ale można podać dwie wartość - `obiekt[wiersz,kolumna]`:
 
 ```{r}
 m[2,1] # drugi wiersz, pierwsza kolumna
@@ -579,7 +579,7 @@ summary(wyk)
 summary(wyk_f)
 ```
 
-Jeśli chcemy zakcentować fakt, że zmienne są mierzone na skali porządkowej dodajemy argument `ordered=TRUE`:
+Jeśli chcemy zaakcentować fakt, że zmienne są mierzone na skali porządkowej dodajemy argument `ordered=TRUE`:
 
 ```{r}
 wyk_of <- factor(wyk, ordered = TRUE)
@@ -627,7 +627,7 @@ ln <- list(log=TRUE, num=c(1,2,3,4), tekst="element tekstowy")
 ln
 ```
 
-Wówczas można uzykać do nich dostęp poprzez symbol `$` i podaną nazwę:
+Wówczas można uzyskać do nich dostęp poprzez symbol `$` i podaną nazwę:
 
 ```{r}
 ln$num
@@ -669,7 +669,7 @@ Z kolei do wyboru obserwacji można wykorzystać warunek:
 df[df$plec=="m",]
 ```
 
-Wyodrębnienie informacji o wzroście tylko dla kobiet i wyznacznie średniej:
+Wyodrębnienie informacji o wzroście tylko dla kobiet i wyznaczenie średniej:
 
 ```{r}
 wzrost_k <- df$wzrost[df$plec == "k"]
@@ -698,4 +698,4 @@ Załaduj do pamięci zbiór o nazwie ChickWeight.
 
 1. Ile razy jedzenie otrzymał kurczak o numerze 15?
 2. Ile wynosi mediana wagi kurczaka o numerze 35?
-3. Ile średnio ważyły kurczaki na diecie nr 1, a ile na diecie nr 2.
+3. Ile średnio ważyły kurczaki na diecie nr 1, a ile na diecie nr 2?
