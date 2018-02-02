@@ -597,7 +597,43 @@ Czynniki mają szczególne znaczenie w przypadku tworzenia wykresów, gdy chcemy
 
 ## Lista
 
+Listy to ciągi złożone z elementów o dowolnych typach. Mogą przydać się w szczególności przy budowaniu funkcji, które zwracają tylko jedną wartość. Wówczas dane różnego typu mogą być zawarte w takiej liście.
 
+Tworzenie prostej listy:
+
+```{r}
+l <- list(TRUE, c(1,2,3,4), "element tekstowy")
+l
+```
+
+Już na pierwszy rzut oka widać bardziej złożoną strukturę listy. W związku z tym odwoływanie do poszczególnych elementów będzie trochę się różnić od wektorów czy macierzy.
+
+```{r}
+l[2] # druga lista
+l[[2]] # zawartość listy
+l[[2]][3] # trzeci element wektora drugiej listy
+```
+
+Listę można także rozwinąć do wektora z wykorzystaniem funkcji `unlist`:
+
+```{r}
+unlist(l)
+```
+
+Poszczególne elementy listy można nazwać:
+
+```{r}
+ln <- list(log=TRUE, num=c(1,2,3,4), tekst="element tekstowy")
+ln
+```
+
+Wówczas można uzykać do nich dostęp poprzez symbol `$` i podaną nazwę:
+
+```{r}
+ln$num
+ln[[2]] # normalne indeksowanie nadal działa
+ln$num[2]
+```
 
 ## Ramka danych
 
