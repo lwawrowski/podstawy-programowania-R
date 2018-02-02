@@ -411,7 +411,152 @@ sum(v_null)
 
 ## Macierz
 
+Macierze są wykorzystywane w R do przechowywania np. odległości pomiędzy punktami czy wskazywania sąsiedztwa obszarów geograficznych.
+
+Do tworzenia macierzy służy funkcja `matrix`:
+
+```{r}
+m <- matrix(1:6, nrow = 2, ncol=3)
+m
+```
+
+Z wykorzystaniem wybranych funkcji można sprawdzić wymiary macierzy, liczbę wierszy oraz kolumn:
+
+```{r}
+dim(m)
+ncol(m)
+nrow(m)
+```
+
+Macierz może także zawierać tekst:
+
+```{r}
+matrix(letters[1:9], nrow=3)
+```
+
+Domyślnie macierz układana jest kolumnami. Aby to zmienić należy dodać argument `byrow=TRUE`:
+
+```{r}
+matrix(letters[1:9], nrow=3, byrow=TRUE)
+```
+
+Jeśli liczba elementów wejściowych jest mniejsza iloczyn podanej liczby kolumn i wierszy to w brakujące miejsce wstawiane są elementy z początku wektora wejściowego:
+
+```{r}
+matrix(letters[1:7], nrow=3, byrow=TRUE)
+```
+
+Z kolei macierz diagnonalną posiadającą elementy niezerowe wyłącznie na przekątnej tworzy się z wykorzystaniem funkcji `diag`. Macierz jednostkowa o wymiarach $4 \times 4$:
+
+```{r}
+diag(4)
+```
+
+Macierz diagonalna o wartościach 5 na przekątnej i wymiarach $3 \times 3$
+
+```{r}
+diag(5, nrow=3, ncol=3)
+```
+
+Funkcja `diag` umożliwia także ekstrakcję przekątnej z istniejącej już macierzy:
+
+```{r}
+diag(matrix(letters[1:9], nrow=3))
+```
+
+### Łączenie macierzy
+
+Z wykorzystaniem funkcji `rbind` i `cbind` można odpowiednio łączyć obiekty wierszami (ang. _row bind_) lub kolumnami (ang. _col bind_):
+
+```{r}
+rbind(m, c(99, 88, 77))
+cbind(m, matrix(101:104, nrow=2))
+```
+
+### Indeksowanie macierzy
+
+Dostęp do poszczególnych elementów macierzy odbywa się z wykorzystaniem nawiasów kwadratowych, ale można podać dwie wartość - `obiekt[wiersz,kolunmna]`:
+
+```{r}
+m[2,1] # drugi wiersz, pierwsza kolumna
+m[2,]  # tylko drugi wiersz
+m[,1]  # tylko pierwsza kolumna
+m[,]   # wszystkie obserwacje
+m[]    # wszystkie obserwacje
+```
+
+W ten sposób można dokonać modyfikacji konkretnych elementów macierzy:
+
+```{r}
+m[2,1] <- 77
+m
+```
+
+### Operacje na macierzach
+
+Na macierzach można wywołać szereg operacji:
+
+| Operator/funkcja | Działanie |
+|:----------------:|-----------|
+| a %*% b | mnożenie macierzy a i b |
+| t(a) | transpozycja macierzy a |
+| det(a) | wyznacznik macierzy a |
+| solve(a) | macierz odwrotna z a |
+| solve(a, b) | rozwiązanie układu a*x=b |
+
+Rozważmy dwie macierze:
+
+```{r}
+a <- matrix(c(2, 3, 4, 2, 1, 2, 1, 3, 2), nrow = 3)
+b <- matrix(6:1, ncol=2)
+a;b
+```
+
+Aby przeprowadzić mnożenie macierzy `a` i `b`, liczba kolumn macierzy `a` musi być równa liczbie wierszy w macierzy `b`. Z kolei rozmiar macierzy wyjściowej to liczba wierszy macierzy `a` i liczba kolumn macierzy `b`.
+
+```{r}
+a %*% b
+```
+
+Transpozycja macierzy `b`:
+
+```{r}
+t(b)
+```
+
+Wyznacznik macierzy `a`:
+
+```{r}
+det(a)
+```
+
+Macierz odwrotna do macierzy `a`:
+
+```{r}
+solve(a)
+```
+
+Wyznaczenie macierzy `x` w równaniu `a*x=b`:
+
+```{r}
+solve(a,b)
+
+a %*% solve(a,b)
+b
+
+```
+
+### Zadanie
+
+Estymator parametrów beta w metodzie najmniejszych kwadratów jest dany wzorem:
+
+$$b=(X'X)^{-1}X'y$$
+
+Zmienna $x_1$ przyjmuje wartości `2,4,1,6,9,3,2,9,10,7`, zmienna $x_2$ `1.5,0.2,0.1,2,3.1,1.2,0.4,2.9,2.5,1.9`, a zmienna $x_0$ to wektor jedynek. Te trzy zmienne tworzą macierz $X$. Z kolei wartości zmiennej $y$ są następujące `12,15,10,19,26,13,13,21,29,18`. Wyznacz wartość $b$.
+
 ## Faktor/czynnik
+
+
 
 ## Lista
 
