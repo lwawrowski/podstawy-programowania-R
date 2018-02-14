@@ -20,6 +20,14 @@ RStudio to zintegrowane środowisko programistyczne (IDE) dla języka R dostępn
 
 Z R można także korzystać w [Microsoft Visual Studio](https://www.visualstudio.com/pl/vs/rtvs/).
 
+## Ważne informacje
+
+**R jest wrażliwy na wielkość liter.**
+
+**Separatorem części dziesiętnej liczby jest kropka.**
+
+**W codziennej pracy RStudio jest wygodniejsze, jednak długotrwałe obliczenia lepiej uruchamiać w trybie wsadowym w zwykłym R.**
+
 - **Katalog roboczy**
 
 Ważnym pojęciem w R jest katalog roboczy (ang. working directory), który określa gdzie zostaną zapisane pliki, wykresy, zbiory, itp. jeśli nie podamy dokładnej ścieżki do pliku. Katalog roboczy przypisuje się z wykorzystaniem funkcji `setwd("ścieżka do katalogu")`, a jego wartość można sprawdzić funkcją `getwd()`. W RStudio przypisanie katalogu roboczego odbywa się w momencie utworzenia projektu.
@@ -44,17 +52,37 @@ Dobrze napisany kod jest czytelny bez komentarzy. W R komentarze rozpoczynają s
 
 RStudio ma zaimplementowaną funkcję podpowiadania składni. Listę możliwych funkcji i obiektów wywołuję się klawiszem TAB lub CTRL + SPACJA po wpisaniu co najmniej jednej litery. Kolejne naciśnięcie TAB lub ENTER powoduje uzupełnienie kodu o wybraną funkcję lub obiekt.
 
+- **Wykonywanie programów**
+
+Programy w R możemy tworzyć jako skrypty w pliku tekstowym o rozszerzeniu .R lub wywoływać polecenia bezpośrednio w konsoli. Kod programu napisanego w skrypcie przekazywany jest do konsoli. Gotowość do pracy R sygnalizuje w konsoli znakiem zachęty `>`. Jeśli podczas wykonywania programu w konsoli pojawi się znak `+` to oznacza oczekiwanie na kompletny kod - brak domkniętego nawiasu, cudzysłowia, itp.:
+
+```
+> getwd(
++ 
+```
+
+W powyższym przykładzie brakuje prawego nawiasu. Dodanie brakującego kodu spowoduje wykonanie przekazanego polecenia. Z kolei wciśnięcie klawisza ESC spowoduje przerwanie wykonywanie programu i powrót do znaku zachęty. Zawartość konsoli można wyczyścić stosując kombinację klawiszy CTRL + L.
+
+- **Pliki **
+
+Jeśli w pamięci znajdują się jakieś obiekty (zakładka Environment) to RStudio przy zamykaniu programu zapyta o zapisanie tych obiektów do pliku .RData. Jeżeli zdecydujemy się na tą propozycję to po ponownym uruchomieniu projektu obiekty znajdujące się w pliku .RData zostaną automatycznie wczytane do pamięci.
+
+Można także samodzielnie tworzyć pliki o rozszerzeniu .RData z wykorzystaniem funkcji `save()`:
+
+```
+save(obiekt1, obiekt2, obiekt3, file = "nazwa_pliku.RData")
+```
+
+Wczytanie obiektów z takiego pliku do pamięci odbywa się z zastosowaniem funkcji `load()`:
+
+```
+load("nazwa_pliku.RData")
+
+```
+
 ## Pakiety
 
 Podstawowe możliwości R są dosyć ograniczone. Rozszerzają je pakiety, których obecnie jest ponad 12 tysięcy. Można je przeglądać według kategorii w [CRAN Task Views](https://cran.r-project.org/web/views/) lub w wygodnej wyszukiwarce [METACRAN](https://www.r-pkg.org/) i [rdrr.io](https://rdrr.io/).
-
-## Ważne informacje
-
-**R jest wrażliwy na wielkość liter.**
-
-**Separatorem części dziesiętnej liczby liczby jest kropka.**
-
-**W codziennej pracy RStudio jest wygodniejsze, jednak długotrwałe obliczenia lepiej uruchamiać w trybie wsadowym w zwykłym R.**
 
 ## R jako kalkulator
 
@@ -71,11 +99,11 @@ Działania matematycznie w R:
 
 W R istnieje także stała wbudowana `pi` przechowująca wartość liczby pi.
 
-Funkcja `factorial(x)` zwraca silnię z podanej wartości x, a `sign(x)` sprawdza znak wyrażenia i zwraca odpowiednio wartość -1 jeśli wyrażenie jest ujemne, 0 jeśli jest równe 0 i 1 dla wyrażeń dodatnich.
+Funkcja `factorial(x)` zwraca silnię (znak wykrzyknika !) z podanej wartości x, a `sign(x)` sprawdza znak wyrażenia i zwraca odpowiednio wartość -1 jeśli wyrażenie jest ujemne, 0 jeśli jest równe 0 i 1 dla wyrażeń dodatnich.
 
 Funkcja `exp(x)` zwraca wartość wyrażenia $e^x$, natomiast funkcja `log(x)` zwraca logarytm z podanej liczby. Domyślnie jest to logarytm naturalny, ale można zmienić podstawę podając wartość argumentu `base`. 
 
-Funkcja `abs(x)` zwraca wartość absolutną wyrażenia.
+Funkcja `abs(x)` zwraca wartość bezwzględną (absolutną) wyrażenia.
 
 **Ćwiczenie**
 
