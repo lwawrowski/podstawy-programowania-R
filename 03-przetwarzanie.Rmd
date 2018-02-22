@@ -2,17 +2,158 @@
 
 ## Pakiet tidyverse
 
+Pakiet `tidyverse` to zestaw pakietów do kompleksowego przetwarzania i wizualizacji danych. Ładuje następujące pakiety:
+
+- ggplot2 - tworzenie wykresów,
+- dplyr - przetwarzanie danych,
+- tidyr - zmiana reprezentacji danych,
+- readr - wczytywanie danych tekstowych,
+- purrr - programowanie funkcyjne
+- tibble - sposób przechowywania danych,
+- stringr - przetwarzanie tekstów,
+- forcats - przetwarzanie faktorów
+
+Manifest tidyverse ustala następujące zasady:
+
+- powtórne użycie istniejących struktur danych,
+- tworzenie czytelnych kodów z operatorem pipe `%>%` (ang. rura, przewód, łącznik)
+
+Wobec tego załadujmy pakiet `tidyverse`:
+
+```{r}
+library(tidyverse)
+```
+
+W konsoli pojawi się informacja o wersji załadowanych pakietów oraz o konfliktach występujących pomiędzy pakietami. Konfikty te wynikają z takich samych nazw funkcji w różnych pakietach. Kolejność wczytywania pakietów ma znaczenie - kolejny pakiet przykryje funkcje z wcześniej wczytanego. Wywołanie przykrytej funkcji jest możliwe poprzez zapis `nazwa_pakietu::nazwa_funkcji`.
+
+Korzystanie z pakietu i zasad `tidyverse` to dużo bardziej czytelny kod w porównaniu do wbudowanych funkcji. Poniżej przedstawiony jest przykład przetwarzania danych polegający na filtrowaniu, wyborze kolumn oraz utworzeniu nowej zmiennej.
+
+```{r}
+data("ChickWeight")
+
+# bez pakietu tidyverse
+
+chick_15 <- ChickWeight[ChickWeight$Chick=="15",]
+chick_15 <- chick_15[c("weight", "Time", "Diet"),]
+chick_15$weight_kg <- chick_15$weight/1000
+
+# z pakietem tidyverse
+
+chick_15 <- ChickWeight %>%
+  filter(Chick=="15") %>%
+  select(-Chick) %>%
+  mutate(weight_kg=weight/1000)
+
+```
+
+133 znaki vs 92 znaki
+
 ## Import danych
 
-## Wybieranie kolumn
+Wczytywanie danych do R jest możliwe z wielu różnych źródeł. Funkcje, które to umożliwiają zwykle mają nazwę rozpoczynającą się od `read`.
+
+Będziemy korzystać z następujących zbiorów danych:
+
+- [movies](data/movies.csv) - plik tekstowy zawierający informacje o filmach,
+- [bank](data/bank.xlsx) - plik excel zawierający dane dot. kampanii marketingowej banku,
+- [rossmann](data/rossmann.xlsx) - plik excel zawierający dane ze sklepów Rossmann,
+- [lotto](http://www.mbnet.com.pl/dl.txt) - plik tekstowy zawierający dane z losowań Lotto.
+
+### Pliki CSV
+
+```{r}
+
+movies <- read.csv(file = "data/movies.csv", header = T, sep=",", dec=".")
+
+movies <- read.csv("data/movies.csv")
+
+movies2 <- read_csv("data/movies.csv")
+
+```
+
+
+### Pliki excel
+
+```{r}
+
+library(readxl)
+
+bank <- read_xlsx("data/bank.xlsx")
+
+rossmann <- read_xlsx("data/rossmann.xlsx")
+
+```
+
+### Pliki tekstowe
+
+```{r}
+
+lotto <- read.table("http://www.mbnet.com.pl/dl.txt")
+names(lotto) <- c("lp", "data", "numery")
+
+```
 
 ## Filtrowanie
 
+Do przetwarzania danych służą funkcje z pakietu `dplyr`. Większość z nich jako pierwszy argument przyjmuje przetwarzany zbiór danych, ale można tego uniknąć wykorzystując symbole `%>%`.
+
+Filtrowanie polega na wybraniu obserwacji, które spełniają określony warunek lub warunki. Ze zbioru `movies` wybierzmy wszystkie komedie:
+
+```{r}
+komedie <- filter(movies, genre=="Comedy")
+```
+
+lub alternatywnie:
+
+```{r}
+komedie <- movies %>%
+  filter(genre=="Comedy")
+```
+
+Po zmiennej, która jest filtrowana musimy podać operator porównania czyli podwójny znak równości `==`. Jeśli chcemy filtrować po większej liczbie zmiennych to kolejne warunki dodajemy po przecinku:
+
+```{r}
+komedie_2012 <- movies %>%
+  filter(genre=="Comedy", year==2012)
+```
+
+Wówczas oba warunki muszą zostać spełnione czyli pomiędzy nimi zachodzi relacja `i`. Równoważny zapis jest następujący:
+
+```{r}
+komedie_2012 <- movies %>%
+  filter(genre=="Comedy" & year==2012)
+```
+
+Pomiędzy warunkami może także zachodzić relacja `lub`. Wybieramy filmy, które są komediami **lub** miały swoją premierę w 2012 roku. 
+
+```{r}
+komedie_l_2012 <- movies %>%
+  filter(genre=="Comedy" | year==2012)
+```
+
+Możliwy jest także wybór wielu kryteriów filtrowania poprzez operator `%in%`:
+
+```{r}
+komedie_familijne <- movies %>%
+  filter(genre %in% c("Comedy", "Family"))
+
+movies_2000_2010 <- movies %>%
+  filter(year %in% 2000:2010)
+```
+
+## Wybieranie kolumn
+
+Do wyboru kolumn służy funkcja `select()`.
+
 ## Dodawanie nowych zmiennych
+
+## Zmiana nazwy zmiennej
 
 ## Grupowanie
 
 ## Podsumowanie
+
+## Sortowanie
 
 ## Łączenie zbiorów
 
