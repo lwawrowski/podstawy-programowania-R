@@ -16,7 +16,7 @@ Pakiet `tidyverse` to zestaw pakietów do kompleksowego przetwarzania i wizualiz
 Manifest tidyverse ustala następujące zasady:
 
 - powtórne użycie istniejących struktur danych,
-- tworzenie czytelnych kodów z operatorem pipe `%>%` (ang. rura, przewód, łącznik)
+- tworzenie czytelnych kodów z operatorem pipe `%>%` (ang. rura, przewód, łącznik).
 
 Wobec tego załadujmy pakiet `tidyverse`:
 
@@ -46,7 +46,7 @@ chick_15 <- ChickWeight %>%
 
 ```
 
-133 znaki vs 92 znaki
+Rozwiązanie z wykorzystaniem wbudowanych funkcji to 133 znaki, natomiast wykorzystanie `tidyverse` to 30% oszczędność miejsca i tylko 92 znaki.
 
 ## Import danych
 
@@ -55,15 +55,15 @@ Wczytywanie danych do R jest możliwe z wielu różnych źródeł. Funkcje, któ
 Będziemy korzystać z następujących zbiorów danych:
 
 - [movies](data/movies.csv) - plik tekstowy zawierający informacje o filmach,
-- [bank](data/bank.xlsx) - plik excel zawierający dane dot. kampanii marketingowej banku,
+- [bank](data/bank.xlsx) - plik excel zawierający dane dot. kampanii marketingowej banku, [opis zmiennych](data/bank_opis.pdf),
 - [rossmann](data/rossmann.xlsx) - plik excel zawierający dane ze sklepów Rossmann,
 - [lotto](http://www.mbnet.com.pl/dl.txt) - plik tekstowy zawierający dane z losowań Lotto.
 
 ### Pliki CSV
 
-```{r}
+Do wczytywania plików csv można wykorzystać wbudowaną funkcję `read.csv()` lub tą pochodzącą z pakietu `readr` - `read_csv()`. W obu przypadkach wynik wczytania będzie podobny.
 
-movies <- read.csv(file = "data/movies.csv", header = T, sep=",", dec=".")
+```{r}
 
 movies <- read.csv("data/movies.csv")
 
@@ -71,8 +71,15 @@ movies2 <- read_csv("data/movies.csv")
 
 ```
 
+Jeśli nas plik ma nietypową strukturę to w funkcji `read.csv()` możemy określić dodatkowe argumenty informując o nazwach kolumn obecnych w pliku (`header = `), separatorze kolumn (`sep =`) lub separatorze miejsc dziesiętnych (`dec = `) 
+
+```{r}
+movies <- read.csv(file = "data/movies.csv", header = T, sep=",", dec=".")
+```
 
 ### Pliki excel
+
+Do wczytywania plików z Excela niezbędny jest dodatkowy pakiet `readxl`. W funkcji `read_xlsx()` podajemy jako argument nazwę pliku. Możemy także dodać nazwę lub numer arkusza w argumencie (`sheet = `) oraz zakres komórek jako wartość argumentu `range = `.
 
 ```{r}
 
@@ -80,11 +87,18 @@ library(readxl)
 
 bank <- read_xlsx("data/bank.xlsx")
 
+# bank <- read_xlsx("data/bank.xlsx", sheet = "dane")
+# bank <- read_xlsx("data/bank.xlsx", sheet = 1)
+
+bank_a1i30 <- read_xlsx("data/bank.xlsx", range = "A1:I30")
+
 rossmann <- read_xlsx("data/rossmann.xlsx")
 
 ```
 
 ### Pliki tekstowe
+
+Z kolei do wczytywania plików tekstowych wykorzystuje się funkcję `read.table()`. Wczytywany plik nie musi być zlokalizowany na dysku twardym - może to być link internetowy.
 
 ```{r}
 
@@ -143,11 +157,90 @@ movies_2000_2010 <- movies %>%
 
 ## Wybieranie kolumn
 
-Do wyboru kolumn służy funkcja `select()`.
+Do wyboru kolumn służy funkcja `select()`. Zmodyfikujemy wcześniej utworzony zbiór `komedie`:
 
-## Dodawanie nowych zmiennych
+```{r}
+komedie <- movies %>%
+  filter(genre=="Comedy") %>%
+  select(title, year, duration, budget, rating)
+
+```
+
+Ten sam kod możemy zapisać zagnieżdzając funkcje, ale traci on w ten sposób na czytelności:
+
+```{r}
+
+komedie <- select(filter(movies, genre=="Comedy"), title, year, duration, budget, rating)
+
+```
+
+Możemy także wskazać, które zmienne nie mają znaleźć się w zbiorze wynikowym:
+
+```{r}
+komedie <- movies %>%
+  filter(genre=="Comedy") %>%
+  select(-genre)
+```
+
+Natomiast jeśli zmiennych jest więcej to musimy jest umieścić w wektorze, żeby nie pisać przed każdą zmienną znaku minus:
+
+```{r}
+komedie <- movies %>%
+  filter(genre=="Comedy") %>%
+  select(-genre, -director, -gross, -budget)
+
+
+komedie <- movies %>%
+  filter(genre=="Comedy") %>%
+  select(-c(genre, director, gross, budget))
+
+```
+
+Z wykorzystaniem znaku dwukropka możemy także wskazywać zakresy zmiennych:
+
+```{r}
+komedie <- movies %>%
+  filter(genre=="Comedy") %>%
+  select(-genre, -c(gross:reviews))
+
+```
+
+
+## Tworzenie nowych zmiennych
+
+Do utworzenia nowej zmiennej wykorzystuje się funkcję `mutate()`. Utwórzmy w naszym zbiorze nową zmienną, która będzie zawierała czas trwania filmu w godzinach:
+
+```{r}
+komedie <- movies %>%
+  filter(genre=="Comedy") %>%
+  select(-genre, -c(gross:reviews)) %>%
+  mutate(dur_hour = duration/60)
+
+```
+
+Rozsądnie będzie zaokrąglić otrzymaną wartość do jednego miejsca po przecinku - służy do tego funkcja `round()`:
+
+```{r}
+komedie <- movies %>%
+  filter(genre=="Comedy") %>%
+  select(-genre, -c(gross:reviews)) %>%
+  mutate(dur_hour = round(duration/60,1))
+
+```
+
+Z kolei funkcja `transmute()` tworzy zbiór w którym jest tylko nowo utworzona kolumna:
+
+```{r}
+komedie_t <- movies %>%
+  filter(genre=="Comedy") %>%
+  select(-genre, -c(gross:reviews)) %>%
+  transmute(dur_hour = round(duration/60,1))
+
+```
 
 ## Zmiana nazwy zmiennej
+
+
 
 ## Grupowanie
 
@@ -158,3 +251,5 @@ Do wyboru kolumn służy funkcja `select()`.
 ## Łączenie zbiorów
 
 ## Wąska i szeroka reprezentacja danych
+
+## Eksport danych
