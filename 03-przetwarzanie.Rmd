@@ -24,7 +24,7 @@ Wobec tego załadujmy pakiet `tidyverse`:
 library(tidyverse)
 ```
 
-W konsoli pojawi się informacja o wersji załadowanych pakietów oraz o konfliktach występujących pomiędzy pakietami. Konfikty te wynikają z takich samych nazw funkcji w różnych pakietach. Kolejność wczytywania pakietów ma znaczenie - kolejny pakiet przykryje funkcje z wcześniej wczytanego. Wywołanie przykrytej funkcji jest możliwe poprzez zapis `nazwa_pakietu::nazwa_funkcji`.
+W konsoli pojawi się informacja o wersji załadowanych pakietów oraz o konfliktach występujących pomiędzy pakietami. Konflikty te wynikają z takich samych nazw funkcji w różnych pakietach. Kolejność wczytywania pakietów ma znaczenie - kolejny pakiet przykryje funkcje z wcześniej wczytanego. Wywołanie przykrytej funkcji jest możliwe poprzez zapis `nazwa_pakietu::nazwa_funkcji`.
 
 Korzystanie z pakietu i zasad `tidyverse` to dużo bardziej czytelny kod w porównaniu do wbudowanych funkcji. Poniżej przedstawiony jest przykład przetwarzania danych polegający na filtrowaniu, wyborze kolumn oraz utworzeniu nowej zmiennej.
 
@@ -166,7 +166,7 @@ komedie <- movies %>%
 
 ```
 
-Ten sam kod możemy zapisać zagnieżdzając funkcje, ale traci on w ten sposób na czytelności:
+Ten sam kod możemy zapisać zagnieżdżając funkcje, ale traci on w ten sposób na czytelności:
 
 ```{r}
 
@@ -309,7 +309,7 @@ bank %>%
 
 ```
 
-Jedną z kategorii zmienej wykształcenie jest brak danych (`NA`). Zamienimy tą wartość na kategorię _nieustalone_ z wykorzystaniem funkcji `mutate()` oraz `if_else()`. Funkcja `if_else()` przyjumje trzy argumenty - pierwszy (`condition = `) to warunek, który jest weryfikowany, następnie podajemy wartość, która ma być wprowadzona w przypadku spełnienia warunku (`true = `), a na końcu wartość dla niespełnionego warunku (`false = `). Jest to odpowiednik funkcji `JEŻELI` z Excela.
+Jedną z kategorii zmiennej wykształcenie jest brak danych (`NA`). Zamienimy tą wartość na kategorię _nieustalone_ z wykorzystaniem funkcji `mutate()` oraz `if_else()`. Funkcja `if_else()` przyjmuje trzy argumenty - pierwszy (`condition = `) to warunek, który jest weryfikowany, następnie podajemy wartość, która ma być wprowadzona w przypadku spełnienia warunku (`true = `), a na końcu wartość dla niespełnionego warunku (`false = `). Jest to odpowiednik funkcji `JEŻELI` z Excela.
 
 W omawianym przykładzie warunkiem jest sprawdzenie czy wartości zmiennej `wykszt` są równe `NA`. Jeśli tak to na ich miejsce wprowadzany jest tekst _nieustalone_, a w przeciwnym przypadku pozostaje oryginalna wartość.
 
@@ -368,10 +368,6 @@ zawod_saldo <- bank %>%
   group_by(zawod) %>%
   summarise(sr_saldo=mean(saldo))
 
-praca_karta_czas <- bank %>%
-  group_by(praca, karta) %>%
-  summarise(sr_czas=mean(czas))
- 
 ```
 
 Do łączenia dwóch zbiorów danych służy funkcja `inner_join()`, która jako argumenty przyjmuje nazwy zbiorów danych oraz klucz łączenia. Jeśli w obu zbiorach występują kolumny o takich samych nazwach to zostaną potraktowane jako klucz łączenia:
@@ -392,10 +388,108 @@ W takich przypadku należy wskazać klucz połączenia w postaci `by = c("id1"="
 praca_czas_saldo <- inner_join(praca_czas, zawod_saldo, by=c("praca"="zawod"))
 ```
 
+Jeśli w jednym ze zbiorów nie ma wszystkich identyfikatorów, które znajdują się w drugim zbiorze to zastosowanie funkcji `inner_join()` będzie skutkowało zbiorem, w którym znajdą się tylko te obserwacje, które udało się połączyć.
+
 ```{r}
-praca_karta_czas_saldo <- right_join(praca_karta_czas, praca_saldo)
+
+praca_saldo_1500 <- praca_saldo %>%
+  filter(sr_saldo > 1500)
+
+inner_join(praca_czas, praca_saldo_1500, by="praca")
 ```
 
-## Wąska i szeroka reprezentacja danych
+Jeśli chcemy pozostawić niedopasowane obserwacje to należy wykorzystać jedną z funkcji - `left_join()` lub `right_join()` w zależności od tego dla którego zbioru chcemy pozostawić wszystkie informacje.
+
+```{r}
+left_join(praca_czas, praca_saldo_1500, by="praca")
+```
+
+## Szeroka i wąska reprezentacja danych
+
+Do wyjaśnienia kwestii szerokiej i wąskiej reprezentacji danych posłużymy się danymi z GUS dotyczącymi przeciętnego miesięcznego spożycie wybranych artykułów żywnościowych na 1 osobę w 2016 roku - [plik](data/spozycie.xlsx).
+
+```{r}
+
+spozycie <- read_xlsx("data/spozycie.xlsx")
+
+```
+
+Taka tabela jest przykładem szerokiej reprezentacji danych. Z kolei w niektórych sytuacjach wygodnie jest korzystać z wąskiej reprezentacji danych, a niektóre pakiety wręcz wymagają takich zbiorów wejściowych.
+
+Do transformacji danych z reprezentacji szerokiej na wąską służy funkcja `gather()` (pol. _gromadzić_). Kluczowe są w niej dwa argumenty - pierwszy (`key`) określa nazwę nowej kolumny, która będzie zawierała nazwy zmiennych, a drugi (`value`) określa nazwę nowej kolumny, która będzie zawierała wartości zmiennych. Jako kolejne argumenty podaje się nazwy kolumn, które mają być transformowane lub nazwy kolumn ze znakiem minus `-`, które nie mają być transformowane.
+
+```{r}
+spozycie_waskie <- spozycie %>%
+  gather(artykul, spozycie, mieso, owoce, warzywa)
+
+# spozycie_waskie <- spozycie %>%
+#   gather(artykul, spozycie, -kod, -nazwa)
+
+```
+
+W takiej formie łatwiej podsumować dane:
+
+```{r}
+spozycie_waskie %>%
+  group_by(artykul) %>%
+  summarise(sr_spozycie=mean(spozycie))
+```
+
+W porównaniu do szerokiej reprezentacji danych:
+
+```{r}
+spozycie %>%
+  summarise(sr_spozycie_mieso=mean(mieso),
+            sr_spozycie_owoce=mean(owoce),
+            sr_spozycie_warzywa=mean(warzywa))
+```
+
+Transformacja z wąskiej do szerokiej reprezentacji danych jest możliwa z zastosowaniem funkcji `spread()` (pol. _rozprzestrzeniać_). W przypadku tej funkcji niezbędne są dwa argumenty - pierwszy (`key`) wskazuje kolumnę zawierającą nazwy dla nowych zmiennych, a drugi argument (`value`) wskazuje kolumnę zawierającą wartości dla nowych zmiennych.
+
+```{r}
+spozycie_szerokie <- spozycie_waskie %>%
+  spread(artykul, spozycie)
+```
 
 ## Eksport danych
+
+Zapis zbioru danych do zewnętrznego pliku jest możliwy z wykorzystaniem funkcji `write.table()`. Jako argumenty tej funkcji określamy: zbiór danych (`x`), docelowe miejsce na dysku i nazwę pliku (`file`), separator kolumn (`sep`), separator miejsc dziesiętnych (`dec`) oraz argument `row.names = FALSE`, dzięki któremu unikniemy dodatkowych numerów wierszy. 
+
+```{r}
+
+write.table(spozycie_waskie, file = "data/spozycie_w.csv", sep=";", dec=",", row.names=F)
+
+```
+
+Taki plik jest plikiem csv, który możemy otworzyć w Excelu i zapisać go z rozszerzeniem .xlsx. Teoretycznie istnieje pakiet `xlsx`, który umożliwia zapisywanie zbiorów od razu do Excela, ale działa w oparciu o Javę, co bywa problematyczne.
+
+## Zadania
+
+Na podstawie zbioru rossmann odpowiedź na pytania:
+
+1. Ile było sklepów o asortymencie rozszerzonym w dniu 25-02-2014?
+2. W jaki dzień tygodnia średnia liczba klientów była największa w sklepie nr 101?
+3. Sklep jakiego typu charakteryzuje się największą medianą sprzedaży?
+4. Czy w ciągu roku odległość do najbliższego sklepu konkurencji zmieniła się dla jakiegokolwiek sklepu Rossmann?
+
+```{r include=FALSE}
+rossmann %>%
+  filter(data=="2014-02-25") %>%
+  group_by(sklep_asort) %>%
+  count()
+
+rossmann %>%
+  filter(sklep_id==101) %>%
+  group_by(dzien_tyg) %>%
+  summarise(sr=mean(liczba_klientow))
+
+rossmann %>%
+  group_by(sklep_typ) %>%
+  summarise(n=n(),
+            m=median(sprzedaz))
+
+rossmann_odl <- rossmann %>%
+  group_by(sklep_id) %>%
+  summarise(sd=sd(sklep_konkurencja))
+```
+
