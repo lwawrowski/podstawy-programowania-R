@@ -205,7 +205,6 @@ komedie <- movies %>%
 
 ```
 
-
 ## Tworzenie nowych zmiennych
 
 Do utworzenia nowej zmiennej wykorzystuje się funkcję `mutate()`. Utwórzmy w naszym zbiorze nową zmienną, która będzie zawierała czas trwania filmu w godzinach:
@@ -240,15 +239,162 @@ komedie_t <- movies %>%
 
 ## Zmiana nazwy zmiennej
 
+Do zmiany nazw zmiennych służy funkcja `rename()`. Najpierw podajemy nazwę nowej zmiennej, a po znaku równości starą nazwę:
 
+```{r}
+bank <- bank %>%
+  rename(karta=kredyt)
+```
+
+Zmiany nazwy można także dokonać z wykorzystaniem funkcji `select`:
+
+```{r}
+bank_nowy <- bank %>%
+  select(lokata=wynik)
+```
+
+W takim przypadku trzeba jednak pamiętać o wypisaniu wszystkich zmiennych, które mają się znaleźć w zbiorze wynikowym.
+
+## Podsumowanie danych
+
+Funkcja `summarise()` służy do podsumowań danych w formie zagregowanej:
+
+```{r}
+bank %>%
+  summarise(saldo_srednia=mean(saldo),
+            saldo_mediana=median(saldo))
+```
+
+Podsumowanie danych ma najwięcej sensu w połączniu z funkcją grupującą.
 
 ## Grupowanie
 
-## Podsumowanie
+Do grupowania obserwacji służy funkcja `group_by()`. Zobaczmy jak wyglądają statystyki salda w poszczególnych grupach wykształcenia:
+
+```{r}
+bank %>%
+  group_by(wykszt) %>%
+  summarise(saldo_srednia=mean(saldo),
+            saldo_mediana=median(saldo))
+
+```
+
+Po przecinku w funkcji `group_by()` można wskazać kolejne zmienne grupujące:
+
+```{r}
+bank %>%
+  group_by(wykszt, hipoteka) %>%
+  summarise(saldo_srednia=mean(saldo),
+            saldo_mediana=median(saldo))
+
+```
+
+Przydatna jest także funkcja `n()`, która nie przyjmuje żadnego argumentu i zwraca liczebność zbioru bądź grupy.
+
+```{r}
+bank %>%
+  group_by(wykszt) %>%
+  summarise(liczebnosc=n(),
+            saldo_srednia=mean(saldo),
+            saldo_mediana=median(saldo))
+
+```
+
+Jeżeli chcemy tylko wyznaczyć liczebności grup to możemy skorzystać z funkcji `count()`:
+
+```{r}
+bank %>%
+  group_by(wykszt) %>%
+  count()
+
+```
+
+Jedną z kategorii zmienej wykształcenie jest brak danych (`NA`). Zamienimy tą wartość na kategorię _nieustalone_ z wykorzystaniem funkcji `mutate()` oraz `if_else()`. Funkcja `if_else()` przyjumje trzy argumenty - pierwszy (`condition = `) to warunek, który jest weryfikowany, następnie podajemy wartość, która ma być wprowadzona w przypadku spełnienia warunku (`true = `), a na końcu wartość dla niespełnionego warunku (`false = `). Jest to odpowiednik funkcji `JEŻELI` z Excela.
+
+W omawianym przykładzie warunkiem jest sprawdzenie czy wartości zmiennej `wykszt` są równe `NA`. Jeśli tak to na ich miejsce wprowadzany jest tekst _nieustalone_, a w przeciwnym przypadku pozostaje oryginalna wartość.
+
+```{r}
+bank %>%
+  mutate(wykszt=if_else(is.na(wykszt), "nieustalone", wykszt)) %>%
+  group_by(wykszt) %>%
+  count()
+
+```
 
 ## Sortowanie
 
+Sortowanie jest możliwe z wykorzystaniem funkcji `arrange()`. Jako argument podajemy zmienną według, której chcemy posortować zbiór. Domyślne zbiór sortowany jest rosnąco - od wartości najmniejszych do największych:
+
+```{r}
+bank_sort <- bank %>%
+  arrange(saldo)
+```
+
+
+Zmiana kierunku sortowania jest możliwa po zastosowaniu funkcji `desc()`:
+
+```{r}
+bank_sort <- bank %>%
+  arrange(desc(saldo))
+```
+
+Sortowanie możemy także zastosować do wyników podsumowania danych:
+
+```{r}
+bank %>%
+  group_by(wykszt) %>%
+  summarise(liczebnosc=n(),
+            saldo_srednia=mean(saldo),
+            saldo_mediana=median(saldo)) %>%
+  arrange(saldo_srednia)
+
+```
+
 ## Łączenie zbiorów
+
+W celu zaprezentowania funkcji łączących dane przygotujemy kilka zbiorów pomocniczych:
+
+```{r}
+praca_czas <- bank %>%
+  group_by(praca) %>%
+  summarise(sr_czas=mean(czas))
+
+praca_saldo <- bank %>%
+  group_by(praca) %>%
+  summarise(sr_saldo=mean(saldo))
+
+zawod_saldo <- bank %>%
+  rename(zawod=praca) %>%
+  group_by(zawod) %>%
+  summarise(sr_saldo=mean(saldo))
+
+praca_karta_czas <- bank %>%
+  group_by(praca, karta) %>%
+  summarise(sr_czas=mean(czas))
+ 
+```
+
+Do łączenia dwóch zbiorów danych służy funkcja `inner_join()`, która jako argumenty przyjmuje nazwy zbiorów danych oraz klucz łączenia. Jeśli w obu zbiorach występują kolumny o takich samych nazwach to zostaną potraktowane jako klucz łączenia:
+
+```{r}
+praca_czas_saldo <- inner_join(praca_czas, praca_saldo)
+```
+
+Jeśli takie kolumny nie będą istniały to wywołanie funkcji zwróci błąd:
+
+```{r, error=TRUE}
+praca_czas_saldo <- inner_join(praca_czas, zawod_saldo)
+```
+
+W takich przypadku należy wskazać klucz połączenia w postaci `by = c("id1"="id2")`:
+
+```{r, error=TRUE}
+praca_czas_saldo <- inner_join(praca_czas, zawod_saldo, by=c("praca"="zawod"))
+```
+
+```{r}
+praca_karta_czas_saldo <- right_join(praca_karta_czas, praca_saldo)
+```
 
 ## Wąska i szeroka reprezentacja danych
 
