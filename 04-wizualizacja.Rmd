@@ -3,3 +3,36 @@
 ## Wbudowane funkcje
 
 ## Pakiet ggplot2
+
+### Analiza rozkładu
+
+Będziemy działać na zbiorze dotyczącym klientów banku
+
+```{r}
+library(tidyverse)
+library(readxl)
+
+movies <- read_csv("data/movies.csv")
+```
+
+Pierwszym sposobem analizy rozkładu jest wykres pudełkowy
+
+```{r}
+
+movies %>%
+  filter(genre %in% c("Action", "Comedy", "Crime")) %>%
+  ggplot(., aes(y=duration, x=genre)) +
+  geom_boxplot()
+```
+
+Te same dane można przedstawić także na histogramie.
+
+```{r}
+movies %>%
+  filter(genre %in% c("Action", "Comedy", "Crime")) %>%
+  ggplot(., aes(x=duration)) +
+  geom_histogram(binwidth=15) + 
+  facet_wrap(~ genre)
+
+```
+

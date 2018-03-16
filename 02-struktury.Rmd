@@ -306,7 +306,7 @@ summary(c("jeden", "dwa", "trzy", "cztery"))
 
 ### Sprawdzanie typu wektora
 
-Do określenia typu wektora służy funkcja `typeof` lub `mode`.
+Do określenia typu wektora służy funkcja `typeof`, `class` lub `mode`.
 
 ```{r}
 typeof(wart_log)
@@ -356,6 +356,13 @@ I wybranych elementów:
 wart_10_20[c(1,3,5)]
 ```
 
+W ten sposób można także modyfikować odpowiednie elementy wektora:
+
+```{r}
+wart_10_20[7] <- 90
+```
+
+
 Wybór obserwacji większych od 15:
 
 ```{r}
@@ -404,10 +411,27 @@ sum(v_null)
 ### Zadania
 
 1. Ile wynosi suma elementów większych od 10 dla następujących liczb: `12, 5, 20, 18, 8.5, 10, 4, 101, -2`?
-2. Utwórz następujący wektor: `2 0 0 4 0 0 6 0 0 8 0 0`.
+2. Z wykorzystaniem funkcji `seq` i na podstawie wektora ... dokonaj przekształcenia tworząc następujący wektor: `2 0 0 4 0 0 6 0 0 8 0 0`.
 3. Dane są dwa wektory - a: `2, 3, 7, 8, 2`, b: `9, 1, 2, 0, 2`. Jakiego typu będzie wektor będący wynikiem działania `a<=b`?
 4. Uzupełnij wektor `letters` o polskie litery diakrytyzowane. Jaką długość ma nowo utworzony wektor?
 5. Wylosuj z rozkładu normalnego 1000 obserwacji z ziarnem równym 76. Ile wynosi kurtoza tych wartości?
+
+```{r include=FALSE}
+# 1
+
+zad1 <- c(12, 5, 20, 18, 8.5, 10, 4, 101, -2)
+sum(zad1[zad1 > 10])
+
+# 2
+
+zad2 <- c()
+
+# 5
+set.seed(76)
+e1071::kurtosis(rnorm(1000))
+
+```
+
 
 ## Macierz
 
@@ -554,6 +578,13 @@ b
 $$b=(X'X)^{-1}X'y$$
 
 Zmienna $x_1$ przyjmuje wartości `2,4,1,6,9,3,2,9,10,7`, zmienna $x_2$ `1.5,0.2,0.1,2,3.1,1.2,0.4,2.9,2.5,1.9`, a zmienna $x_0$ to wektor jedynek. Te trzy zmienne tworzą macierz $X$. Z kolei wartości zmiennej $y$ są następujące `12,15,10,19,26,13,13,21,29,18`. Wyznacz wartość $b$.
+
+```{r}
+zad1 <- matrix(1:4, nrow=2)
+solve(zad1)
+zad1 %*% solve(zad1)
+```
+
 
 ## Czynnik
 
