@@ -1,6 +1,8 @@
 # Wizualizacja danych
 
-Będziemy działać na zbiorze dotyczącym sprzedaży w sklepach Rossmann
+[Przewodnik po wizualizacji danych](https://www.data-to-viz.com/)
+
+Będziemy działać na zbiorze dotyczącym sprzedaży w sklepach [Rossmann](data/rossmann.xlsx).
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -176,7 +178,53 @@ ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow, color=czy_promocja)) +
 
 ```
 
+```{r}
+ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow, color=czy_promocja)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_x_continuous(name = "Sprzedaż") +
+  scale_y_continuous(name = "Liczba klientów") +
+  scale_color_discrete(name = "Promocja") +
+  ggtitle("Sprzedaż i liczba klientów w sklepie Rossmann nr 77") +
+  theme_light() +
+  theme(legend.position = "bottom")
+
+```
+
+### Histogram i wykres gęstości
+
+- sprzedaż wg promocji
+
+### Wykres pudełkowy
+
+- sprzedaż wg dnia tygodnia - czynnik
+
+### Wykres słupkowy - z grupowaniem i bez 
+
+- liczba sklepów wg asortymentu
+
+### Wykres kafelkowy
+
+- czy promocja i czy swieto szkolne
+
+### Uwzględnienie czasu
+
+- sprzedaż w kolejnych dniach
 
 ## Pakiet plotly
+
+```{r eval=FALSE, include=TRUE}
+p <- ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow, color=czy_promocja)) +
+  geom_point() +
+  scale_x_continuous(name = "Sprzedaż") +
+  scale_y_continuous(name = "Liczba klientów") +
+  scale_color_discrete(name = "Promocja") +
+  ggtitle("Sprzedaż i liczba klientów w sklepie Rossmann nr 77") +
+  theme_light() +
+  theme(legend.position = "bottom")
+
+plotly::ggplotly(p)
+```
+
 
 
