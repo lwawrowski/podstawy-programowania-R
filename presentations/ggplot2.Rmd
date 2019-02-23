@@ -1,0 +1,116 @@
+---
+title: "Wizualizacja danych"
+author: "Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+
+---
+
+# R base vs ggplot2 - wygląd
+
+```{r include=FALSE}
+library(tidyverse)
+library(readxl)
+
+rossmann <- read_xlsx("../data/rossmann.xlsx")
+
+sklep77 <- rossmann %>%
+  filter(sklep_id==77, czy_otwarty=="Tak")
+
+```
+
+.pull-left[
+
+```{r echo=FALSE}
+plot(sklep77$sprzedaz, sklep77$liczba_klientow, 
+     xlab = "Sprzedaż", ylab = "Liczba klientów",
+     main = "Sprzedaż i liczba klientów w sklepie Rossmann nr 77")
+```
+
+
+]
+
+
+.pull-right[
+```{r echo=FALSE}
+ggplot(sklep77, aes(x=sprzedaz, y=liczba_klientow)) +
+  geom_point() +
+  xlab("Sprzedaż") + ylab("Liczba klientów") +
+  ggtitle("Sprzedaż i liczba klientów w sklepie Rossmann nr 77") +
+  theme_light()
+```
+
+
+]
+
+---
+
+# R base vs ggplot2 - kod
+
+.pull-left[
+
+```{r eval=FALSE, echo=TRUE}
+plot(sklep77$sprzedaz, sklep77$liczba_klientow, 
+     xlab = "Sprzedaż", ylab = "Liczba klientów",
+     main = "Sprzedaż i liczba klientów w sklepie Rossmann nr 77")
+```
+
+
+]
+
+
+.pull-right[
+```{r eval=FALSE, echo=TRUE}
+ggplot(sklep77, aes(x=sprzedaz, y=liczba_klientow)) +
+  geom_point() +
+  xlab("Sprzedaż") + ylab("Liczba klientów") +
+  ggtitle("Sprzedaż i liczba klientów w sklepie Rossmann nr 77") +
+  theme_light()
+```
+]
+
+---
+
+# Pakiet ggplot2
+
+Pakiet do wizualizacji danych:
+
+- dokumentacja: https://ggplot2.tidyverse.org/
+- [cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)
+- tworzenie wykresów poprzez dodawanie (`+`) kolejnych warstw
+
+---
+
+# Sprzedaż i liczba klientów 
+
+.pull-left[
+
+```{r eval=FALSE, echo=TRUE}
+ggplot(sklep77, aes(x=sprzedaz, y=liczba_klientow))
+```
+
+
+]
+
+
+.pull-right[
+```{r eval=TRUE, echo=FALSE}
+ggplot(sklep77, aes(x=sprzedaz, y=liczba_klientow))
+```
+]
+
+
+---
+
+class: center, middle, inverse
+
+# Pytania?

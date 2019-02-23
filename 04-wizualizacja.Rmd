@@ -1,38 +1,182 @@
 # Wizualizacja danych
 
-## Wbudowane funkcje
+Będziemy działać na zbiorze dotyczącym sprzedaży w sklepach Rossmann
 
-## Pakiet ggplot2
-
-### Analiza rozkładu
-
-Będziemy działać na zbiorze dotyczącym klientów banku
-
-```{r}
+```{r message=FALSE, warning=FALSE}
 library(tidyverse)
 library(readxl)
 
-movies <- read_csv("data/movies.csv")
+rossmann <- read_xlsx("data/rossmann.xlsx")
+
+sklep77 <- rossmann %>%
+  filter(sklep_id==77, czy_otwarty=="Tak")
 ```
 
-Pierwszym sposobem analizy rozkładu jest wykres pudełkowy
+## Wbudowane funkcje
+
+Do prostych wykresów można wykorzystać wbudowaną funkcję `plot`.
 
 ```{r}
-
-movies %>%
-  filter(genre %in% c("Action", "Comedy", "Crime")) %>%
-  ggplot(., aes(y=duration, x=genre)) +
-  geom_boxplot()
+plot(sklep77$sprzedaz, sklep77$liczba_klientow, 
+     xlab = "Sprzedaż", ylab = "Liczba klientów",
+     main = "Sprzedaż i liczba klientów w sklepie Rossmann nr 77")
 ```
 
-Te same dane można przedstawić także na histogramie.
+## Pakiet ggplot2
+
+Wiodący pakiet do wizualizacji danych:
+
+- dokumentacja: https://ggplot2.tidyverse.org/
+- [cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)
+- tworzenie wykresów poprzez dodawanie (`+`) kolejnych warstw
+
+### Wykres punktowy
+
+Ten sam wykres co wcześniej, ale z wykorzystaniem pakietu ggplot2.
+
+```{r echo=FALSE}
+ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow)) +
+  geom_point() +
+  xlab("Sprzedaż") + 
+  ylab("Liczba klientów") +
+  ggtitle("Sprzedaż i liczba klientów w sklepie Rossmann nr 77") +
+  theme_light()
+```
+
+Wykonanie krok po kroku:
+
+1. Utworzenie siatki - określenie co chcemy na wykresie przedstawić
 
 ```{r}
-movies %>%
-  filter(genre %in% c("Action", "Comedy", "Crime")) %>%
-  ggplot(., aes(x=duration)) +
-  geom_histogram(binwidth=15) + 
-  facet_wrap(~ genre)
+ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow))
+```
+
+W zależności od typu wykresu w funkcji `aes` mogą znaleźć się argumenty:
+
+- x
+- y
+- fill
+- size
+- color
+- shape
+
+2. Określenie w jaki sposób chcemy te dane przedstawić - funkcja zawsze zaczyna się od `geom_`:
+
+```{r}
+ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow)) +
+  geom_point()
+```
+
+3. Edytowanie etykiet osi - funkcje `xlab` i `ylab`:
+
+```{r}
+ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow)) +
+  geom_point() +
+  xlab("Sprzedaż") +
+  ylab("Liczba klientów")
+```
+
+4. Dodanie tytułu - funkcja `ggtitle`
+
+```{r}
+ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow)) +
+  geom_point() +
+  xlab("Sprzedaż") +
+  ylab("Liczba klientów") +
+  ggtitle("Sprzedaż i liczba klientów w sklepie Rossmann nr 77")
+```
+
+5. Zmiana motywu - funkcja rozpoczynająca się od `theme_`:
+
+```{r}
+ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow)) +
+  geom_point() +
+  xlab("Sprzedaż") +
+  ylab("Liczba klientów") +
+  ggtitle("Sprzedaż i liczba klientów w sklepie Rossmann nr 77") +
+  theme_light()
+```
+
+Dostępne motywy:
+
+- theme_bw
+- theme_classic
+- theme_dark
+- theme_gray
+- theme_light
+- theme_linedraw
+- theme_minimal
+- theme_void
+
+Powyższe motywy są zaimplementowane w pakiecie ggplot2, ale można także skorzystać z dodatkowych pakietów:
+
+- [theme_bbc](https://github.com/bbc/bbplot)
+- [theme_xkcd](https://cran.r-project.org/web/packages/xkcd/)
+
+Albo stworzyć [swój własny motyw](https://www.statworx.com/de/blog/custom-themes-in-ggplot2/).
+
+*Zadanie*
+
+Zmień motyw wykresu na wybrany przez siebie.
+
+Dodamy teraz do wykresu kolejną cechę - rozpoczęcie promocji, żeby sprawdzić czy istnieje jakaś tendencja.
+
+```{r}
+ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow, color=czy_promocja)) +
+  geom_point() +
+  xlab("Sprzedaż") +
+  ylab("Liczba klientów") +
+  ggtitle("Sprzedaż i liczba klientów w sklepie Rossmann nr 77") +
+  theme_light()
 
 ```
+
+Okazuje się dosyć interesująco, niemniej nazwa etykiety legendy nie wygląda zbyt dobrze. Żeby to poprawić musimy użyć funkcji `scale_`
+
+```{r}
+ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow, color=czy_promocja)) +
+  geom_point() +
+  xlab("Sprzedaż") +
+  ylab("Liczba klientów") +
+  scale_color_discrete(name = "Promocja") +
+  ggtitle("Sprzedaż i liczba klientów w sklepie Rossmann nr 77") +
+  theme_light()
+
+```
+
+W funkcji `scale_` musimy podać w jaki sposób daną cechę wizualizujemy (x/y/color/...) oraz jakiego jest typu. Oprócz nazwy w tej funkcji możemy określić wiele innych kwestii takich jak:
+
+- wyświetlane etykiety
+- początek i koniec osi
+- kolory wariantów
+- etykiety wariantów
+
+```{r}
+ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow, color=czy_promocja)) +
+  geom_point() +
+  scale_x_continuous(name = "Sprzedaż") +
+  scale_y_continuous(name = "Liczba klientów") +
+  scale_color_discrete(name = "Promocja") +
+  ggtitle("Sprzedaż i liczba klientów w sklepie Rossmann nr 77") +
+  theme_light()
+
+```
+
+Zmiana pozycji legendy możliwa jest z wykorzystaniem funkcji `theme`:
+
+```{r}
+ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow, color=czy_promocja)) +
+  geom_point() +
+  scale_x_continuous(name = "Sprzedaż") +
+  scale_y_continuous(name = "Liczba klientów") +
+  scale_color_discrete(name = "Promocja") +
+  ggtitle("Sprzedaż i liczba klientów w sklepie Rossmann nr 77") +
+  theme_light() +
+  theme(legend.position = "bottom")
+
+```
+
+
+## Pakiet plotly
+
 

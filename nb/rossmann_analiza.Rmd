@@ -1,0 +1,103 @@
+---
+title: "Rossmann analiza"
+output:
+  word_document: default
+  html_notebook: default
+---
+
+Wczytujemy pakiet *tidyverse* i *readxl* oraz zbiór danych Rossmann:
+
+```{r wczytanie pakietów i zbioru}
+# install.packages("tidyverse")
+# install.packages("readxl")
+
+library(tidyverse)
+library(readxl)
+
+rossmann <- read_xlsx("dane/rossmann.xlsx")
+```
+
+W pierwszym kroku identyfikujemy sklepy, które były otwarte powyżej 300 dni w roku. Następnie identyfikatory tych sklepów (`sklep_id`) podajemy jako warunek filtrowania przy tworzeniu zbioru zawierającego wyłącznie wybrane sklepy.
+
+```{r identyfikacja sklepów > 300 dni}
+
+# rm300 <- filter(rossmann, czy_otwarty=="Tak")
+
+sklep_id_300 <- rossmann %>%
+  filter(czy_otwarty=="Tak") %>%
+  group_by(sklep_id) %>%
+  count() %>%
+  rename(liczba_dni=n) %>%
+  filter(liczba_dni >= 300)
+
+rossmann300 <- rossmann %>%
+  filter(sklep_id %in% sklep_id_300$sklep_id,
+         czy_otwarty=="Tak")
+
+```
+
+Ze stron NBP pobieramy dane dotyczące średnich miesięcznych kursów walut. Te dane przetwarzamy do reprezentacji długiej/wąskiej, aby ułatwić sobie analizę oraz późniejsze dołączenie do zbioru `rossmann300`. Ostatecznie wybieramy tylko dane dotyczące waluty EUR.
+
+```{r kurs euro}
+nbp <- read.csv("http://www.nbp.pl/kursy/Archiwum/publ_sredni_m_2014.csv", sep=";", dec=",")
+
+nbp_long <- nbp %>%
+  select(-X) %>%
+  gather(miesiac, kurs, 
+         -waluta, -kod, -liczba.jednostek)
+
+nbp_long %>%
+  group_by(kod) %>%
+  summarise(sr=mean(kurs))
+
+nbp_euro <- nbp_long %>%
+  filter(kod=="EUR") %>%
+  select(miesiac, kurs)
+  
+```
+
+Aby połączenie tych dwóch zbiorów było możliwe musimy w obu posiadać klucze połączeniowe. Obecnie takim kluczem nie dysponujemy, ale możemy go utworzyć na podstawie daty. W tym celu konwertujemy zmienną tekstową zawierającą datę na klasę `Data-Time` i wyodrębniamy nazwę miesiąca do osobnej kolumny. Na tej podstawie możemy dokonać połączenia obu zbiorów.
+
+```{r data}
+
+rossmann300 <- rossmann300 %>%
+  mutate(data_f=as.POSIXct(strptime(data, "%Y-%m-%d")),
+         month=months.POSIXt(data_f))
+
+rosssmann300euro <- inner_join(rossmann300, nbp_euro,
+                               by=c("month"="miesiac")) %>%
+  mutate(sprzedazPLN=sprzedaz*kurs)
+
+```
+
+Następnie sprawdzimy czy średnia sprzedaż w PLN w grupach zdefiniowanych przez asortyment sklepu różni się istotnie statystycznie. W tym celu wykorzystamy jednoczynnikową analizę wariancji (ANOVA). W tej metodzie hipoteza zerowa wskazuje, że średnie we wszystkich grupach są takie same, a hipoteza alternatywna stanowi, że co najmniej jedna para średnich różni się statystycznie.
+
+```{r asortyment anova}
+
+rosssmann300euro %>%
+  group_by(sklep_asort) %>%
+  summarise(sr=mean(sprzedazPLN))
+
+aov_asort <- aov(sprzedazPLN ~ sklep_asort, data = rosssmann300euro)
+summary(aov_asort)
+TukeyHSD(aov_asort)
+
+```
+
+Na podstawie funkcji `aov` odrzucemy hipotezę zerową - średnie różnią się pomiędzy sobą w grupach asortymentu. Test HSD Tukey'a pozwala na stwierdzenie, które pary różnią się istotnie statystycznie. W tym przypadku wszystkie grupy różnią się statystycznie pomiędzy sobą. 
+
+Przeprowadźmy tą samą analizę dla typu sklepu.
+
+```{r typ anova}
+
+rosssmann300euro %>%
+  group_by(sklep_typ) %>%
+  summarise(sr=mean(sprzedazPLN))
+
+aov_typ <- aov(sprzedazPLN ~ sklep_typ, data = rosssmann300euro)
+summary(aov_typ)
+TukeyHSD(aov_typ)
+
+```
+
+W tym przypadku także odrzucamy hipotezę zerową, ale test Tukey'a wskazuje na to, że różnica pomiędzy typami c i a nie są statystycznie istotne.

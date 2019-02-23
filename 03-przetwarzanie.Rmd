@@ -497,39 +497,4 @@ rossmann_odl <- rossmann %>%
 
 Rozważmy sklepy Rossmann, które w 2014 roku były otwarte powyżej 300 dni w roku. Czy średnia sprzedaż wyrażona w zł w sklepach Rossmann różni się statystycznie pomiędzy grupami zdefiniowanymi przez asortyment sklepu? Dane na temat średniego kursu miesięcznego euro pobierz ze stron [NBP](http://www.nbp.pl/home.aspx?f=/kursy/arch_a.html). 
 
-```{r include=FALSE}
-rossmann <- read_xlsx("data/rossmann.xlsx")
-
-nbp <- read.csv("http://www.nbp.pl/kursy/Archiwum/publ_sredni_m_2014.csv",
-                sep=";", dec=",")
-
-nbp_eur <- nbp %>%
-  select(kod, styczeń:grudzień) %>%
-  filter(kod=="EUR") %>%
-  gather(miesiac, kurs, -kod)
-
-rn <- rossmann %>%
-  filter(czy_otwarty=="Tak") %>%
-  group_by(sklep_id) %>%
-  count() %>%
-  filter(n>=300)
-
-rossmann300 <- rossmann %>%
-  mutate(data_f=as.POSIXct(strptime(data, "%Y-%m-%d")),
-         mies=months.POSIXt(data_f)) %>%
-  filter(sklep_id %in% rn$sklep_id)
-
-rossmann300_eur <- inner_join(rossmann300, nbp_eur, by=c("mies"="miesiac")) %>%
-  mutate(sprzedaz_eur=sprzedaz*kurs)
-
-rossmann300_eur %>%
-  group_by(sklep_asort) %>%
-  summarise(sr=mean(sprzedaz_eur))
-
-anova_asort <- aov(sprzedaz_eur ~ sklep_typ, data = rossmann300_eur)
-
-summary(anova_asort)
-TukeyHSD(anova_asort)
-  
-```
-
+[Rozwiązanie](nb/rossmann_analiza.Rmd)
