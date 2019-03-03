@@ -1,5 +1,7 @@
 # Wizualizacja danych
 
+[Wprowadzenie](presentations/ggplot2.html)
+
 [Przewodnik po wizualizacji danych](https://www.data-to-viz.com/)
 
 Będziemy działać na zbiorze dotyczącym sprzedaży w sklepach [Rossmann](data/rossmann.xlsx).
@@ -191,17 +193,217 @@ ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow, color=czy_promocja)) +
 
 ```
 
-### Histogram i wykres gęstości
+### Histogram
 
-- sprzedaż wg promocji
+Rozkład cechy można ocenić na podstawie histogramu - domyślnie rysowanych jest 30 słupków.
+
+```{r}
+ggplot(data = sklep77, aes(x=sprzedaz)) +
+  geom_histogram()
+```
+
+W funkcji `geom_histogram` można podać liczbę słupków (`bins`) albo ich szerokość (`binwidth`). Poniżej zastosowano słupki o szerokości 1000 euro.
+
+```{r}
+ggplot(data = sklep77, aes(x=sprzedaz)) +
+  geom_histogram(binwidth = 1000)
+```
+
+Dodatkowo w tej funkcji można określić kwestie estetyczne - kolory obramowania i wypełnienia słupków. 
+
+```{r}
+ggplot(data = sklep77, aes(x=sprzedaz)) +
+  geom_histogram(binwidth = 500, color = "black", fill = "green")
+```
+
+Pełna lista nazw kolorów znajduje się [tutaj](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf).
+
+Z wykorzystaniem funkcji `scale_` zmieniamy nazwy osi (`name`), granice (`limits`) oraz wskazania liczbowe (`breaks`). Te dwie ostatnie wartości musimy deklarować jako wektory z wykorzystaniem funkcji `c()`.
+
+```{r}
+ggplot(data = sklep77, aes(x=sprzedaz)) +
+  geom_histogram(binwidth = 500, 
+                 color = "black", fill = "green") +
+  scale_x_continuous(name = "Sprzedaż", 
+                     limits = c(4000,17000),
+                     breaks = c(5000, 8000, 11000)) +
+  scale_y_continuous(name = "Liczebność",
+                     limits = c(0,50))
+
+```
+
+Można zaumatyzować proces dobierania wskazań liczbowych z wykorzystaniem funkcji `seq` opisanej szerzej w rozdziale 2.1.2.
+
+```{r}
+ggplot(data = sklep77, aes(x=sprzedaz)) +
+  geom_histogram(binwidth = 500, 
+                 color = "black", fill = "green") +
+  scale_x_continuous(name = "Sprzedaż", 
+                     limits = c(4000,17000),
+                     breaks = seq(4000, 17000, 1500)) +
+  scale_y_continuous(name = "Liczebność",
+                     limits = c(0,50))
+
+```
 
 ### Wykres pudełkowy
 
-- sprzedaż wg dnia tygodnia - czynnik
+Wykres pudełkowy umożliwia porównywanie rozkładów cechy wg zmiennej grupującej. Wymogiem jest aby na osi `x` znajdowała się zmienna grupująca, a na osi `y` cecha analizowana. 
 
-### Wykres słupkowy - z grupowaniem i bez 
+Przeanalizujemy sprzedaż według kolejnych dni tygodnia.
 
-- liczba sklepów wg asortymentu
+```{r}
+ggplot(sklep77, aes(x=dzien_tyg, y=sprzedaz)) + geom_boxplot()
+```
+
+Zdecydowanie nie jest wykres jakiego oczekiwaliśmy. Wynika to z faktu, że dzień tygodnia w zbiorze danych jest zapisany jako zmienna numeryczna, natomiast prawidłowym typem dla zmiennej grupującej jest typ tekstowy lub czynnik (faktor). Ten typ danych został szczegółowo opisany w części 2.3.
+
+Dokonujemy zatem zamiany typu danych:
+
+```{r}
+sklep77 <- sklep77 %>%
+  mutate(dzien_tyg=factor(x = dzien_tyg,
+                          levels = 1:6,
+                          labels = c("Pon", "Wt", "Śr", "Czw", "Pt", "Sob"),
+                          ordered = TRUE))
+
+ggplot(sklep77, aes(x=dzien_tyg, y=sprzedaz)) +
+  geom_boxplot() 
+```
+
+Z tego wykresu można już odczytać, że najwyższa mediana sprzedaży występuje w poniedziałek, a najniższa w środę. 
+
+Jeżli kategorii jest dużo to można obrócić wykres z wykorzystaniem funkcji `coord_flip`.
+
+```{r}
+ggplot(sklep77, aes(x=dzien_tyg, y=sprzedaz)) +
+  geom_boxplot() +
+  coord_flip()
+
+```
+
+Użycie tej funkcji powoduje wyłącznie obrócenie wykresu. Nazwy osi nie uległy zmianie pomimo, że zostały zamienione. 
+Odwrócimy jeszcze kolejność etykiet dnia tygodnia, tak aby na górze był poniedziałek.
+
+```{r}
+ggplot(sklep77, aes(x=dzien_tyg, y=sprzedaz)) +
+  geom_boxplot() +
+  coord_flip() +
+  scale_x_discrete(limits = rev(levels(sklep77$dzien_tyg)))
+```
+
+### Wykres słupkowy
+
+W zależności od typu danych wejściowych, wykres słupkowy można stworzyć na dwa sposoby:
+
+- dane jednostkowe - `geom_bar` - funkcja sama oblicza wartości do wyświetlenia,
+- dane zagregowane - `geom_col` - funkcja otrzymuje już obliczone wartości.
+
+Sprawdźmy ile jest sklepów o danym asortymencie. W tym celu potrzebujemy informację o sklepie i typie oferowanego asortymentu. 
+
+```{r}
+rossmann_asort <- rossmann %>%
+  select(sklep_id, sklep_asort) %>%
+  distinct()
+
+glimpse(rossmann_asort)
+
+```
+
+W funkcji `aes` podajemy tylko kolumnę zawierającą dane do zliczenia. 
+
+```{r}
+ggplot(rossmann_asort, aes(x=sklep_asort)) +
+  geom_bar()
+```
+
+Natomiast użycie funkcji `geom_col` wymaga samodzielnego obliczenia wartości:
+
+```{r}
+rossmann_asort2 <- rossmann_asort %>%
+  count(sklep_asort)
+
+glimpse(rossmann_asort2)
+```
+
+Wartość do wyświetlenia podajemy w funkcji `aes` w argumencie `y`.
+
+```{r}
+ggplot(rossmann_asort2, aes(x=sklep_asort, y=n)) +
+  geom_col()
+```
+
+Uporządkujemy etykiety osi `x` (obecnie są wyświetlane w kolejności alfabetycznej) tworząc czynnik.
+
+```{r}
+rossmann_asort2 <- rossmann_asort2 %>%
+  mutate(sklep_asort=factor(x = sklep_asort,
+                            levels = c("Podstawowy", 
+                                       "Rozszerzony", 
+                                       "Extra"), 
+                            ordered = T))
+
+glimpse(rossmann_asort2)
+
+```
+
+```{r}
+ggplot(rossmann_asort2, aes(x=sklep_asort, y=n)) +
+  geom_col()
+```
+
+Do wykresu słupkowego możemy dodać jeszcze jedną zmienną. W tym przypadku będzie to typ sklepu.
+
+```{r}
+rossmann_asort3 <- rossmann %>%
+  select(sklep_id, sklep_asort, sklep_typ) %>%
+  distinct() %>%
+  count(sklep_asort, sklep_typ) %>%
+  mutate(sklep_asort=factor(x = sklep_asort,
+                            levels = c("Podstawowy", 
+                                       "Rozszerzony", 
+                                       "Extra"), 
+                            ordered = T))
+
+glimpse(rossmann_asort3)
+```
+
+Uwzględnienie kolejnej zmiennej jest możliwe jako argument `fill` w funkcji `aes`.
+
+```{r}
+ggplot(rossmann_asort3, aes(x=sklep_asort, y=n, fill=sklep_typ)) +
+  geom_col()
+```
+
+Domyślnie kategorie są układane jedna na drugą - `stack`. Można je ułożyć obok siebie dodając argument `position = "dodge"` w funkcji `geom_col`.
+
+```{r}
+ggplot(rossmann_asort3, aes(x=sklep_asort, y=n, fill=sklep_typ)) +
+  geom_col(position = "dodge")
+
+```
+
+Możemy jeszcze dodać etykiety słupków wykorzystując funkcję `geom_text`, w której trzeba podać argumenty definujące położenie wartości etykiet. Wartości tych argumentów będą zależały od typu wykresu. 
+
+```{r}
+ggplot(rossmann_asort3, aes(x=sklep_asort, y=n, fill=sklep_typ)) +
+  geom_col(position = "dodge") + 
+  geom_text(aes(label = n), 
+            position = position_dodge(width = 0.9),
+            vjust = -0.3)
+```
+
+Zmienimy jeszcze nazwę legendy za pomocą funkcji `scale_fill_discrete`. Wykorzystujemy tę konkretną funkcję ze względu na to, że typ sklepu jest argumentem `fill` w funkcji `aes` oraz cechą jakościową (`discrete`).
+
+```{r}
+ggplot(rossmann_asort3, aes(x=sklep_asort, y=n, fill=sklep_typ)) +
+  geom_col(position = "dodge") + 
+  geom_text(aes(label = n), 
+            position = position_dodge(width = 0.9),
+            vjust = -0.3) +
+  scale_fill_discrete(name = "Typ sklepu")
+
+```
 
 ### Wykres kafelkowy
 
@@ -226,5 +428,14 @@ p <- ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow, color=czy_promocj
 plotly::ggplotly(p)
 ```
 
+*Zadanie*
 
+Stwórz trzy grafiki dla danych dotyczących [filmów](data/movies.csv).
 
+```{r}
+filmy <- read.csv("data/movies.csv")
+
+summary(filmy)
+```
+
+Z racji mnogości gatunków można ograniczyć się do kilku wybranych. 

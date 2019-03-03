@@ -100,7 +100,7 @@ rossmann <- read_xlsx("data/rossmann.xlsx")
 
 Z kolei do wczytywania plików tekstowych wykorzystuje się funkcję `read.table()`. Wczytywany plik nie musi być zlokalizowany na dysku twardym - może to być link internetowy.
 
-```{r}
+```{r eval=FALSE, include=TRUE}
 
 lotto <- read.table("http://www.mbnet.com.pl/dl.txt")
 names(lotto) <- c("lp", "data", "numery")
