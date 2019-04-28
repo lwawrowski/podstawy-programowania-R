@@ -413,6 +413,62 @@ ggplot(rossmann_asort3, aes(x=sklep_asort, y=n, fill=sklep_typ)) +
 
 - sprzedaż w kolejnych dniach
 
+### Facets
+
+```{r}
+sr_sprzedaz <- rossmann %>%
+  filter(sprzedaz > 0) %>%
+  group_by(sklep_id, sklep_asort) %>%
+  summarise(sprzedaz_sr=mean(sprzedaz))
+
+odleglosc <- rossmann %>%
+  select(sklep_id, sklep_konkurencja) %>%
+  distinct()
+
+sprzedaz_odleglosc <- inner_join(sr_sprzedaz, odleglosc, by="sklep_id")
+
+ggplot(sprzedaz_odleglosc, aes(x=sprzedaz_sr, y=sklep_konkurencja)) + 
+  geom_point() +
+  facet_wrap(~ sklep_asort)
+
+```
+
+
+```{r}
+sr_sprzedaz_prom <- rossmann %>%
+  filter(sprzedaz > 0) %>%
+  group_by(sklep_id, czy_promocja) %>%
+  summarise(sprzedaz_sr=mean(sprzedaz))
+
+sprzedaz_prom_odl <- inner_join(sr_sprzedaz_prom, odleglosc)
+
+head(sprzedaz_prom_odl)
+
+ggplot(sprzedaz_prom_odl, aes(x=sprzedaz_sr, y=sklep_konkurencja, color=czy_promocja)) + 
+  geom_point()
+
+```
+
+Zamiana reprezentacji danych na szeroką.
+
+```{r}
+sprzedaz_prom_odl_wide <- sprzedaz_prom_odl %>%
+  spread(czy_promocja, sprzedaz_sr)
+
+head(sprzedaz_prom_odl_wide)
+```
+
+I na wąską.
+
+```{r}
+sprzedaz_prom_odl_long <- sprzedaz_prom_odl_wide %>%
+  gather(czy_promocja, sprzedaz_sr, Nie, Tak)
+
+head(sprzedaz_prom_odl_long)
+
+```
+
+
 ## Pakiet plotly
 
 ```{r eval=FALSE, include=TRUE}

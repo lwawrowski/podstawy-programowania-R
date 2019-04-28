@@ -1,7 +1,9 @@
 # Programowanie w R
 
+[Prezentacja](presentations/ppr20190427.html)
+
 ## Funkcje
 
-## Pętle
-
 ## Instrukcje warunkowe
+
+## Pętle

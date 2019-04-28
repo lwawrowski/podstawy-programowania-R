@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Podstawy programowania w R</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Łukasz Wawrowski" />
+    <link rel="stylesheet" href="default.css" type="text/css" />
+    <link rel="stylesheet" href="default-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Podstawy programowania w R
+### Łukasz Wawrowski
+
+---
+
+
+
+
+
+# Plan dnia
+
+8:30 - 10:15 - Wizualizacja danych
+
+10:30 - 12:30 - Przetwarzanie danych
+
+13:15 - 15:00 - Grupowanie
+
+15:15 - 17:15 - Klasyfikacja 
+
+---
+
+# System kontroli wersji (git)
+
+Oprogramowanie do śledzenia zmian w kodzie źródłowym.
+
+- umożliwia współpracę wielu osób w jednym projekcie
+- pliki są przechowywane lokalnie oraz w repozytorium na serwerze
+- wymaga zainstalowania programu [git](https://git-scm.com/downloads)
+- darmowe platformy: [github](https://github.com/), [bitbucket](https://bitbucket.org/), [gitlab](https://about.gitlab.com/)
+
+---
+
+# Repozytorium na zajęcia
+
+New project -&gt; Version Control -&gt; Git -&gt; Repository URL
+
+https://github.com/lwawrowski/cdv_bigdata.git
+
+Alternatywnie: Clone or download -&gt; Download ZIP
+
+---
+
+# Wykres kafelkowy
+
+![](ppr201904_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+Wybór kolorów: http://colorbrewer2.org/
+
+---
+
+# Analiza współzależności
+
+.pull-left[
+Test niezależności `\(\chi^2\)` (chi-kwadrat).
+
+H0: cechy są niezależne
+H1: cechy nie są niezależne
+
+Przyjęty poziom istotności `\(\alpha = 0,05\)`.
+
+Jeśli wartość p (p-value) jest mniejsze od `\(\alpha\)` - **odrzucamy H0**.
+]
+
+--
+
+.pull-right[
+
+![](img/freddie.jpg)
+
+]
+
+---
+
+# Analiza współzależności w R
+
+Funkcja `chisq.test()`, która jako argument przyjmuje tablicę kontyngencji stworzoną za pomocą funkcji `table()`.
+
+Dodatkowo możemy policzyć siłę tej zależności:
+
+`$$V=\sqrt\frac{\chi^2}{n \cdot min(k-1; r-1)}$$`
+
+---
+
+class: inverse
+
+# Zadanie 1
+
+Sprawdź istnienie zależności pomiędzy dniem tygodnia a rozpoczęciem się promocji dla sklepów typu b. Z analizy wyeliminuj soboty i niedziele.
+
+--
+
+
+```r
+rossmann %&gt;%
+  filter(sklep_typ == "b", dzien_tyg %in% 1:5)
+```
+
+
+---
+
+# Wykres uwzględniający zmianę w czasie
+
+![](ppr201904_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+
+---
+
+# Pakiet lubridate
+
+Zestaw funkcji do operowania na datach.
+
+- y - rok (year)
+- m - miesiąc (month)
+- d - dzień (day)
+- h - godzina (hour)
+- m - minuta (minute)
+
+Przykłądy funkcji:
+
+- ymd - konwertuje tekst zapisany w postaci rok-miesiąc-dzień na obiekt daty
+- dmy_hm - konwertuje tekst zapisany w postaci dzień-miesiąc-rok godzina:minuta na obiekt daty
+- month - pobiera z obiektu daty informację o miesiącu
+- year - pobiera z obiektu daty informację o roku
+- week - pobiera z obiektu daty informację o tygodniu roku
+- ...
+
+---
+
+# Zadanie 2 
+
+Dla wybranego sklepu przedstaw na wykresie średnią sprzedaż w ujęciu tygodniowym. 
+
+
+
+---
+
+# Interaktywne wykresy z pakietem `plotly`. 
+
+- biblioteka `plotly` to interfejs interaktywnych wykresów dla różnych środowisk (R, Python, JS)
+- posiada własną składnię tworzenia wykresów
+- bardzo prosto można zamienić statystyczny wykres `ggplot` na interaktywny za pomocą funkcji `ggplotly()`
+
+---
+
+class: inverse
+
+# Zadanie 3
+
+Pobierz ze strony NBP dane na temat dziennego średniego kursu euro w 2014 roku. Dodaj ten plik do projektu. 
+
+---
+
+# Łączenie danych
+
+![](img/join-venn.png)
+
+---
+
+class: inverse
+
+# Zadanie 4
+
+Oblicz wartość sprzedaży w sklepie Rossmann w PLN. W którym miesiącu zanotowano najniższą sprzedaż, a w którym najwyższą?
+
+---
+
+# Długa i szeroka reprezentacja danych
+
+![](img/widelong.png)
+
+---
+
+# Funkcje `gather` i `spread`
+
+Niedługo już nieaktualne: https://tidyr.tidyverse.org/dev/articles/pivot.html
+
+`gather`: wide -&gt; long
+
+
+```r
+gather(data = zbior_danych,
+       key = zmienna_nazwy_kolumn,
+       value = zmienna_wartosc,
+       wybrane_kolumny)
+```
+
+
+`spread`: long -&gt; wide
+
+
+```r
+spread(data = zbior_danych,
+       key = zmienna_nazwy_kolumn,
+       value = zmienna_wartosc)
+```
+
+
+---
+
+class: inverse
+
+# Zadanie 5
+
+Zbiór danych dotyczący wyborów do sejmików na poziomie powiatów przekształć w taki sposób, aby uzyskać informację o partii, która wygrała w danym powiecie.
+
+---
+
+# Podział metod
+
+- Uczenie nienadzorowane (unsupervised learning)
+
+Końcowy wynik nie jest znany, np. grupowanie.
+
+- Uczenie nadzorowane (supervised learning)
+
+Końcowy wynik jest znany, np. klasyfikacja.
+
+---
+
+# Podział metod
+
+![](img/wd.jpg)
+
+---
+
+# Segmentacja
+
+Segmentacja/grupowanie/klasteryzacja czyli:
+
+podział zbioru obiektów na grupy obiektów podobnych. 
+
+W rezultacie:
+
+- obiekty znajdujące się w tym samym segmencie powinny być do siebie podobne,
+- obiekty znajdujące się w różnych segmentach powinny się od siebie różnić.
+
+---
+
+# Idea
+
+&lt;center&gt;&lt;img src = "img/segmentacja.jpg" height = "400px" /&gt;&lt;/center&gt;
+
+---
+
+# Etapy segmentacji
+
+- sformułowanie celu analizy
+- dobór cech
+- wybór metody segmentacji
+- przeprowadzenie segmentacji
+- weryfikacja wyników
+- interpretacja wyników
+
+---
+
+# Podobieństwo obiektów
+
+W statystyce miarą podobieństwa jest metryka np. euklidesowa lub miejska.
+
+Stosowanie metryk wymaga zapewnienia porównywalności różnych cech poprzez zastosowanie np. standaryzacji.
+
+Standaryzacja pozbawia cechy jednostek, w jakich są mierzone - ustalając średnią równą 0 i odchylenie standardowe równe 1.
+
+---
+
+# Metoda k-średnich
+
+Najpopularniejsza metoda grupowania obiektów, która efektywnie działa zarówno na małych, jak i dużych zbiorach.
+
+Wymaga zadeklarowania końcowej liczby segmentów.
+
+__Algorytm__
+
+1. Określ liczbę grup - `\(k\)`
+2. Dla każdej grupy ustal wyjściowy centroid
+3. Przypisz każdy obiekt do najbliższego centroidu
+4. Na podstawie przypisanych obiektów oblicz nowe współrzędne centroidu
+5. Sprawdź czy każdy obiekt przypisany jest do najbliższego centroidu
+6. Jeśli nie to zmień przypisanie obiektu do centrodu
+7. Jeśli nie obserwuje się żadnych przesunięć to algorytm się kończy
+
+---
+
+# Ustalanie liczby grup
+
+W metodzie k-średnich należy podać docelową liczbę skupień. Możemy spróbować ustalić tą wartość na podstawie wykresu osypiska (ang. _elbow method_).
+
+&lt;center&gt;&lt;img src = "img/elbow.png" height = "300px" /&gt;&lt;/center&gt;
+
+Wybieramy liczbę skupień po której nie następuje już gwałtowny spadek wartości wariancji wewnątrz-grupowej.
+
+---
+
+# Grupowanie w R
+
+- funkcja `scale()` do standaryzacji danych
+- funkcja `kmeans()` do ustalenia skupień
+
+--
+
+Pakiet `ClusterR`
+
+- funkcja `Optimal_Clusters_KMeans` do wyświetlenia wykresu osypiska
+- funkcja `KMeans_rcpp` do ustalenia skupień z wykorzystaniem algorytmu kmeans++
+
+---
+
+class: inverse
+
+# Zadanie 6
+
+Przeprowadź grupowanie powiatów województwa wielkopolskiego.
+
+---
+
+# Klasyfikacja
+
+[A visual introduction to machine learning](http://www.r2d3.us/visual-intro-to-machine-learning-part-1/)
+
+---
+
+# Drzewo klasyfikacyjne
+
+Zalety:
+
+- łatwa interpretacja
+- nie trzeba normalizować cech
+- rozwiązuje problemy liniowe i nieliniowe
+
+Wady:
+
+- mała efektywność przy małych zbiorach danych
+- łatwo można przeuczyć
+
+---
+
+class: inverse
+
+# Zadanie 7
+
+Zainstaluj następujące pakiety: `caTools`, `rpart`, `rpart.plot`, `caret`.
+
+---
+
+# Miary dopasowania
+
+[Tablica pomyłek](https://pl.wikipedia.org/wiki/Tablica_pomy%C5%82ek)
+
+[Czułość i swoistość](https://pl.wikipedia.org/wiki/Czu%C5%82o%C5%9B%C4%87_i_swoisto%C5%9B%C4%87)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,241 @@
+---
+title: "Podstawy programowania w R"
+author: "Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+
+
+---
+
+# Plan dnia
+
+13:00 - 14:30 - Struktury danych
+
+14:45 - 16:15 - Funkcje, wykonywanie warunkowe
+
+16:30 - 18:00 - Pętle
+
+---
+
+# Wektory
+
+Tworzone za pomocą funkcji `c()`. Mogą mieć następujące typy:
+
+- logiczne
+- liczbowe
+- tekstowe
+
+--
+
+Można także tworzyć puste wektory bądź o określonej długości:
+
+- `logical()`
+- `numeric()`
+- `character()`
+
+--
+
+Rzutowanie wektora:
+
+- `as.logical()`
+- `as.numeric()`
+- `as.character()`
+
+---
+
+# Indeksowanie wektora
+
+Do konkretnych wartości wektora uzyskujemy dostęp za pomocą nawiasów kwadratowych:
+
+```{}
+wektor[pozycja]
+
+```
+
+---
+
+class: inverse
+
+# Zadanie 1
+
+Dane są dwa wektory 
+
+- a: `2, 3, 7, 8, 2`
+- b: `9, 1, 2, 0, 2` 
+
+Jakiego typu będzie wektor będący wynikiem działania `a <= b`?
+
+---
+
+# Generowanie wartości
+
+- losowanie wartości z podanego zakresu - funkcja `sample()`
+- losowanie wartości z rozkładu:
+  - jednostajnego - funkcja `runif()`
+  - normalnego - funkcja `rnorm()`
+  
+--
+  
+Ziarno generatora: `set.seed()`
+
+---
+
+# Funkcje wykonywane na wektorach
+
+- `length()`
+- `typeof()`
+- `mean()`
+- `is.logical()`
+- `is.numeric()`
+- ...
+
+---
+
+# Wartości nieliczbowe
+
+- NA
+- NaN
+- Inf
+- NULL
+
+---
+
+class: inverse
+
+# Zadanie 2
+
+Wylosuj z rozkładu jednostajnego 1000 obserwacji z ziarnem równym 76. Ile wynosi średnia tych wartości?
+
+---
+
+# Macierz
+
+Tworzona za pomocą funkcji `matrix(wartosci, nrow = liczba_wierszy, ncol = liczba_kolumn)`
+
+--
+
+Indeksowanie macierzy `macierz[numer_wiersza, numer_kolumny]`
+
+---
+
+# Ramka danych
+
+Tworzona za pomocą funkcji `data.frame()`
+
+--
+
+Trzy sposoby indeksowania:
+
+- po numerze kolumny `df[, 2]`
+- po nazwie kolumny `df[, "nazwa"]`
+- z wykorzystaniem symbolu dolara `df$nazwa`
+
+---
+
+# Lista
+
+Tworzenie za pomocą funkcji `list()`
+
+Może zawierać wiele różnych typów danych
+
+---
+
+# Funkcje
+
+Funkcję ograniczają potrzebę kopiowania kodu i ułatwiają wprowadzanie zmian.
+
+Stworzenie funkcji wymaga:
+
+- wymyślenia nazwy funkcji,
+- określenia elementów wejściowych,
+- umieszczenia kodu w ciele funkcji.
+
+---
+
+# Dobre praktyki tworzenia funkcji
+
+- nazwy funkcji powinny być czasownikami,
+- podkreślnik vs. notacja camelCase
+- wspólny przedrostek
+
+---
+
+class: inverse
+
+# Zadanie 3
+
+Napisz funkcję, która na podstawie podanej godziny wyświetli komunikat "Dzień dobry" lub "Dobry wieczór".
+
+---
+
+# Wykonywanie warunkowe
+
+Za pomocą instrukcji `if` możemy warunkowo wykonywać kod. Ogólna postać jest następująca:
+
+```{r eval=FALSE, include=TRUE}
+if(warunek){
+  # kod wykonany jeśli warunek jest równy TRUE
+} else {
+  # kod wykonany jeśli warunek jest równy FALSE
+}
+
+
+```
+
+Element _warunek_ musi zwracać wartość logiczną `TRUE` albo `FALSE`.
+
+Operatory łączenia: 
+
+- i: `&&` 
+- lub: `||`
+
+---
+
+class: inverse
+
+# Zadanie 4
+
+Napisz funkcję, która dla podanej liczby zwróci różne komunikaty:
+
+- podzielna przez 3,
+- podzielna przez 5,
+- podzielna przez 3 i 5,
+- niepodzielna ani przez 3 ani przez 5.
+
+Operator zwracający resztę z dzielenia to `%%`.
+
+---
+
+# Pętla for
+
+Pętla składa się z trzech elementów:
+
+- wyjście,
+- sekwencja,
+- ciało.
+
+```{r eval=FALSE, include=TRUE}
+for(iterator in zakres){
+
+# ciało pętli
+
+}
+
+
+```
+
+---
+
+class: inverse
+
+# Zadanie 5
+
+Wytypuj 6 liczb z 49. Za pomocą pętli przeprowadź 1000 losowań lotto, a otrzymane wyniki przechowaj w odpowiednim obiekcie.
