@@ -8,9 +8,15 @@ Będziemy działać na zbiorze dotyczącym sprzedaży w sklepach [Rossmann](data
 
 ```{r message=FALSE, warning=FALSE}
 library(tidyverse)
-library(readxl)
 
-rossmann <- read_xlsx("data/rossmann.xlsx")
+# library(readxl)
+# 
+# rossmann <- read_xlsx("data/rossmann.xlsx")
+#
+# save(rossmann, file="data/rossmann.RData")
+
+# natywny format, mniejszy rozmiar, szybsze wczytywanie
+load("data/rossmann.RData")
 
 sklep77 <- rossmann %>%
   filter(sklep_id==77, czy_otwarty=="Tak")
@@ -407,11 +413,87 @@ ggplot(rossmann_asort3, aes(x=sklep_asort, y=n, fill=sklep_typ)) +
 
 ### Wykres kafelkowy
 
-- czy promocja i czy swieto szkolne
+Do wizualizacji tabeli częstości można użyć wykresu kafelkowego. W tym celu najpierw zliczamy wystąpienia wariantów cech czy_promocja oraz czy_swieto_szkolne i wynik przekazujemy bezpośrednio do funkcji `ggplot()`.
+
+```{r}
+sklep77 %>%
+  count(czy_promocja, czy_swieto_szkolne) %>%
+  ggplot(aes(x = czy_promocja, 
+             y = czy_swieto_szkolne,
+             fill = n)) +
+  geom_tile()
+```
+
+Aby dodać do tego wykresu etykiety posłużymy się funkcją `geom_label()`
+
+```{r}
+sklep77 %>%
+  count(czy_promocja, czy_swieto_szkolne) %>%
+  ggplot(aes(x = czy_promocja, 
+             y = czy_swieto_szkolne,
+             fill = n)) +
+  geom_tile() +
+  geom_label(aes(label = n), color = "white")
+
+```
+
+Zwykle patrząc na wykres podświadomie zakładamy, że ciemniejszy kolor oznacza wyższe wartości, natomiast jasny małe liczby. W tym przypadku układ kolorów jest odwrócony. Musimy odpowiednio dobrać kolory, aby to poprawić. Bardzo przydatne narzędzie znajduje się pod adresem: http://colorbrewer2.org/. Następnie korzystamy z funkcji `scale_fill_gradient`, w której określamy tylko kolor początkowy i końcowy.
+
+```{r}
+sklep77 %>%
+  count(czy_promocja, czy_swieto_szkolne) %>%
+  ggplot(., aes(x = czy_promocja, 
+                y = czy_swieto_szkolne,
+                fill = n)) +
+  geom_tile() +
+  geom_label(aes(label = n), color = "white") +
+  scale_fill_gradient(low = "#66c2a4", 
+                      high = "#005824")
+
+```
 
 ### Uwzględnienie czasu
 
-- sprzedaż w kolejnych dniach
+Próba stworzenia wykresu przedstawiającego zmianę sprzedaży w czasie za pomocą oryginalnych danych spowoduje uzsykanie niezbyt czytelnej grafiki.
+
+```{r}
+ggplot(sklep77, aes(x=data,
+                    y=sprzedaz,
+                    color=dzien_tyg)) +
+  geom_point()
+```
+
+Wynika to z faktu, że dzien tygodnia jest traktowany jak zmienna numeryczna, a data jest zmienną tekstową. Konwersja tekstu na datę jest możliwa z wykorzystaniem pakietu `lubridate`. W tym pakiecie każda część daty ma swój akronim, który później jest wykorzystywany w odpowiednich funkcjach:
+
+- y - rok (year)
+- m - miesiąc (month)
+- d - dzień (day)
+- h - godzina (hour)
+- m - minuta (minute)
+
+Przykłady funkcji:
+
+- ymd - konwertuje tekst zapisany w postaci rok-miesiąc-dzień na obiekt daty
+- dmy_hm - konwertuje tekst zapisany w postaci dzień-miesiąc-rok godzina:minuta na obiekt daty
+- month - pobiera z obiektu daty informację o miesiącu
+- year - pobiera z obiektu daty informację o roku
+- week - pobiera z obiektu daty informację o tygodniu roku
+
+Według powyższych reguł korzystamy z funkcji `ymd()` do konwersji daty w naszym zbiorze.
+
+```{r message=FALSE, warning=FALSE}
+library(lubridate)
+
+sklep77a <- sklep77 %>%
+  mutate(dzien_tyg=as.factor(dzien_tyg),
+         data=ymd(data))
+
+ggplot(sklep77a, aes(x=data,
+                    y=sprzedaz,
+                    color=dzien_tyg)) +
+  geom_point()
+
+```
 
 ### Facets
 
