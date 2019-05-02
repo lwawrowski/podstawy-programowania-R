@@ -4,6 +4,23 @@
 
 ## Funkcje
 
+Funkcję ograniczają potrzebę kopiowania kodu i ułatwiają wprowadzanie zmian.
+
+Stworzenie funkcji wymaga:
+
+- wymyślenia nazwy funkcji,
+- określenia elementów wejściowych,
+- umieszczenia kodu w ciele funkcji.
+
+Istnieją pewne dobre praktyki tworzenia funkcji:
+
+- nazwy funkcji powinny być czasownikami,
+- podkreślnik vs. notacja camelCase i konsekwencja stosowania,
+- wspólny przedrostek np. rnorm, runif.
+
+
+
+
 ## Instrukcje warunkowe
 
 ## Pętle

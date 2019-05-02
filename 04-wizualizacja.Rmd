@@ -4,6 +4,8 @@
 
 [Przewodnik po wizualizacji danych](https://www.data-to-viz.com/)
 
+[Fundamentals of Data Visualization](https://serialmentor.com/dataviz/)
+
 Będziemy działać na zbiorze dotyczącym sprzedaży w sklepach [Rossmann](data/rossmann.xlsx).
 
 ```{r message=FALSE, warning=FALSE}
@@ -553,7 +555,11 @@ head(sprzedaz_prom_odl_long)
 
 ## Pakiet plotly
 
+Za pomocą pakietu `plotly` w prosty sposób można zamienić statystyczny wykres `ggplot` na interaktywny.
+
 ```{r eval=FALSE, include=TRUE}
+library(plotly)
+
 p <- ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow, color=czy_promocja)) +
   geom_point() +
   scale_x_continuous(name = "Sprzedaż") +
