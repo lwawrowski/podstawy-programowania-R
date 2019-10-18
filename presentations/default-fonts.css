@@ -5,10 +5,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700");
 
 
-body { 
-  font-family: 'Roboto', 'Open Sans', 'Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
-  
-}
+body { font-family: 'Roboto', 'Open Sans', 'Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif; }
 h1, h2, h3 {
   font-family: 'Open Sans';
   font-weight: 300;

@@ -70,3 +70,37 @@ th, td { padding: 5px; }
     left: 0 !important;
   }
 }
+
+.title-slide {
+ background-image: url('img/charts-data-desk2.jpg');
+ background-size: cover;
+}
+
+.title-slide .remark-slide-content {
+  color: #fff;
+}
+
+.title-slide h1 {
+  font-size: 65px;
+  font-weight: 400;
+  margin-bottom: 1px;
+}
+
+.title-slide h2 {
+  margin-top: 1px;
+  padding-bottom: 10px;
+}
+
+.title-slide h3:nth-child(3) {
+  font-size: 12pt;
+  left:3%;
+  bottom:4%;
+  position:absolute;
+}
+
+.remark-slide-number {
+  font-size: 9pt;
+  right:2%;
+  bottom:2%;
+  opacity:0.6;
+}

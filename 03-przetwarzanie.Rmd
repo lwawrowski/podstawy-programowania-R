@@ -496,5 +496,3 @@ rossmann_odl <- rossmann %>%
 ## Case study
 
 Rozważmy sklepy Rossmann, które w 2014 roku były otwarte powyżej 300 dni w roku. Czy średnia sprzedaż wyrażona w zł w sklepach Rossmann różni się statystycznie pomiędzy grupami zdefiniowanymi przez asortyment sklepu? Dane na temat średniego kursu miesięcznego euro pobierz ze stron [NBP](http://www.nbp.pl/home.aspx?f=/kursy/arch_a.html). 
-
-[Rozwiązanie](nb/rossmann_analiza.Rmd)

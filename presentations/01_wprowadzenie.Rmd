@@ -1,0 +1,707 @@
+---
+title: "Podstawy programowania"
+subtitle: "Wprowadzenie do R"
+author: "&copy; Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+# Język R
+
+Interpretowany język programowania oraz środowisko do obliczeń statystycznych i wizualizacji wyników [[Wikipedia 2019]](https://pl.wikipedia.org/wiki/R_(j%C4%99zyk_programowania).
+
+.pull-left[
+Zalety:
+
+- darmowy
+- wieloplatformowy
+- wsparcie społeczności
+- wykorzystywany przez naukowców
+- 15078 pakietów (10.10.2019)
+- własne czasopismo [R Journal](https://journal.r-project.org/)
+
+]
+
+.pull-right[
+Wady:
+
+- niska jakość niektórych pakietów
+- czasami coś nie działa
+- przetwarzanie w pamięci
+]
+
+---
+
+# Możliwości R
+
+- obliczenia i wizualizacje
+
+- [raporty](https://rmarkdown.rstudio.com/gallery.html)
+
+- [interaktywne dashboardy](https://shiny.rstudio.com/gallery/)
+
+- strony internetowe
+
+- [książki](https://r4ds.had.co.nz/)
+
+- prezentacje
+
+- [zaliczenia i egzaminy](http://www.r-exams.org/)
+
+- [mapy](https://raw.githubusercontent.com/lwawrowski/geomarketing/master/mapa_wybory.png)
+
+- ...
+
+---
+
+# Pakiety a samochody
+
+<img src="img/stats_cars.jpg" height="450">
+
+[Źrodło](https://twitter.com/statsepi/status/795574223439876100)
+
+---
+
+# R i jednorożce
+
+```{r unicorn, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12}
+library(tidyverse)
+library(ggimage)
+
+df <- data.frame(x=sample(x = 1:10, size = 10, replace = T),
+                 y=sample(x = 1:10, size = 10, replace = T))
+
+ggplot(df, aes(x=x, y=y)) + 
+  geom_image(image="img/unicorn2.png", 
+             size = 0.07) +
+  xlim(1,10) + ylim(1,10) +
+  theme_light()
+
+```
+
+
+---
+
+# Źródła wiedzy i pomocy
+
+- [Wprowadzenie do R z żyrafami](https://tinystats.github.io/teacups-giraffes-and-statistics/index.html)
+
+- [R Bootcamp - wizualizacja i przetwarzanie](https://r-bootcamp.netlify.com/)
+
+- [Elementarz programisty](https://nowosad.github.io/elp/) - świeżynka po polsku
+
+- [R for Data Science](http://r4ds.had.co.nz/) - kompendium R po angielsku 
+
+- [Język R](https://helion.pl/ksiazki/jezyk-r-kompletny-zestaw-narzedzi-dla-analitykow-danych-hadley-wickham-garrett-grolemund,jezrko.htm) - polskie tłumaczenie, wydanie papierowe
+
+- [Programowanie w języku R. Analiza danych, obliczenia, symulacje.](http://www.gagolewski.com/publications/programowanier/) - wydanie papierowe nastawione na programowanie
+
+- [Ściągawki](https://www.rstudio.com/resources/cheatsheets/) - atrakcyjny wizualnie krótki opis funkcji w formacie A4
+
+- [CRAN Task View](https://cran.r-project.org/web/views/) - zestawy pakietów przyporządkowane do tematów
+
+- [METACRAN](https://www.r-pkg.org/) - wygodna wyszukiwarka pakietów
+
+---
+
+# Instalacja R
+
+Desktop:
+
+1. R [(r-project.org)](https://www.r-project.org/) -> CRAN -> 0-Cloud -> Download R for Windows -> base
+
+2. RStudio Desktop [(rstudio.com)](https://www.rstudio.com/products/rstudio/download/)
+
+Online:
+
+1. RStudio Cloud [rstudio.cloud](https://rstudio.cloud/)
+
+---
+
+class: center, middle, inverse
+
+# Interfejs R
+
+---
+
+# R
+
+<img src="img/r.png" height="500">
+
+---
+
+# RStudio
+
+<img src="img/rstudio.png" height="500">
+
+---
+
+# R vs RStudio
+
+.pull-left[
+Zalety R
+
+- mniej zasobożerny
+
+- szybsze przetwarzanie 
+
+- świetny do trybu wsadowego
+
+]
+
+.pull-right[
+Zalety RStudio
+
+- zarządzanie projektami
+
+- podgląd obiektów w pamięci
+
+- kolorowanie i podpowiadanie składni
+
+- praca na wielu plików w różnych formatach
+
+- tryb debugowania
+
+- integracja z git
+
+]
+
+---
+
+# Projekt
+
+.pull-left[
+
+- katalog roboczy (working directory)
+
+- domyślnie _user/documents_
+
+- funkcja `getwd()`
+
+- w ramach katalogu roboczego nie trzeba wskazywać pełnej ścieżki do pliku
+
+- projekt w R jest katalogiem, który zawiera plik .Rproj
+
+- tworzenie poprzez _File -> New Project_, menu w prawym górnym rogu lub ikonę poniżej menu _Edit_
+
+![](img/proj2a.png)
+
+]
+
+.pull-right[
+
+![](img/proj1.png)
+
+![](img/proj2.png)
+
+]
+
+---
+
+# Projekt
+
+.pull-left[
+
+- _New Directory_ - tworzy nowy katalog we wskazanym miejscu i powiązuje go z RStudio
+
+- _Existing Directory_ - powiązuje istniejący już na dysku katalog z RStudio
+
+- _Version Control_ - tworzy nowy katalog we wskazanym miejscu na podstawie repozytorium
+
+]
+
+.pull-right[
+
+![](img/proj3.png)
+
+]
+
+---
+
+# Projekt - _New Directory_
+
+.pull-left[
+
+![](img/proj4.png)
+
+]
+
+.pull-right[
+
+![](img/proj5.png)
+
+- na tym etapie możemy utworzyć repozytorium git
+- _Open in new session_ powoduje utworzenie projektu w nowej instancji programu
+
+]
+
+--- 
+
+# Projekt - _Existing Directory_
+
+![](img/proj6.png)
+
+
+---
+
+## Interfejs - pasek narzędzi / nowy plik
+
+.pull-left[
+
+![](img/int_pasek.png)
+
+- nowy plik
+
+- nowy projekt
+
+- otwórz plik
+
+- zapisz plik 
+
+- zapisz wszystko
+
+- drukuj
+
+- idź do...
+
+- widok 
+
+- dodatki
+
+]
+
+.pull-right[
+
+![](img/int_new.png)
+
+]
+
+---
+
+# Interfejs
+
+<center><img src="img/int_newfile.png" height="450"></center>
+
+---
+
+# Intefejs - Console
+
+.pull-left[
+
+<img src="img/int_console.png">
+
+]
+
+.pull-right[
+
+- można wpisywać funkcje do wykonania
+
+- tutaj pojawiają się wszystkie wyniki tekstowe
+
+]
+
+---
+
+# Intefejs - Terminal
+
+.pull-left[
+
+<img src="img/int_terminal.png">
+
+]
+
+.pull-right[
+
+- dostęp do konsoli Windows (cmd)
+
+]
+
+---
+
+# Intefejs - Jobs
+
+.pull-left[
+
+<img src="img/int_jobs.png">
+
+]
+
+.pull-right[
+
+- uruchamianie skryptów R niezależnie od IDE
+
+- stosunkowo nowa funkcja
+
+]
+
+---
+
+# Interfejs - Environment
+
+.pull-left[
+
+<img src="img/int_env.png">
+
+]
+
+.pull-right[
+
+- podgląd wszystkich obiektów z pamięci
+
+- zbiory danych, liczby, funkcje
+
+- możliwość załadowania lub zapisania zawartości pamięci 
+
+- import zbiorów danych
+
+- czyszczenie zawartości pamięci
+
+- widok listy lub siatki
+
+]
+
+---
+
+# Interfejs - History
+
+.pull-left[
+
+<img src="img/int_history.png">
+
+]
+
+.pull-right[
+
+- lista wszystkich uruchomionych funkcji
+]
+
+---
+
+# Interfejs - Connections
+
+.pull-left[
+
+<img src="img/int_conn.png">
+
+]
+
+.pull-right[
+
+- połączenia z bazami danych
+]
+
+---
+
+# Interfejs - Files
+
+.pull-left[
+
+<img src="img/int_files.png">
+
+]
+
+.pull-right[
+
+- lista plików i katalogów w katalogu roboczym
+
+- możliwe wykonywanie operacji na plikach, ale wygodniej to zrobić w Eksploratorze plików Windowsa, bo w RStudio nie działa metoda "przeciągnij i upuść"
+
+]
+
+---
+
+# Interfejs - Plots
+
+.pull-left[
+
+<img src="img/int_plots_tab.png">
+
+]
+
+.pull-right[
+
+- miejsce na wykresy statyczne
+
+- można eksportować do pliku graficznego lub PDF
+
+- zawartość może być przeniesiona do schowka
+
+- przechowuje wszystkie wykresy od początku sesji R
+
+]
+
+---
+
+# Interfejs - Packages
+
+.pull-left[
+
+<img src="img/int_packages.png">
+
+]
+
+.pull-right[
+
+- instalacja i aktualizacja pakietów
+
+- lista zainstalowanych pakietów
+
+- kliknięcie na nazwę powoduje przeniesienie do listy funkcji w ramach pakietu
+
+]
+
+---
+
+# Interfejs - Help
+
+.pull-left[
+
+<img src="img/int_help_tab.png">
+
+]
+
+.pull-right[
+
+- pomoc dotycząca funkcji
+
+- na stronie domowej linki do materiałów o R
+
+- zakładka otwierania po kliknięciu na F1, jeśli kursor znajduje się na nazwie funkcji
+
+]
+
+---
+
+# Interfejs - Viewer
+
+.pull-left[
+
+<img src="img/int_viewer.png">
+
+]
+
+.pull-right[
+
+- wyświetla elementy dynamiczne: wykresy, strony internetowe
+
+]
+
+---
+
+# Interfejs - File
+
+.pull-left[
+
+<img src="img/int_file.png" height="450">
+
+]
+
+.pull-right[
+
+- tworzenie nowego pliku
+
+- tworzenie nowego projektu
+
+- dostęp do projektów
+
+- import pliku
+
+- publikowanie na [RPubs](https://rpubs.com/)
+
+- zamykanie plików
+
+]
+
+---
+
+# Interfejs - Edit
+
+.pull-left[
+
+<img src="img/int_edit.png" height="450">
+
+]
+
+.pull-right[
+
+- narzędzia edycji
+
+- wyszukiwanie i zamiana
+
+- sprawdzanie pisowni (dla j. angielskiego)
+
+- czyszczenie konsoli
+
+**Lista dostępnych opcji może się różnić w zależności od typu edytowanego pliku**
+
+]
+
+---
+
+# Interfejs - Code
+
+.pull-left[
+
+<img src="img/int_code.png" height="450">
+
+]
+
+.pull-right[
+
+Funkcje związane z edycją i wyglądem kodu
+
+- wstawianie sekcji
+
+- komentarze
+
+- formatowanie kodu
+
+- uruchamianie kodu
+
+- wczytywanie kodu do pamięci
+
+Większość z tych operacji będziemy wykonywać z wykorzystaniem skrótów klawiszowych
+
+---
+
+# Interfejs - View
+
+.pull-left[
+
+<img src="img/int_view.png" height="450">
+
+]
+
+.pull-right[
+
+Funkcje związane z układem RStudio
+
+- przełączanie między plikami
+
+- wybieranie paneli do wyświetlania
+
+]
+
+---
+
+# Interfejs - Plots
+
+.pull-left[
+
+<img src="img/int_plots.png">
+
+]
+
+.pull-right[
+
+Opcje wykresów
+
+]
+
+---
+
+# Interfejs - Session
+
+.pull-left[
+
+<img src="img/int_session.png">
+
+]
+
+.pull-right[
+
+- zakończenie R w przypadku braku reakcji 
+
+- restart R
+
+- przypisywanie katalogu roboczego
+
+- zapisywanie/ładowanie/czyszczenie zawartości pamięci
+
+]
+
+---
+
+# Interfejs - Debug
+
+.pull-left[
+
+<img src="img/int_debug.png">
+
+]
+
+.pull-right[
+
+Narzędzia debugowania kodu
+
+]
+
+---
+
+# Interfejs - Profile
+
+.pull-left[
+
+<img src="img/int_profile.png">
+
+]
+
+.pull-right[
+
+Narzędzia profilowania kodu czyli sprawdzenie czasu wykonywania poszczególnych funkcji.
+
+]
+
+---
+
+# Interfejs - Tools
+
+.pull-left[
+
+<img src="img/int_tools.png">
+
+]
+
+.pull-right[
+
+- instalacja pakietów
+
+- narzędzia kontroli wersji
+
+- opcje projektu
+
+- opcje globalne
+
+]
+
+---
+
+# Interfejs - Help
+
+.pull-left[
+
+<img src="img/int_help.png">
+
+]
+
+.pull-right[
+
+- pomoc 
+
+- ściągawki
+
+]
+
+---
+
+class: inverse, center, middle
+
+# Pytania?

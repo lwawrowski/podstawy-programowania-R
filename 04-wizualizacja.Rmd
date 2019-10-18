@@ -1,7 +1,5 @@
 # Wizualizacja danych
 
-[Wprowadzenie](presentations/ggplot2.html)
-
 [Przewodnik po wizualizacji danych](https://www.data-to-viz.com/)
 
 [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/)

@@ -18,9 +18,6 @@ Istnieją pewne dobre praktyki tworzenia funkcji:
 - podkreślnik vs. notacja camelCase i konsekwencja stosowania,
 - wspólny przedrostek np. rnorm, runif.
 
-
-
-
 ## Instrukcje warunkowe
 
 ## Pętle

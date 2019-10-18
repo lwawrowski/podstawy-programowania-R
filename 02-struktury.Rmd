@@ -731,19 +731,3 @@ Załaduj do pamięci zbiór o nazwie ChickWeight.
 1. Ile razy jedzenie otrzymał kurczak o numerze 15?
 2. Ile wynosi mediana wagi kurczaka o numerze 35?
 3. Ile średnio ważyły kurczaki na diecie nr 1, a ile na diecie nr 2?
-
-## Rozwiązania do zadań
-
-### Macierz
-
-```
-x1 <- c(2,4,1,6,9,3,2,9,10,7)
-x2 <- c(1.5,0.2,0.1,2,3.1,1.2,0.4,2.9,2.5,1.9)
-x0 <- rep(1,length(x1))
-y <- c(12,15,10,19,26,13,13,21,29,18)
-
-x <- cbind(x0, x1, x2)
-
-b <- solve(t(x)%*%x)%*%t(x)%*%y
-
-```
