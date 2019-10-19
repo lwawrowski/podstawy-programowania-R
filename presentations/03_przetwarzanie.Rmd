@@ -19,7 +19,7 @@ library(tidyverse)
 library(countdown)
 ```
 
-# Check-lista
+# Przygotowanie danych
 
 - braki danych
 
@@ -70,6 +70,8 @@ iris %>%
 ---
 
 # Przetwarzanie potokowe
+
+Sekwencja zdarzeń - w życiu
 
 ```
 obudź się %>%
@@ -133,19 +135,21 @@ Znak `%>%` oznacza, że jako argument wejściowy `data` w kolejnej funkcji zosta
 
 # Filtrowanie - `filter()`
 
-Istotna różnica:
+Porównywanie:
 
-- `=`  znak przypisania
+- `=`  symbol przypisania (nie jest używany w filtrowaniu)
 
 - `==` symbol porównania (jest równe)
 
 - `!=` symbol negacji (jest różne)
 
+- `>` i `<` większe i mniejsze
+
 Operatory:
 
 - `&` - i
 
-- `|` - lub
+- `|` - lub (alternatywa)
 
 - `%in%` - wartość ze zbioru
 
@@ -298,29 +302,9 @@ class: inverse
 
 # Zadanie
 
-W zbiorze `movies` stwórz nową zmienną, która będzie zawierała czas filmu wyrażony w godzinach.
+W zbiorze `movies` stwórz nową zmienną, która będzie zawierała wiek filmu.
 
 `r countdown(minutes = 7, seconds = 0, top = 0)`
-
---
-
-Czy jest możliwość przedstawienia wyniku w formie np. (1:23) 1h 23m?
-
-???
-
-```{r eval=FALSE}
-library(lubridate)
-
-movies <- read.csv("data/movies.csv")
-
-movies <- movies %>%
-  mutate(dur_h=duration/60,
-         dur_hm=substr(times((duration%/%60 +  duration%%60 /60)/24), 1, 5))
-
-
-
-```
-
 
 ---
 
@@ -396,4 +380,4 @@ class: inverse
 
 Po wczytaniu zbioru danych `gus.RData` połącz ze sobą zbiory danych zawierające informacje o liczbie przedsiębiorstw na 10 tys. mieszkańców (zbiór _pod_10tys_), stopie bezrobocia (zbiór _bezrobocie_) oraz wynagrodzeniu (zbiór _wyn_).
 
-`r countdown(minutes = 5, seconds = 0, top = 0)`
+`r countdown(minutes = 10, seconds = 0, top = 0)`

@@ -164,7 +164,7 @@ Oblicz w R wartość wyrażenia i przypisz wynik do obiektu.
 
 `$$log_{10}100 + \sqrt{121}$$`
 
-<div class="countdown" id="timer_5daa0965" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_5daad24a" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -250,19 +250,16 @@ Pakiet _readxl_:
 
 ---
 
-# Zapisywanie danych
+# Pliki SAS, SPSS, Stata
 
-Zapisywanie do formatu R:
+Pakiet _haven_:
 
-- `save(dane, file = "zbior.RData")`
+- `read_sas()` - wczytuje pliki .sas
 
-- `save(dane1, dane2, file = "zbior.RData")`
+- `read_sav()` - wczytuje pliki .sav
 
-- `saveRDS(dane, file = "zbior.RDS")`
+- `read_stata()` - wczytuje pliki .dta
 
-Zapisywanie do pliku tekstowego:
-
-- `write.table(x = obiekt, file = "plik.csv", sep = ";", dec = ",", row.names = FALSE)`
 
 ---
 
@@ -274,13 +271,37 @@ Zapisywanie do pliku tekstowego:
 
 ---
 
+## Zapisywanie danych o formacie R
+
+Zapisywanie do formatu R:
+
+- `save(dane, file = "zbior.RData")`
+
+- `save(dane1, dane2, file = "zbior.RData")`
+
+- `saveRDS(dane, file = "zbior.RDS")`
+
+---
+
+# Zapisywanie danych
+
+Zapisywanie do pliku tekstowego (txt, csv):
+
+- `write.table(x = obiekt, file = "plik.csv", sep = ";", dec = ",", row.names = FALSE)`
+
+Zapisywanie do pliku Excela z pakietem _openxlsx_:
+
+- `write.xlsx(x = obiekt, file = "plik.xlsx")`
+
+---
+
 class: inverse
 
 # Zadanie
 
 Wywołaj funkcję `summary()` na wczytanym zbiorze danych.
 
-<div class="countdown" id="timer_5daa0a3f" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_5daad285" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
     </textarea>

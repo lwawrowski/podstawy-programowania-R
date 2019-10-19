@@ -244,7 +244,28 @@ Pakiet _readxl_:
 
 ---
 
-# Zapisywanie danych
+# Pliki SAS, SPSS, Stata
+
+Pakiet _haven_:
+
+- `read_sas()` - wczytuje pliki .sas
+
+- `read_sav()` - wczytuje pliki .sav
+
+- `read_stata()` - wczytuje pliki .dta
+
+
+---
+
+## Wczytywanie danych o formacie R
+
+- `load("zbior.RData")`
+
+- `dane <- readRDS("zbior.RDS")`
+
+---
+
+## Zapisywanie danych o formacie R
 
 Zapisywanie do formatu R:
 
@@ -254,17 +275,17 @@ Zapisywanie do formatu R:
 
 - `saveRDS(dane, file = "zbior.RDS")`
 
-Zapisywanie do pliku tekstowego:
+---
+
+# Zapisywanie danych
+
+Zapisywanie do pliku tekstowego (txt, csv):
 
 - `write.table(x = obiekt, file = "plik.csv", sep = ";", dec = ",", row.names = FALSE)`
 
----
+Zapisywanie do pliku Excela z pakietem _openxlsx_:
 
-## Wczytywanie danych o formacie R
-
-- `load("zbior.RData")`
-
-- `dane <- readRDS("zbior.RDS")`
+- `write.xlsx(x = obiekt, file = "plik.xlsx")`
 
 ---
 

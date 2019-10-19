@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 
 
 
-# Check-lista
+# Przygotowanie danych
 
 - braki danych
 
@@ -72,6 +72,8 @@ iris %&gt;%
 ---
 
 # Przetwarzanie potokowe
+
+Sekwencja zdarzeń - w życiu
 
 ```
 obudź się %&gt;%
@@ -132,19 +134,21 @@ Znak `%&gt;%` oznacza, że jako argument wejściowy `data` w kolejnej funkcji zo
 
 # Filtrowanie - `filter()`
 
-Istotna różnica:
+Porównywanie:
 
-- `=`  znak przypisania
+- `=`  symbol przypisania (nie jest używany w filtrowaniu)
 
 - `==` symbol porównania (jest równe)
 
 - `!=` symbol negacji (jest różne)
 
+- `&gt;` i `&lt;` większe i mniejsze
+
 Operatory:
 
 - `&amp;` - i
 
-- `|` - lub
+- `|` - lub (alternatywa)
 
 - `%in%` - wartość ze zbioru
 
@@ -158,7 +162,7 @@ class: inverse
 
 Utwórz zbiór danych zawierający filmy, które są filmami akcji, miały swoją premierę po 2010 roku i trwały powyżej 120 minut lub miały ocenę powyżej 8.0. Alternatywa ma dotyczyć tylko dwóch ostatnich warunków.
 
-<div class="countdown" id="timer_5daa077b" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_5daad12b" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -192,7 +196,7 @@ class: inverse
 
 Wczytaj zbiór danych z Polskiego Generalnego Sondażu Społecznego - `pgss.RData` za pomocą funkcji `load()`. Zmienna _q34_ zawiera informacje o dochodach z pracy respondenta. Utwórz nowy zbiór danych, który nie będzie zawierał braków danych w tej zmiennej.
 
-<div class="countdown" id="timer_5daa0880" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_5daad0d3" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -304,29 +308,11 @@ class: inverse
 
 # Zadanie
 
-W zbiorze `movies` stwórz nową zmienną, która będzie zawierała czas filmu wyrażony w godzinach.
+W zbiorze `movies` stwórz nową zmienną, która będzie zawierała wiek filmu.
 
-<div class="countdown" id="timer_5daa08cf" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_5daad188" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
-
---
-
-Czy jest możliwość przedstawienia wyniku w formie np. (1:23) 1h 23m?
-
-???
-
-
-```r
-library(lubridate)
-
-movies &lt;- read.csv("data/movies.csv")
-
-movies &lt;- movies %&gt;%
-  mutate(dur_h=duration/60,
-         dur_hm=substr(times((duration%/%60 +  duration%%60 /60)/24), 1, 5))
-```
-
 
 ---
 
@@ -353,7 +339,7 @@ class: inverse
 
 Ile wynosiła średnia, mediana i odchylenie standardowe czasu trwania analizowanych filmów?
 
-<div class="countdown" id="timer_5daa0808" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_5daad2c0" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -409,7 +395,7 @@ class: inverse
 
 Wybierz filmy z lat 2000-2010. Ile filmów wyprodukowano w poszczególnych latach i ile wynosiła ich średnia ocena?
 
-<div class="countdown" id="timer_5daa076c" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_5daad2ef" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -429,8 +415,8 @@ class: inverse
 
 Po wczytaniu zbioru danych `gus.RData` połącz ze sobą zbiory danych zawierające informacje o liczbie przedsiębiorstw na 10 tys. mieszkańców (zbiór _pod_10tys_), stopie bezrobocia (zbiór _bezrobocie_) oraz wynagrodzeniu (zbiór _wyn_).
 
-<div class="countdown" id="timer_5daa08f0" style="top:0;right:0;" data-warnwhen="0">
-<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+<div class="countdown" id="timer_5daad226" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
