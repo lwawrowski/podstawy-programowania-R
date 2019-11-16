@@ -19,6 +19,34 @@ library(tidyverse)
 library(countdown)
 ```
 
+# Rozpoczynanie pracy z R
+
+.pull-left[
+__Nowy projekt__
+
+1. Otwórz RStudio
+2. Stwórz nowy projekt
+3. Przenieś dane do folderu projektu
+4. Otwórz nowy skrypt R
+5. (Zainstaluj i) wczytaj biblioteki
+6. Wczytaj dane
+7. Analizuj
+
+]
+
+.pull-right[
+__Istniejący projekt__
+
+1. Otwórz RStudio
+2. Otwórz istniejący skrypt R
+3. Wczytaj biblioteki
+4. Wczytaj dane
+5. Kontyuuj analizę
+
+]
+
+---
+
 # Przygotowanie danych
 
 - braki danych
@@ -381,3 +409,51 @@ class: inverse
 Po wczytaniu zbioru danych `gus.RData` połącz ze sobą zbiory danych zawierające informacje o liczbie przedsiębiorstw na 10 tys. mieszkańców (zbiór _pod_10tys_), stopie bezrobocia (zbiór _bezrobocie_) oraz wynagrodzeniu (zbiór _wyn_).
 
 `r countdown(minutes = 10, seconds = 0, top = 0)`
+
+---
+
+# Szeroka i wąska reprezentacja danych
+
+![](img/wide_long.png)
+
+[źródło](https://www.datasciencemadesimple.com%2Freshape-in-r-from-wide-to-long-from-long-to-wide)
+
+---
+
+# Animacja
+
+![](img/tidyr-spread-gather.gif)
+
+[źródło](https://github.com/gadenbuie/tidyexplain)
+
+---
+
+# Zbiór _iris_
+
+```{r}
+head(iris)
+```
+
+
+---
+
+# Wide -> long - `pivot_longer()`
+
+```{r}
+iris_long <- iris %>%
+  mutate(id=1:nrow(iris)) %>% 
+  pivot_longer(Sepal.Length:Petal.Width)
+
+head(iris_long)
+```
+
+---
+
+# Long -> wide - `pivot_wider()`
+
+```{r}
+iris_wide <- iris_long %>%
+  pivot_wider()
+
+head(iris_wide)
+```

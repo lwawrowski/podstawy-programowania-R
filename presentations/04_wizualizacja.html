@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Podstawy programowania</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="© Łukasz Wawrowski" />
+    <link href="libs/countdown-0.3.3/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown-0.3.3/countdown.js"></script>
+    <script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+    <script src="libs/plotly-binding-4.9.0/plotly.js"></script>
+    <script src="libs/typedarray-0.1/typedarray.min.js"></script>
+    <script src="libs/jquery-1.11.3/jquery.min.js"></script>
+    <link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+    <script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+    <link href="libs/plotly-htmlwidgets-css-1.46.1/plotly-htmlwidgets.css" rel="stylesheet" />
+    <script src="libs/plotly-main-1.46.1/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="default.css" type="text/css" />
+    <link rel="stylesheet" href="default-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Podstawy programowania
+## Wizualizacja danych
+### © Łukasz Wawrowski
+
+---
+
+
+
+
+# Źródła wiedzy
+
+- [Przewodnik po wizualizacji danych](https://www.data-to-viz.com/)
+
+- [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/)
+
+- [Color Brewer](http://colorbrewer2.org)
+
+- [Nazwy kolorów do użycia w R](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
+
+---
+
+class: inverse
+
+# Wczytanie danych
+
+1. Ściągnij zbiór `rossmann.xlsx` i umieść w folderze `data`
+
+2. Utwórz nowy skrypt i wczytaj biblioteki `tidyverse` i `readxl`
+
+3. Wczytaj zbiór danych `rossmann.xlsx` do pamięci R
+
+4. Za pomocą funkcji `filter` wybierz jeden ze sklepów
+
+<div class="countdown" id="timer_5dcfa99c" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+# Proste wykresy
+
+- `plot()` - wykres punktowy/liniowy
+
+- `hist()` - histogram
+
+- `barplot()` - wykres kolumnowy
+
+- `boxplot()` - wykres pudełkowy
+
+---
+
+# Problemy z nazwami zmiennych
+
+- nazwy zmiennych nie powinny zawierać polskich liter i spacji
+
+- nazwy zmiennych nie powinny zaczynać się od liczby
+
+- surowe dane zwykle nie posiadają nazw kolumn przystosowanych do przetwarzania przez komputer
+
+- ten problem rozwiązuje pakiet _janitor_ i funkcja `clean_names()`:
+
+```
+
+zbior &lt;- janitor::clean_names(zbior)
+
+```
+
+- funkcja ta zamienia wielkie litery na małe, spacje na podkreślniki i znaki transliteruje do ASCII.
+
+---
+
+# Wczytanie danych
+
+
+```r
+library(tidyverse)
+library(readxl)
+
+rossmann &lt;- read_xlsx("../data/rossmann.xlsx")
+sklep11 &lt;- rossmann %&gt;%
+  filter(sklep_id == 11, czy_otwarty == "Tak")
+
+plot(sklep11$sprzedaz, sklep11$liczba_klientow)
+```
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+---
+
+# Pakiet `ggplot2`
+
+Tworzenie wykresów poprzez dodawanie (`+`) kolejnych warstw.
+
+- [dokumentacja](https://ggplot2.tidyverse.org/)
+
+- [cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)
+
+- [rozszerzenia](http://www.ggplot2-exts.org/gallery/)
+
+- [top 50](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)
+
+- [wykresy krok po kroku](https://evamaerey.github.io/ggplot_flipbook/ggplot_flipbook_xaringan.html)
+
+???
+
+Pierwsza wersja 10.06.2007
+
+---
+
+# Niezbędny kod
+
+
+```r
+ggplot(data = zbior_danych, aes(x = cecha1, y=cecha2))
+```
+
+
+- x - zawartość osi x
+
+- y - zawartość osi y
+
+- fill - wypełnienie
+
+- size - rozmiar
+
+- color - kolor
+
+- shape - kształt
+
+---
+
+# Wykres punktowy - `geom_point`
+
+Obowiązkowe argumenty `aes`:
+
+- x 
+
+- y
+
+---
+
+# Wykres punktowy
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) + 
+  geom_point()
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Dodatkowe elementy
+
+- `xlim(0,10)` - minimum i maksimum osi x
+
+- `ylim(-5,5)` - minimum i maksimum osi y
+
+- `xlab("tekst")` - etykieta osi x
+
+- `ylab("tekst")` - etykieta osi y
+
+- `ggtitle("tekst")` - tytuł wykresu
+
+- `labs(subtitle = "tekst")` - podtytuł
+
+- `labs(caption = "tekst")` - podpis
+
+- `coord_flip()` - obraca wykres
+
+---
+
+# Wykres punktowy
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) + 
+  geom_point() +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż")
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Wykres punktowy
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) + 
+  geom_point() +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  ylim(0,20000) 
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+]
+---
+
+# Wykres punktowy
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) + 
+  geom_point() +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11")
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+]
+---
+
+# Motywy
+
+- theme_bw
+- theme_classic
+- theme_dark
+- theme_gray - domyślnie
+- theme_light
+- theme_linedraw
+- theme_minimal
+- theme_void
+
+Powyższe motywy są zaimplementowane w pakiecie ggplot2, ale można także skorzystać z dodatkowych pakietów:
+
+- [theme_bbc](https://github.com/bbc/bbplot)
+- [theme_xkcd](https://cran.r-project.org/web/packages/xkcd/)
+
+Albo stworzyć [swój własny motyw](https://www.statworx.com/de/blog/custom-themes-in-ggplot2/).
+
+---
+
+class: inverse
+
+# Zadanie 
+
+Przetestuj kilka motywów i wybierz jeden z nich.
+
+<div class="countdown" id="timer_5dcfa996" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+# Zapisywanie wykresu
+
+- w zakładce Plots -&gt; Export
+
+- funkcja `ggsave()`
+
+   - `filename` - nazwa pliku z rozszerzeniem (png, pdf)
+   
+   - `width` i `height` - szerokość i wysokość (domyślnie w calach)
+   
+   - `scale` - skalowanie po zmianie rozdzielczości
+   
+   - `dpi` - liczba punktów na cal
+
+
+---
+
+# Wykres punktowy
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) + 
+  geom_point() +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
+  theme_light() +
+  ggsave("figs/sklep11.png", 
+         width = 12, 
+         height = 10, 
+         scale = 0.5, 
+         dpi = 1200)
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Wykres punktowy
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
+  geom_point() +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
+  theme_light()
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Wykres punktowy
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
+  geom_point() +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  scale_color_discrete(name = "Promocja?") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
+  theme_light()
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+
+]
+---
+
+# Wykres punktowy
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
+  geom_point() +
+    geom_smooth(method = "lm", se = F) +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  scale_color_discrete(name = "Promocja?") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
+  theme_light()
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+
+]
+---
+
+# Wykres punktowy
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  scale_color_discrete(name = "Promocja?") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
+  theme_light() +
+  theme(legend.position = "bottom")
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Wykres punktowy
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  scale_color_discrete(name = "Promocja?") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
+  theme_light() +
+  theme(legend.position = c(0.08,0.87))
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Wykresy interaktywne
+
+_Plotly_ to biblioteka do wykresów, która posiada swoją własną składnię.
+
+Za pomocą funkcji `ggplotly()` można zamienić każdy wykres ggplot2 na wykres interaktywny.
+
+---
+
+# Wykres punktowy
+
+.pull-left[
+
+
+```r
+p &lt;- ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  scale_color_discrete(name = "Promocja?") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
+  theme_light()
+
+plotly::ggplotly(p)
+```
+
+]
+
+.pull-right[
+
+<div id="htmlwidget-0f4037717710217094e1" style="width:504px;height:504px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0f4037717710217094e1">{"x":{"data":[{"x":[543,1370,1375,1252,825,1944,1885,1471,1448,1087,1139,1260,1381,1146,1455,1802,929,1062,1106,1120,1000,1130,873,965,957,1172,1043,1054,995,1017,689,732,898,940,1026,1017,962,815,1056,920,919,915,1055,1038,1078,879,831,1109,1119,1150,1070,1128,898,955,1375,1274,1291,1387,1365,862,793,1003,966,1102,1079,1123,690,838,714,960,1009,1086,1008,1105,789,877,1068,1193,1208,1005,1225,899,759,1051,1000,1107,982,1038,826,893,996,1180,1182,1213,869,833,1380,1177,1034,1166,836,793,1069,1086,1102,1072,1087,1007,917,792,938,989,1125,1182,1263,919,1132,1089,1174,959,1149,829,960,1056,1011,1000,1002,1095,849,828,1074,1054,1104,1032,1163,885,896,1127,1080,1120,1095,1107,807,872,1230,1186,1140,1060,1216,919,791,1196,965,1035,1017,1006,806,859,1070,1042,1073,1096,988,689,857,1095,1223],"y":[3838,10609,10084,9120,6363,17111,16610,12715,12380,8834,8876,9313,10423,9152,10957,14461,7482,7816,7396,7829,6829,7171,6696,7141,7025,8357,7323,7136,6191,6332,4909,5270,5867,6217,6539,6670,6293,5420,7824,6280,6174,5538,6359,6092,6631,6271,5645,7184,6803,6875,6714,6679,6050,6367,8993,7999,8529,9084,9673,6332,5237,6966,6502,7271,7214,7431,4951,5969,4782,5942,6543,7405,6367,7493,4712,5998,6971,7342,7600,6505,7902,6123,5729,6364,6375,6913,6345,6314,5890,6093,6433,7638,8031,7761,5480,6383,10152,8386,6818,7172,5785,5483,6464,6872,6876,6525,6606,6672,6571,5029,5540,6475,6845,7618,9656,6617,7547,6802,7561,6181,7404,6312,7277,6982,6125,6537,6296,6632,5615,5972,6954,6457,6475,5868,6650,5478,6249,8306,6984,7000,6075,6282,5675,5734,7889,7280,6948,6525,7435,6504,6091,8524,6419,7147,6332,5894,5709,5853,6485,6491,6500,6662,5808,4984,5671,7563,8140],"text":["liczba_klientow:  543<br />sprzedaz:  3838<br />czy_promocja: Nie","liczba_klientow: 1370<br />sprzedaz: 10609<br />czy_promocja: Nie","liczba_klientow: 1375<br />sprzedaz: 10084<br />czy_promocja: Nie","liczba_klientow: 1252<br />sprzedaz:  9120<br />czy_promocja: Nie","liczba_klientow:  825<br />sprzedaz:  6363<br />czy_promocja: Nie","liczba_klientow: 1944<br />sprzedaz: 17111<br />czy_promocja: Nie","liczba_klientow: 1885<br />sprzedaz: 16610<br />czy_promocja: Nie","liczba_klientow: 1471<br />sprzedaz: 12715<br />czy_promocja: Nie","liczba_klientow: 1448<br />sprzedaz: 12380<br />czy_promocja: Nie","liczba_klientow: 1087<br />sprzedaz:  8834<br />czy_promocja: Nie","liczba_klientow: 1139<br />sprzedaz:  8876<br />czy_promocja: Nie","liczba_klientow: 1260<br />sprzedaz:  9313<br />czy_promocja: Nie","liczba_klientow: 1381<br />sprzedaz: 10423<br />czy_promocja: Nie","liczba_klientow: 1146<br />sprzedaz:  9152<br />czy_promocja: Nie","liczba_klientow: 1455<br />sprzedaz: 10957<br />czy_promocja: Nie","liczba_klientow: 1802<br />sprzedaz: 14461<br />czy_promocja: Nie","liczba_klientow:  929<br />sprzedaz:  7482<br />czy_promocja: Nie","liczba_klientow: 1062<br />sprzedaz:  7816<br />czy_promocja: Nie","liczba_klientow: 1106<br />sprzedaz:  7396<br />czy_promocja: Nie","liczba_klientow: 1120<br />sprzedaz:  7829<br />czy_promocja: Nie","liczba_klientow: 1000<br />sprzedaz:  6829<br />czy_promocja: Nie","liczba_klientow: 1130<br />sprzedaz:  7171<br />czy_promocja: Nie","liczba_klientow:  873<br />sprzedaz:  6696<br />czy_promocja: Nie","liczba_klientow:  965<br />sprzedaz:  7141<br />czy_promocja: Nie","liczba_klientow:  957<br />sprzedaz:  7025<br />czy_promocja: Nie","liczba_klientow: 1172<br />sprzedaz:  8357<br />czy_promocja: Nie","liczba_klientow: 1043<br />sprzedaz:  7323<br />czy_promocja: Nie","liczba_klientow: 1054<br />sprzedaz:  7136<br />czy_promocja: Nie","liczba_klientow:  995<br />sprzedaz:  6191<br />czy_promocja: Nie","liczba_klientow: 1017<br />sprzedaz:  6332<br />czy_promocja: Nie","liczba_klientow:  689<br />sprzedaz:  4909<br />czy_promocja: Nie","liczba_klientow:  732<br />sprzedaz:  5270<br />czy_promocja: Nie","liczba_klientow:  898<br />sprzedaz:  5867<br />czy_promocja: Nie","liczba_klientow:  940<br />sprzedaz:  6217<br />czy_promocja: Nie","liczba_klientow: 1026<br />sprzedaz:  6539<br />czy_promocja: Nie","liczba_klientow: 1017<br />sprzedaz:  6670<br />czy_promocja: Nie","liczba_klientow:  962<br />sprzedaz:  6293<br />czy_promocja: Nie","liczba_klientow:  815<br />sprzedaz:  5420<br />czy_promocja: Nie","liczba_klientow: 1056<br />sprzedaz:  7824<br />czy_promocja: Nie","liczba_klientow:  920<br />sprzedaz:  6280<br />czy_promocja: Nie","liczba_klientow:  919<br />sprzedaz:  6174<br />czy_promocja: Nie","liczba_klientow:  915<br />sprzedaz:  5538<br />czy_promocja: Nie","liczba_klientow: 1055<br />sprzedaz:  6359<br />czy_promocja: Nie","liczba_klientow: 1038<br />sprzedaz:  6092<br />czy_promocja: Nie","liczba_klientow: 1078<br />sprzedaz:  6631<br />czy_promocja: Nie","liczba_klientow:  879<br />sprzedaz:  6271<br />czy_promocja: Nie","liczba_klientow:  831<br />sprzedaz:  5645<br />czy_promocja: Nie","liczba_klientow: 1109<br />sprzedaz:  7184<br />czy_promocja: Nie","liczba_klientow: 1119<br />sprzedaz:  6803<br />czy_promocja: Nie","liczba_klientow: 1150<br />sprzedaz:  6875<br />czy_promocja: Nie","liczba_klientow: 1070<br />sprzedaz:  6714<br />czy_promocja: Nie","liczba_klientow: 1128<br />sprzedaz:  6679<br />czy_promocja: Nie","liczba_klientow:  898<br />sprzedaz:  6050<br />czy_promocja: Nie","liczba_klientow:  955<br />sprzedaz:  6367<br />czy_promocja: Nie","liczba_klientow: 1375<br />sprzedaz:  8993<br />czy_promocja: Nie","liczba_klientow: 1274<br />sprzedaz:  7999<br />czy_promocja: Nie","liczba_klientow: 1291<br />sprzedaz:  8529<br />czy_promocja: Nie","liczba_klientow: 1387<br />sprzedaz:  9084<br />czy_promocja: Nie","liczba_klientow: 1365<br />sprzedaz:  9673<br />czy_promocja: Nie","liczba_klientow:  862<br />sprzedaz:  6332<br />czy_promocja: Nie","liczba_klientow:  793<br />sprzedaz:  5237<br />czy_promocja: Nie","liczba_klientow: 1003<br />sprzedaz:  6966<br />czy_promocja: Nie","liczba_klientow:  966<br />sprzedaz:  6502<br />czy_promocja: Nie","liczba_klientow: 1102<br />sprzedaz:  7271<br />czy_promocja: Nie","liczba_klientow: 1079<br />sprzedaz:  7214<br />czy_promocja: Nie","liczba_klientow: 1123<br />sprzedaz:  7431<br />czy_promocja: Nie","liczba_klientow:  690<br />sprzedaz:  4951<br />czy_promocja: Nie","liczba_klientow:  838<br />sprzedaz:  5969<br />czy_promocja: Nie","liczba_klientow:  714<br />sprzedaz:  4782<br />czy_promocja: Nie","liczba_klientow:  960<br />sprzedaz:  5942<br />czy_promocja: Nie","liczba_klientow: 1009<br />sprzedaz:  6543<br />czy_promocja: Nie","liczba_klientow: 1086<br />sprzedaz:  7405<br />czy_promocja: Nie","liczba_klientow: 1008<br />sprzedaz:  6367<br />czy_promocja: Nie","liczba_klientow: 1105<br />sprzedaz:  7493<br />czy_promocja: Nie","liczba_klientow:  789<br />sprzedaz:  4712<br />czy_promocja: Nie","liczba_klientow:  877<br />sprzedaz:  5998<br />czy_promocja: Nie","liczba_klientow: 1068<br />sprzedaz:  6971<br />czy_promocja: Nie","liczba_klientow: 1193<br />sprzedaz:  7342<br />czy_promocja: Nie","liczba_klientow: 1208<br />sprzedaz:  7600<br />czy_promocja: Nie","liczba_klientow: 1005<br />sprzedaz:  6505<br />czy_promocja: Nie","liczba_klientow: 1225<br />sprzedaz:  7902<br />czy_promocja: Nie","liczba_klientow:  899<br />sprzedaz:  6123<br />czy_promocja: Nie","liczba_klientow:  759<br />sprzedaz:  5729<br />czy_promocja: Nie","liczba_klientow: 1051<br />sprzedaz:  6364<br />czy_promocja: Nie","liczba_klientow: 1000<br />sprzedaz:  6375<br />czy_promocja: Nie","liczba_klientow: 1107<br />sprzedaz:  6913<br />czy_promocja: Nie","liczba_klientow:  982<br />sprzedaz:  6345<br />czy_promocja: Nie","liczba_klientow: 1038<br />sprzedaz:  6314<br />czy_promocja: Nie","liczba_klientow:  826<br />sprzedaz:  5890<br />czy_promocja: Nie","liczba_klientow:  893<br />sprzedaz:  6093<br />czy_promocja: Nie","liczba_klientow:  996<br />sprzedaz:  6433<br />czy_promocja: Nie","liczba_klientow: 1180<br />sprzedaz:  7638<br />czy_promocja: Nie","liczba_klientow: 1182<br />sprzedaz:  8031<br />czy_promocja: Nie","liczba_klientow: 1213<br />sprzedaz:  7761<br />czy_promocja: Nie","liczba_klientow:  869<br />sprzedaz:  5480<br />czy_promocja: Nie","liczba_klientow:  833<br />sprzedaz:  6383<br />czy_promocja: Nie","liczba_klientow: 1380<br />sprzedaz: 10152<br />czy_promocja: Nie","liczba_klientow: 1177<br />sprzedaz:  8386<br />czy_promocja: Nie","liczba_klientow: 1034<br />sprzedaz:  6818<br />czy_promocja: Nie","liczba_klientow: 1166<br />sprzedaz:  7172<br />czy_promocja: Nie","liczba_klientow:  836<br />sprzedaz:  5785<br />czy_promocja: Nie","liczba_klientow:  793<br />sprzedaz:  5483<br />czy_promocja: Nie","liczba_klientow: 1069<br />sprzedaz:  6464<br />czy_promocja: Nie","liczba_klientow: 1086<br />sprzedaz:  6872<br />czy_promocja: Nie","liczba_klientow: 1102<br />sprzedaz:  6876<br />czy_promocja: Nie","liczba_klientow: 1072<br />sprzedaz:  6525<br />czy_promocja: Nie","liczba_klientow: 1087<br />sprzedaz:  6606<br />czy_promocja: Nie","liczba_klientow: 1007<br />sprzedaz:  6672<br />czy_promocja: Nie","liczba_klientow:  917<br />sprzedaz:  6571<br />czy_promocja: Nie","liczba_klientow:  792<br />sprzedaz:  5029<br />czy_promocja: Nie","liczba_klientow:  938<br />sprzedaz:  5540<br />czy_promocja: Nie","liczba_klientow:  989<br />sprzedaz:  6475<br />czy_promocja: Nie","liczba_klientow: 1125<br />sprzedaz:  6845<br />czy_promocja: Nie","liczba_klientow: 1182<br />sprzedaz:  7618<br />czy_promocja: Nie","liczba_klientow: 1263<br />sprzedaz:  9656<br />czy_promocja: Nie","liczba_klientow:  919<br />sprzedaz:  6617<br />czy_promocja: Nie","liczba_klientow: 1132<br />sprzedaz:  7547<br />czy_promocja: Nie","liczba_klientow: 1089<br />sprzedaz:  6802<br />czy_promocja: Nie","liczba_klientow: 1174<br />sprzedaz:  7561<br />czy_promocja: Nie","liczba_klientow:  959<br />sprzedaz:  6181<br />czy_promocja: Nie","liczba_klientow: 1149<br />sprzedaz:  7404<br />czy_promocja: Nie","liczba_klientow:  829<br />sprzedaz:  6312<br />czy_promocja: Nie","liczba_klientow:  960<br />sprzedaz:  7277<br />czy_promocja: Nie","liczba_klientow: 1056<br />sprzedaz:  6982<br />czy_promocja: Nie","liczba_klientow: 1011<br />sprzedaz:  6125<br />czy_promocja: Nie","liczba_klientow: 1000<br />sprzedaz:  6537<br />czy_promocja: Nie","liczba_klientow: 1002<br />sprzedaz:  6296<br />czy_promocja: Nie","liczba_klientow: 1095<br />sprzedaz:  6632<br />czy_promocja: Nie","liczba_klientow:  849<br />sprzedaz:  5615<br />czy_promocja: Nie","liczba_klientow:  828<br />sprzedaz:  5972<br />czy_promocja: Nie","liczba_klientow: 1074<br />sprzedaz:  6954<br />czy_promocja: Nie","liczba_klientow: 1054<br />sprzedaz:  6457<br />czy_promocja: Nie","liczba_klientow: 1104<br />sprzedaz:  6475<br />czy_promocja: Nie","liczba_klientow: 1032<br />sprzedaz:  5868<br />czy_promocja: Nie","liczba_klientow: 1163<br />sprzedaz:  6650<br />czy_promocja: Nie","liczba_klientow:  885<br />sprzedaz:  5478<br />czy_promocja: Nie","liczba_klientow:  896<br />sprzedaz:  6249<br />czy_promocja: Nie","liczba_klientow: 1127<br />sprzedaz:  8306<br />czy_promocja: Nie","liczba_klientow: 1080<br />sprzedaz:  6984<br />czy_promocja: Nie","liczba_klientow: 1120<br />sprzedaz:  7000<br />czy_promocja: Nie","liczba_klientow: 1095<br />sprzedaz:  6075<br />czy_promocja: Nie","liczba_klientow: 1107<br />sprzedaz:  6282<br />czy_promocja: Nie","liczba_klientow:  807<br />sprzedaz:  5675<br />czy_promocja: Nie","liczba_klientow:  872<br />sprzedaz:  5734<br />czy_promocja: Nie","liczba_klientow: 1230<br />sprzedaz:  7889<br />czy_promocja: Nie","liczba_klientow: 1186<br />sprzedaz:  7280<br />czy_promocja: Nie","liczba_klientow: 1140<br />sprzedaz:  6948<br />czy_promocja: Nie","liczba_klientow: 1060<br />sprzedaz:  6525<br />czy_promocja: Nie","liczba_klientow: 1216<br />sprzedaz:  7435<br />czy_promocja: Nie","liczba_klientow:  919<br />sprzedaz:  6504<br />czy_promocja: Nie","liczba_klientow:  791<br />sprzedaz:  6091<br />czy_promocja: Nie","liczba_klientow: 1196<br />sprzedaz:  8524<br />czy_promocja: Nie","liczba_klientow:  965<br />sprzedaz:  6419<br />czy_promocja: Nie","liczba_klientow: 1035<br />sprzedaz:  7147<br />czy_promocja: Nie","liczba_klientow: 1017<br />sprzedaz:  6332<br />czy_promocja: Nie","liczba_klientow: 1006<br />sprzedaz:  5894<br />czy_promocja: Nie","liczba_klientow:  806<br />sprzedaz:  5709<br />czy_promocja: Nie","liczba_klientow:  859<br />sprzedaz:  5853<br />czy_promocja: Nie","liczba_klientow: 1070<br />sprzedaz:  6485<br />czy_promocja: Nie","liczba_klientow: 1042<br />sprzedaz:  6491<br />czy_promocja: Nie","liczba_klientow: 1073<br />sprzedaz:  6500<br />czy_promocja: Nie","liczba_klientow: 1096<br />sprzedaz:  6662<br />czy_promocja: Nie","liczba_klientow:  988<br />sprzedaz:  5808<br />czy_promocja: Nie","liczba_klientow:  689<br />sprzedaz:  4984<br />czy_promocja: Nie","liczba_klientow:  857<br />sprzedaz:  5671<br />czy_promocja: Nie","liczba_klientow: 1095<br />sprzedaz:  7563<br />czy_promocja: Nie","liczba_klientow: 1223<br />sprzedaz:  8140<br />czy_promocja: Nie"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"Nie","legendgroup":"Nie","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1809,1763,1769,1745,1788,1758,1536,1515,1473,1587,1609,1354,1428,1366,1407,1180,1137,1267,1194,1141,1217,1170,1139,1193,1329,933,1043,1140,920,1113,1102,1197,1252,996,1262,1268,1390,1278,1271,1066,1081,1241,1214,1295,1118,1250,1345,1337,1356,1091,1124,1170,1219,1082,1085,1091,1247,1258,1351,1241,1311,1291,1117,1213,1019,1119,1207,1201,1176,1174,1225,1321,1235,1547,1107,1111,1218,1164,1237,1203,1064,1284,1291,1394,931,1088,1210,1160,1197,1126,1082,1240,1216,1357,1489,1423,1305,1281,1459,1510,1418,1387,1182,1214,1300,1253,1434,918,1150,1139,1099,1231,1187,1244,1247,1265,1479,1011,1109,1106,1131,1300,1011,1096,1219,1316,1514,1050,1020,1159,1091,1223,1076,944,1152,1295,1163],"y":[15026,15466,15835,16462,17724,15072,13585,12964,12880,14087,12956,11347,11103,10568,11548,8002,7930,9164,8761,8219,9024,8944,8358,9089,10344,6829,7323,8314,6533,9125,7981,8683,9496,7571,9653,8608,9714,10627,9245,7058,7472,8334,8144,9531,7336,8490,9351,9546,10379,8349,8415,9114,9657,9121,7734,7700,9087,9243,11063,8908,10907,9674,7874,8825,7083,7915,9157,9379,9391,7106,8803,10090,9340,12710,7951,8144,8603,8027,8992,8649,8078,9281,9521,10142,6059,7011,8058,7805,8886,7915,7690,9180,8936,10348,11968,10751,9988,9870,11615,11529,12058,11668,8197,8657,9507,9115,12157,6188,7345,8491,7872,9183,7680,8458,8820,8362,10944,7141,7474,7587,8129,9492,7056,7349,9024,10377,12523,7278,6781,8189,7950,9001,7081,6945,8397,9699,9130],"text":["liczba_klientow: 1809<br />sprzedaz: 15026<br />czy_promocja: Tak","liczba_klientow: 1763<br />sprzedaz: 15466<br />czy_promocja: Tak","liczba_klientow: 1769<br />sprzedaz: 15835<br />czy_promocja: Tak","liczba_klientow: 1745<br />sprzedaz: 16462<br />czy_promocja: Tak","liczba_klientow: 1788<br />sprzedaz: 17724<br />czy_promocja: Tak","liczba_klientow: 1758<br />sprzedaz: 15072<br />czy_promocja: Tak","liczba_klientow: 1536<br />sprzedaz: 13585<br />czy_promocja: Tak","liczba_klientow: 1515<br />sprzedaz: 12964<br />czy_promocja: Tak","liczba_klientow: 1473<br />sprzedaz: 12880<br />czy_promocja: Tak","liczba_klientow: 1587<br />sprzedaz: 14087<br />czy_promocja: Tak","liczba_klientow: 1609<br />sprzedaz: 12956<br />czy_promocja: Tak","liczba_klientow: 1354<br />sprzedaz: 11347<br />czy_promocja: Tak","liczba_klientow: 1428<br />sprzedaz: 11103<br />czy_promocja: Tak","liczba_klientow: 1366<br />sprzedaz: 10568<br />czy_promocja: Tak","liczba_klientow: 1407<br />sprzedaz: 11548<br />czy_promocja: Tak","liczba_klientow: 1180<br />sprzedaz:  8002<br />czy_promocja: Tak","liczba_klientow: 1137<br />sprzedaz:  7930<br />czy_promocja: Tak","liczba_klientow: 1267<br />sprzedaz:  9164<br />czy_promocja: Tak","liczba_klientow: 1194<br />sprzedaz:  8761<br />czy_promocja: Tak","liczba_klientow: 1141<br />sprzedaz:  8219<br />czy_promocja: Tak","liczba_klientow: 1217<br />sprzedaz:  9024<br />czy_promocja: Tak","liczba_klientow: 1170<br />sprzedaz:  8944<br />czy_promocja: Tak","liczba_klientow: 1139<br />sprzedaz:  8358<br />czy_promocja: Tak","liczba_klientow: 1193<br />sprzedaz:  9089<br />czy_promocja: Tak","liczba_klientow: 1329<br />sprzedaz: 10344<br />czy_promocja: Tak","liczba_klientow:  933<br />sprzedaz:  6829<br />czy_promocja: Tak","liczba_klientow: 1043<br />sprzedaz:  7323<br />czy_promocja: Tak","liczba_klientow: 1140<br />sprzedaz:  8314<br />czy_promocja: Tak","liczba_klientow:  920<br />sprzedaz:  6533<br />czy_promocja: Tak","liczba_klientow: 1113<br />sprzedaz:  9125<br />czy_promocja: Tak","liczba_klientow: 1102<br />sprzedaz:  7981<br />czy_promocja: Tak","liczba_klientow: 1197<br />sprzedaz:  8683<br />czy_promocja: Tak","liczba_klientow: 1252<br />sprzedaz:  9496<br />czy_promocja: Tak","liczba_klientow:  996<br />sprzedaz:  7571<br />czy_promocja: Tak","liczba_klientow: 1262<br />sprzedaz:  9653<br />czy_promocja: Tak","liczba_klientow: 1268<br />sprzedaz:  8608<br />czy_promocja: Tak","liczba_klientow: 1390<br />sprzedaz:  9714<br />czy_promocja: Tak","liczba_klientow: 1278<br />sprzedaz: 10627<br />czy_promocja: Tak","liczba_klientow: 1271<br />sprzedaz:  9245<br />czy_promocja: Tak","liczba_klientow: 1066<br />sprzedaz:  7058<br />czy_promocja: Tak","liczba_klientow: 1081<br />sprzedaz:  7472<br />czy_promocja: Tak","liczba_klientow: 1241<br />sprzedaz:  8334<br />czy_promocja: Tak","liczba_klientow: 1214<br />sprzedaz:  8144<br />czy_promocja: Tak","liczba_klientow: 1295<br />sprzedaz:  9531<br />czy_promocja: Tak","liczba_klientow: 1118<br />sprzedaz:  7336<br />czy_promocja: Tak","liczba_klientow: 1250<br />sprzedaz:  8490<br />czy_promocja: Tak","liczba_klientow: 1345<br />sprzedaz:  9351<br />czy_promocja: Tak","liczba_klientow: 1337<br />sprzedaz:  9546<br />czy_promocja: Tak","liczba_klientow: 1356<br />sprzedaz: 10379<br />czy_promocja: Tak","liczba_klientow: 1091<br />sprzedaz:  8349<br />czy_promocja: Tak","liczba_klientow: 1124<br />sprzedaz:  8415<br />czy_promocja: Tak","liczba_klientow: 1170<br />sprzedaz:  9114<br />czy_promocja: Tak","liczba_klientow: 1219<br />sprzedaz:  9657<br />czy_promocja: Tak","liczba_klientow: 1082<br />sprzedaz:  9121<br />czy_promocja: Tak","liczba_klientow: 1085<br />sprzedaz:  7734<br />czy_promocja: Tak","liczba_klientow: 1091<br />sprzedaz:  7700<br />czy_promocja: Tak","liczba_klientow: 1247<br />sprzedaz:  9087<br />czy_promocja: Tak","liczba_klientow: 1258<br />sprzedaz:  9243<br />czy_promocja: Tak","liczba_klientow: 1351<br />sprzedaz: 11063<br />czy_promocja: Tak","liczba_klientow: 1241<br />sprzedaz:  8908<br />czy_promocja: Tak","liczba_klientow: 1311<br />sprzedaz: 10907<br />czy_promocja: Tak","liczba_klientow: 1291<br />sprzedaz:  9674<br />czy_promocja: Tak","liczba_klientow: 1117<br />sprzedaz:  7874<br />czy_promocja: Tak","liczba_klientow: 1213<br />sprzedaz:  8825<br />czy_promocja: Tak","liczba_klientow: 1019<br />sprzedaz:  7083<br />czy_promocja: Tak","liczba_klientow: 1119<br />sprzedaz:  7915<br />czy_promocja: Tak","liczba_klientow: 1207<br />sprzedaz:  9157<br />czy_promocja: Tak","liczba_klientow: 1201<br />sprzedaz:  9379<br />czy_promocja: Tak","liczba_klientow: 1176<br />sprzedaz:  9391<br />czy_promocja: Tak","liczba_klientow: 1174<br />sprzedaz:  7106<br />czy_promocja: Tak","liczba_klientow: 1225<br />sprzedaz:  8803<br />czy_promocja: Tak","liczba_klientow: 1321<br />sprzedaz: 10090<br />czy_promocja: Tak","liczba_klientow: 1235<br />sprzedaz:  9340<br />czy_promocja: Tak","liczba_klientow: 1547<br />sprzedaz: 12710<br />czy_promocja: Tak","liczba_klientow: 1107<br />sprzedaz:  7951<br />czy_promocja: Tak","liczba_klientow: 1111<br />sprzedaz:  8144<br />czy_promocja: Tak","liczba_klientow: 1218<br />sprzedaz:  8603<br />czy_promocja: Tak","liczba_klientow: 1164<br />sprzedaz:  8027<br />czy_promocja: Tak","liczba_klientow: 1237<br />sprzedaz:  8992<br />czy_promocja: Tak","liczba_klientow: 1203<br />sprzedaz:  8649<br />czy_promocja: Tak","liczba_klientow: 1064<br />sprzedaz:  8078<br />czy_promocja: Tak","liczba_klientow: 1284<br />sprzedaz:  9281<br />czy_promocja: Tak","liczba_klientow: 1291<br />sprzedaz:  9521<br />czy_promocja: Tak","liczba_klientow: 1394<br />sprzedaz: 10142<br />czy_promocja: Tak","liczba_klientow:  931<br />sprzedaz:  6059<br />czy_promocja: Tak","liczba_klientow: 1088<br />sprzedaz:  7011<br />czy_promocja: Tak","liczba_klientow: 1210<br />sprzedaz:  8058<br />czy_promocja: Tak","liczba_klientow: 1160<br />sprzedaz:  7805<br />czy_promocja: Tak","liczba_klientow: 1197<br />sprzedaz:  8886<br />czy_promocja: Tak","liczba_klientow: 1126<br />sprzedaz:  7915<br />czy_promocja: Tak","liczba_klientow: 1082<br />sprzedaz:  7690<br />czy_promocja: Tak","liczba_klientow: 1240<br />sprzedaz:  9180<br />czy_promocja: Tak","liczba_klientow: 1216<br />sprzedaz:  8936<br />czy_promocja: Tak","liczba_klientow: 1357<br />sprzedaz: 10348<br />czy_promocja: Tak","liczba_klientow: 1489<br />sprzedaz: 11968<br />czy_promocja: Tak","liczba_klientow: 1423<br />sprzedaz: 10751<br />czy_promocja: Tak","liczba_klientow: 1305<br />sprzedaz:  9988<br />czy_promocja: Tak","liczba_klientow: 1281<br />sprzedaz:  9870<br />czy_promocja: Tak","liczba_klientow: 1459<br />sprzedaz: 11615<br />czy_promocja: Tak","liczba_klientow: 1510<br />sprzedaz: 11529<br />czy_promocja: Tak","liczba_klientow: 1418<br />sprzedaz: 12058<br />czy_promocja: Tak","liczba_klientow: 1387<br />sprzedaz: 11668<br />czy_promocja: Tak","liczba_klientow: 1182<br />sprzedaz:  8197<br />czy_promocja: Tak","liczba_klientow: 1214<br />sprzedaz:  8657<br />czy_promocja: Tak","liczba_klientow: 1300<br />sprzedaz:  9507<br />czy_promocja: Tak","liczba_klientow: 1253<br />sprzedaz:  9115<br />czy_promocja: Tak","liczba_klientow: 1434<br />sprzedaz: 12157<br />czy_promocja: Tak","liczba_klientow:  918<br />sprzedaz:  6188<br />czy_promocja: Tak","liczba_klientow: 1150<br />sprzedaz:  7345<br />czy_promocja: Tak","liczba_klientow: 1139<br />sprzedaz:  8491<br />czy_promocja: Tak","liczba_klientow: 1099<br />sprzedaz:  7872<br />czy_promocja: Tak","liczba_klientow: 1231<br />sprzedaz:  9183<br />czy_promocja: Tak","liczba_klientow: 1187<br />sprzedaz:  7680<br />czy_promocja: Tak","liczba_klientow: 1244<br />sprzedaz:  8458<br />czy_promocja: Tak","liczba_klientow: 1247<br />sprzedaz:  8820<br />czy_promocja: Tak","liczba_klientow: 1265<br />sprzedaz:  8362<br />czy_promocja: Tak","liczba_klientow: 1479<br />sprzedaz: 10944<br />czy_promocja: Tak","liczba_klientow: 1011<br />sprzedaz:  7141<br />czy_promocja: Tak","liczba_klientow: 1109<br />sprzedaz:  7474<br />czy_promocja: Tak","liczba_klientow: 1106<br />sprzedaz:  7587<br />czy_promocja: Tak","liczba_klientow: 1131<br />sprzedaz:  8129<br />czy_promocja: Tak","liczba_klientow: 1300<br />sprzedaz:  9492<br />czy_promocja: Tak","liczba_klientow: 1011<br />sprzedaz:  7056<br />czy_promocja: Tak","liczba_klientow: 1096<br />sprzedaz:  7349<br />czy_promocja: Tak","liczba_klientow: 1219<br />sprzedaz:  9024<br />czy_promocja: Tak","liczba_klientow: 1316<br />sprzedaz: 10377<br />czy_promocja: Tak","liczba_klientow: 1514<br />sprzedaz: 12523<br />czy_promocja: Tak","liczba_klientow: 1050<br />sprzedaz:  7278<br />czy_promocja: Tak","liczba_klientow: 1020<br />sprzedaz:  6781<br />czy_promocja: Tak","liczba_klientow: 1159<br />sprzedaz:  8189<br />czy_promocja: Tak","liczba_klientow: 1091<br />sprzedaz:  7950<br />czy_promocja: Tak","liczba_klientow: 1223<br />sprzedaz:  9001<br />czy_promocja: Tak","liczba_klientow: 1076<br />sprzedaz:  7081<br />czy_promocja: Tak","liczba_klientow:  944<br />sprzedaz:  6945<br />czy_promocja: Tak","liczba_klientow: 1152<br />sprzedaz:  8397<br />czy_promocja: Tak","liczba_klientow: 1295<br />sprzedaz:  9699<br />czy_promocja: Tak","liczba_klientow: 1163<br />sprzedaz:  9130<br />czy_promocja: Tak"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","opacity":1,"size":5.66929133858268,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(0,191,196,1)"}},"hoveron":"points","name":"Tak","legendgroup":"Tak","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[543,560.73417721519,578.46835443038,596.20253164557,613.936708860759,631.670886075949,649.405063291139,667.139240506329,684.873417721519,702.607594936709,720.341772151899,738.075949367089,755.810126582278,773.544303797468,791.278481012658,809.012658227848,826.746835443038,844.481012658228,862.215189873418,879.949367088608,897.683544303797,915.417721518987,933.151898734177,950.886075949367,968.620253164557,986.354430379747,1004.08860759494,1021.82278481013,1039.55696202532,1057.29113924051,1075.0253164557,1092.75949367089,1110.49367088608,1128.22784810127,1145.96202531646,1163.69620253165,1181.43037974684,1199.16455696203,1216.89873417722,1234.63291139241,1252.36708860759,1270.10126582278,1287.83544303797,1305.56962025316,1323.30379746835,1341.03797468354,1358.77215189873,1376.50632911392,1394.24050632911,1411.9746835443,1429.70886075949,1447.44303797468,1465.17721518987,1482.91139240506,1500.64556962025,1518.37974683544,1536.11392405063,1553.84810126582,1571.58227848101,1589.3164556962,1607.05063291139,1624.78481012658,1642.51898734177,1660.25316455696,1677.98734177215,1695.72151898734,1713.45569620253,1731.18987341772,1748.92405063291,1766.6582278481,1784.39240506329,1802.12658227848,1819.86075949367,1837.59493670886,1855.32911392405,1873.06329113924,1890.79746835443,1908.53164556962,1926.26582278481,1944],"y":[2888.67282710495,3035.40001126029,3182.12719541563,3328.85437957096,3475.58156372629,3622.30874788163,3769.03593203696,3915.7631161923,4062.49030034763,4209.21748450297,4355.94466865831,4502.67185281364,4649.39903696897,4796.12622112431,4942.85340527964,5089.58058943498,5236.30777359032,5383.03495774565,5529.76214190099,5676.48932605632,5823.21651021166,5969.94369436699,6116.67087852233,6263.39806267766,6410.12524683299,6556.85243098833,6703.57961514367,6850.306799299,6997.03398345433,7143.76116760967,7290.48835176501,7437.21553592034,7583.94272007568,7730.66990423101,7877.39708838635,8024.12427254168,8170.85145669702,8317.57864085235,8464.30582500768,8611.03300916302,8757.76019331836,8904.48737747369,9051.21456162903,9197.94174578436,9344.66892993969,9491.39611409503,9638.12329825037,9784.8504824057,9931.57766656104,10078.3048507164,10225.0320348717,10371.759219027,10518.4864031824,10665.2135873377,10811.940771493,10958.6679556484,11105.3951398037,11252.1223239591,11398.8495081144,11545.5766922697,11692.3038764251,11839.0310605804,11985.7582447357,12132.4854288911,12279.2126130464,12425.9397972017,12572.6669813571,12719.3941655124,12866.1213496677,13012.8485338231,13159.5757179784,13306.3029021337,13453.0300862891,13599.7572704444,13746.4844545997,13893.2116387551,14039.9388229104,14186.6660070658,14333.3931912211,14480.1203753764],"text":["liczba_klientow:  543.0000<br />sprzedaz:  2888.673<br />czy_promocja: Nie","liczba_klientow:  560.7342<br />sprzedaz:  3035.400<br />czy_promocja: Nie","liczba_klientow:  578.4684<br />sprzedaz:  3182.127<br />czy_promocja: Nie","liczba_klientow:  596.2025<br />sprzedaz:  3328.854<br />czy_promocja: Nie","liczba_klientow:  613.9367<br />sprzedaz:  3475.582<br />czy_promocja: Nie","liczba_klientow:  631.6709<br />sprzedaz:  3622.309<br />czy_promocja: Nie","liczba_klientow:  649.4051<br />sprzedaz:  3769.036<br />czy_promocja: Nie","liczba_klientow:  667.1392<br />sprzedaz:  3915.763<br />czy_promocja: Nie","liczba_klientow:  684.8734<br />sprzedaz:  4062.490<br />czy_promocja: Nie","liczba_klientow:  702.6076<br />sprzedaz:  4209.217<br />czy_promocja: Nie","liczba_klientow:  720.3418<br />sprzedaz:  4355.945<br />czy_promocja: Nie","liczba_klientow:  738.0759<br />sprzedaz:  4502.672<br />czy_promocja: Nie","liczba_klientow:  755.8101<br />sprzedaz:  4649.399<br />czy_promocja: Nie","liczba_klientow:  773.5443<br />sprzedaz:  4796.126<br />czy_promocja: Nie","liczba_klientow:  791.2785<br />sprzedaz:  4942.853<br />czy_promocja: Nie","liczba_klientow:  809.0127<br />sprzedaz:  5089.581<br />czy_promocja: Nie","liczba_klientow:  826.7468<br />sprzedaz:  5236.308<br />czy_promocja: Nie","liczba_klientow:  844.4810<br />sprzedaz:  5383.035<br />czy_promocja: Nie","liczba_klientow:  862.2152<br />sprzedaz:  5529.762<br />czy_promocja: Nie","liczba_klientow:  879.9494<br />sprzedaz:  5676.489<br />czy_promocja: Nie","liczba_klientow:  897.6835<br />sprzedaz:  5823.217<br />czy_promocja: Nie","liczba_klientow:  915.4177<br />sprzedaz:  5969.944<br />czy_promocja: Nie","liczba_klientow:  933.1519<br />sprzedaz:  6116.671<br />czy_promocja: Nie","liczba_klientow:  950.8861<br />sprzedaz:  6263.398<br />czy_promocja: Nie","liczba_klientow:  968.6203<br />sprzedaz:  6410.125<br />czy_promocja: Nie","liczba_klientow:  986.3544<br />sprzedaz:  6556.852<br />czy_promocja: Nie","liczba_klientow: 1004.0886<br />sprzedaz:  6703.580<br />czy_promocja: Nie","liczba_klientow: 1021.8228<br />sprzedaz:  6850.307<br />czy_promocja: Nie","liczba_klientow: 1039.5570<br />sprzedaz:  6997.034<br />czy_promocja: Nie","liczba_klientow: 1057.2911<br />sprzedaz:  7143.761<br />czy_promocja: Nie","liczba_klientow: 1075.0253<br />sprzedaz:  7290.488<br />czy_promocja: Nie","liczba_klientow: 1092.7595<br />sprzedaz:  7437.216<br />czy_promocja: Nie","liczba_klientow: 1110.4937<br />sprzedaz:  7583.943<br />czy_promocja: Nie","liczba_klientow: 1128.2278<br />sprzedaz:  7730.670<br />czy_promocja: Nie","liczba_klientow: 1145.9620<br />sprzedaz:  7877.397<br />czy_promocja: Nie","liczba_klientow: 1163.6962<br />sprzedaz:  8024.124<br />czy_promocja: Nie","liczba_klientow: 1181.4304<br />sprzedaz:  8170.851<br />czy_promocja: Nie","liczba_klientow: 1199.1646<br />sprzedaz:  8317.579<br />czy_promocja: Nie","liczba_klientow: 1216.8987<br />sprzedaz:  8464.306<br />czy_promocja: Nie","liczba_klientow: 1234.6329<br />sprzedaz:  8611.033<br />czy_promocja: Nie","liczba_klientow: 1252.3671<br />sprzedaz:  8757.760<br />czy_promocja: Nie","liczba_klientow: 1270.1013<br />sprzedaz:  8904.487<br />czy_promocja: Nie","liczba_klientow: 1287.8354<br />sprzedaz:  9051.215<br />czy_promocja: Nie","liczba_klientow: 1305.5696<br />sprzedaz:  9197.942<br />czy_promocja: Nie","liczba_klientow: 1323.3038<br />sprzedaz:  9344.669<br />czy_promocja: Nie","liczba_klientow: 1341.0380<br />sprzedaz:  9491.396<br />czy_promocja: Nie","liczba_klientow: 1358.7722<br />sprzedaz:  9638.123<br />czy_promocja: Nie","liczba_klientow: 1376.5063<br />sprzedaz:  9784.850<br />czy_promocja: Nie","liczba_klientow: 1394.2405<br />sprzedaz:  9931.578<br />czy_promocja: Nie","liczba_klientow: 1411.9747<br />sprzedaz: 10078.305<br />czy_promocja: Nie","liczba_klientow: 1429.7089<br />sprzedaz: 10225.032<br />czy_promocja: Nie","liczba_klientow: 1447.4430<br />sprzedaz: 10371.759<br />czy_promocja: Nie","liczba_klientow: 1465.1772<br />sprzedaz: 10518.486<br />czy_promocja: Nie","liczba_klientow: 1482.9114<br />sprzedaz: 10665.214<br />czy_promocja: Nie","liczba_klientow: 1500.6456<br />sprzedaz: 10811.941<br />czy_promocja: Nie","liczba_klientow: 1518.3797<br />sprzedaz: 10958.668<br />czy_promocja: Nie","liczba_klientow: 1536.1139<br />sprzedaz: 11105.395<br />czy_promocja: Nie","liczba_klientow: 1553.8481<br />sprzedaz: 11252.122<br />czy_promocja: Nie","liczba_klientow: 1571.5823<br />sprzedaz: 11398.850<br />czy_promocja: Nie","liczba_klientow: 1589.3165<br />sprzedaz: 11545.577<br />czy_promocja: Nie","liczba_klientow: 1607.0506<br />sprzedaz: 11692.304<br />czy_promocja: Nie","liczba_klientow: 1624.7848<br />sprzedaz: 11839.031<br />czy_promocja: Nie","liczba_klientow: 1642.5190<br />sprzedaz: 11985.758<br />czy_promocja: Nie","liczba_klientow: 1660.2532<br />sprzedaz: 12132.485<br />czy_promocja: Nie","liczba_klientow: 1677.9873<br />sprzedaz: 12279.213<br />czy_promocja: Nie","liczba_klientow: 1695.7215<br />sprzedaz: 12425.940<br />czy_promocja: Nie","liczba_klientow: 1713.4557<br />sprzedaz: 12572.667<br />czy_promocja: Nie","liczba_klientow: 1731.1899<br />sprzedaz: 12719.394<br />czy_promocja: Nie","liczba_klientow: 1748.9241<br />sprzedaz: 12866.121<br />czy_promocja: Nie","liczba_klientow: 1766.6582<br />sprzedaz: 13012.849<br />czy_promocja: Nie","liczba_klientow: 1784.3924<br />sprzedaz: 13159.576<br />czy_promocja: Nie","liczba_klientow: 1802.1266<br />sprzedaz: 13306.303<br />czy_promocja: Nie","liczba_klientow: 1819.8608<br />sprzedaz: 13453.030<br />czy_promocja: Nie","liczba_klientow: 1837.5949<br />sprzedaz: 13599.757<br />czy_promocja: Nie","liczba_klientow: 1855.3291<br />sprzedaz: 13746.484<br />czy_promocja: Nie","liczba_klientow: 1873.0633<br />sprzedaz: 13893.212<br />czy_promocja: Nie","liczba_klientow: 1890.7975<br />sprzedaz: 14039.939<br />czy_promocja: Nie","liczba_klientow: 1908.5316<br />sprzedaz: 14186.666<br />czy_promocja: Nie","liczba_klientow: 1926.2658<br />sprzedaz: 14333.393<br />czy_promocja: Nie","liczba_klientow: 1944.0000<br />sprzedaz: 14480.120<br />czy_promocja: Nie"],"type":"scatter","mode":"lines","name":"Nie","line":{"width":3.77952755905512,"color":"rgba(248,118,109,1)","dash":"solid"},"hoveron":"points","legendgroup":"Nie","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[918,929.278481012658,940.556962025316,951.835443037975,963.113924050633,974.392405063291,985.670886075949,996.949367088608,1008.22784810127,1019.50632911392,1030.78481012658,1042.06329113924,1053.3417721519,1064.62025316456,1075.89873417722,1087.17721518987,1098.45569620253,1109.73417721519,1121.01265822785,1132.29113924051,1143.56962025316,1154.84810126582,1166.12658227848,1177.40506329114,1188.6835443038,1199.96202531646,1211.24050632911,1222.51898734177,1233.79746835443,1245.07594936709,1256.35443037975,1267.63291139241,1278.91139240506,1290.18987341772,1301.46835443038,1312.74683544304,1324.0253164557,1335.30379746835,1346.58227848101,1357.86075949367,1369.13924050633,1380.41772151899,1391.69620253165,1402.9746835443,1414.25316455696,1425.53164556962,1436.81012658228,1448.08860759494,1459.36708860759,1470.64556962025,1481.92405063291,1493.20253164557,1504.48101265823,1515.75949367089,1527.03797468354,1538.3164556962,1549.59493670886,1560.87341772152,1572.15189873418,1583.43037974684,1594.70886075949,1605.98734177215,1617.26582278481,1628.54430379747,1639.82278481013,1651.10126582278,1662.37974683544,1673.6582278481,1684.93670886076,1696.21518987342,1707.49367088608,1718.77215189873,1730.05063291139,1741.32911392405,1752.60759493671,1763.88607594937,1775.16455696203,1786.44303797468,1797.72151898734,1809],"y":[5668.65218285989,5795.58999341371,5922.52780396753,6049.46561452134,6176.40342507516,6303.34123562898,6430.2790461828,6557.21685673661,6684.15466729043,6811.09247784425,6938.03028839806,7064.96809895188,7191.9059095057,7318.84372005952,7445.78153061333,7572.71934116715,7699.65715172097,7826.59496227479,7953.5327728286,8080.47058338242,8207.40839393624,8334.34620449006,8461.28401504387,8588.22182559769,8715.15963615151,8842.09744670533,8969.03525725914,9095.97306781296,9222.91087836678,9349.84868892059,9476.78649947441,9603.72431002823,9730.66212058205,9857.59993113587,9984.53774168968,10111.4755522435,10238.4133627973,10365.3511733511,10492.2889839049,10619.2267944588,10746.1646050126,10873.1024155664,11000.0402261202,11126.978036674,11253.9158472279,11380.8536577817,11507.7914683355,11634.7292788893,11761.6670894431,11888.6048999969,12015.5427105508,12142.4805211046,12269.4183316584,12396.3561422122,12523.293952766,12650.2317633198,12777.1695738737,12904.1073844275,13031.0451949813,13157.9830055351,13284.9208160889,13411.8586266428,13538.7964371966,13665.7342477504,13792.6720583042,13919.609868858,14046.5476794118,14173.4854899657,14300.4233005195,14427.3611110733,14554.2989216271,14681.2367321809,14808.1745427347,14935.1123532886,15062.0501638424,15188.9879743962,15315.92578495,15442.8635955038,15569.8014060576,15696.7392166115],"text":["liczba_klientow:  918.0000<br />sprzedaz:  5668.652<br />czy_promocja: Tak","liczba_klientow:  929.2785<br />sprzedaz:  5795.590<br />czy_promocja: Tak","liczba_klientow:  940.5570<br />sprzedaz:  5922.528<br />czy_promocja: Tak","liczba_klientow:  951.8354<br />sprzedaz:  6049.466<br />czy_promocja: Tak","liczba_klientow:  963.1139<br />sprzedaz:  6176.403<br />czy_promocja: Tak","liczba_klientow:  974.3924<br />sprzedaz:  6303.341<br />czy_promocja: Tak","liczba_klientow:  985.6709<br />sprzedaz:  6430.279<br />czy_promocja: Tak","liczba_klientow:  996.9494<br />sprzedaz:  6557.217<br />czy_promocja: Tak","liczba_klientow: 1008.2278<br />sprzedaz:  6684.155<br />czy_promocja: Tak","liczba_klientow: 1019.5063<br />sprzedaz:  6811.092<br />czy_promocja: Tak","liczba_klientow: 1030.7848<br />sprzedaz:  6938.030<br />czy_promocja: Tak","liczba_klientow: 1042.0633<br />sprzedaz:  7064.968<br />czy_promocja: Tak","liczba_klientow: 1053.3418<br />sprzedaz:  7191.906<br />czy_promocja: Tak","liczba_klientow: 1064.6203<br />sprzedaz:  7318.844<br />czy_promocja: Tak","liczba_klientow: 1075.8987<br />sprzedaz:  7445.782<br />czy_promocja: Tak","liczba_klientow: 1087.1772<br />sprzedaz:  7572.719<br />czy_promocja: Tak","liczba_klientow: 1098.4557<br />sprzedaz:  7699.657<br />czy_promocja: Tak","liczba_klientow: 1109.7342<br />sprzedaz:  7826.595<br />czy_promocja: Tak","liczba_klientow: 1121.0127<br />sprzedaz:  7953.533<br />czy_promocja: Tak","liczba_klientow: 1132.2911<br />sprzedaz:  8080.471<br />czy_promocja: Tak","liczba_klientow: 1143.5696<br />sprzedaz:  8207.408<br />czy_promocja: Tak","liczba_klientow: 1154.8481<br />sprzedaz:  8334.346<br />czy_promocja: Tak","liczba_klientow: 1166.1266<br />sprzedaz:  8461.284<br />czy_promocja: Tak","liczba_klientow: 1177.4051<br />sprzedaz:  8588.222<br />czy_promocja: Tak","liczba_klientow: 1188.6835<br />sprzedaz:  8715.160<br />czy_promocja: Tak","liczba_klientow: 1199.9620<br />sprzedaz:  8842.097<br />czy_promocja: Tak","liczba_klientow: 1211.2405<br />sprzedaz:  8969.035<br />czy_promocja: Tak","liczba_klientow: 1222.5190<br />sprzedaz:  9095.973<br />czy_promocja: Tak","liczba_klientow: 1233.7975<br />sprzedaz:  9222.911<br />czy_promocja: Tak","liczba_klientow: 1245.0759<br />sprzedaz:  9349.849<br />czy_promocja: Tak","liczba_klientow: 1256.3544<br />sprzedaz:  9476.786<br />czy_promocja: Tak","liczba_klientow: 1267.6329<br />sprzedaz:  9603.724<br />czy_promocja: Tak","liczba_klientow: 1278.9114<br />sprzedaz:  9730.662<br />czy_promocja: Tak","liczba_klientow: 1290.1899<br />sprzedaz:  9857.600<br />czy_promocja: Tak","liczba_klientow: 1301.4684<br />sprzedaz:  9984.538<br />czy_promocja: Tak","liczba_klientow: 1312.7468<br />sprzedaz: 10111.476<br />czy_promocja: Tak","liczba_klientow: 1324.0253<br />sprzedaz: 10238.413<br />czy_promocja: Tak","liczba_klientow: 1335.3038<br />sprzedaz: 10365.351<br />czy_promocja: Tak","liczba_klientow: 1346.5823<br />sprzedaz: 10492.289<br />czy_promocja: Tak","liczba_klientow: 1357.8608<br />sprzedaz: 10619.227<br />czy_promocja: Tak","liczba_klientow: 1369.1392<br />sprzedaz: 10746.165<br />czy_promocja: Tak","liczba_klientow: 1380.4177<br />sprzedaz: 10873.102<br />czy_promocja: Tak","liczba_klientow: 1391.6962<br />sprzedaz: 11000.040<br />czy_promocja: Tak","liczba_klientow: 1402.9747<br />sprzedaz: 11126.978<br />czy_promocja: Tak","liczba_klientow: 1414.2532<br />sprzedaz: 11253.916<br />czy_promocja: Tak","liczba_klientow: 1425.5316<br />sprzedaz: 11380.854<br />czy_promocja: Tak","liczba_klientow: 1436.8101<br />sprzedaz: 11507.791<br />czy_promocja: Tak","liczba_klientow: 1448.0886<br />sprzedaz: 11634.729<br />czy_promocja: Tak","liczba_klientow: 1459.3671<br />sprzedaz: 11761.667<br />czy_promocja: Tak","liczba_klientow: 1470.6456<br />sprzedaz: 11888.605<br />czy_promocja: Tak","liczba_klientow: 1481.9241<br />sprzedaz: 12015.543<br />czy_promocja: Tak","liczba_klientow: 1493.2025<br />sprzedaz: 12142.481<br />czy_promocja: Tak","liczba_klientow: 1504.4810<br />sprzedaz: 12269.418<br />czy_promocja: Tak","liczba_klientow: 1515.7595<br />sprzedaz: 12396.356<br />czy_promocja: Tak","liczba_klientow: 1527.0380<br />sprzedaz: 12523.294<br />czy_promocja: Tak","liczba_klientow: 1538.3165<br />sprzedaz: 12650.232<br />czy_promocja: Tak","liczba_klientow: 1549.5949<br />sprzedaz: 12777.170<br />czy_promocja: Tak","liczba_klientow: 1560.8734<br />sprzedaz: 12904.107<br />czy_promocja: Tak","liczba_klientow: 1572.1519<br />sprzedaz: 13031.045<br />czy_promocja: Tak","liczba_klientow: 1583.4304<br />sprzedaz: 13157.983<br />czy_promocja: Tak","liczba_klientow: 1594.7089<br />sprzedaz: 13284.921<br />czy_promocja: Tak","liczba_klientow: 1605.9873<br />sprzedaz: 13411.859<br />czy_promocja: Tak","liczba_klientow: 1617.2658<br />sprzedaz: 13538.796<br />czy_promocja: Tak","liczba_klientow: 1628.5443<br />sprzedaz: 13665.734<br />czy_promocja: Tak","liczba_klientow: 1639.8228<br />sprzedaz: 13792.672<br />czy_promocja: Tak","liczba_klientow: 1651.1013<br />sprzedaz: 13919.610<br />czy_promocja: Tak","liczba_klientow: 1662.3797<br />sprzedaz: 14046.548<br />czy_promocja: Tak","liczba_klientow: 1673.6582<br />sprzedaz: 14173.485<br />czy_promocja: Tak","liczba_klientow: 1684.9367<br />sprzedaz: 14300.423<br />czy_promocja: Tak","liczba_klientow: 1696.2152<br />sprzedaz: 14427.361<br />czy_promocja: Tak","liczba_klientow: 1707.4937<br />sprzedaz: 14554.299<br />czy_promocja: Tak","liczba_klientow: 1718.7722<br />sprzedaz: 14681.237<br />czy_promocja: Tak","liczba_klientow: 1730.0506<br />sprzedaz: 14808.175<br />czy_promocja: Tak","liczba_klientow: 1741.3291<br />sprzedaz: 14935.112<br />czy_promocja: Tak","liczba_klientow: 1752.6076<br />sprzedaz: 15062.050<br />czy_promocja: Tak","liczba_klientow: 1763.8861<br />sprzedaz: 15188.988<br />czy_promocja: Tak","liczba_klientow: 1775.1646<br />sprzedaz: 15315.926<br />czy_promocja: Tak","liczba_klientow: 1786.4430<br />sprzedaz: 15442.864<br />czy_promocja: Tak","liczba_klientow: 1797.7215<br />sprzedaz: 15569.801<br />czy_promocja: Tak","liczba_klientow: 1809.0000<br />sprzedaz: 15696.739<br />czy_promocja: Tak"],"type":"scatter","mode":"lines","name":"Tak","line":{"width":3.77952755905512,"color":"rgba(0,191,196,1)","dash":"solid"},"hoveron":"points","legendgroup":"Tak","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":40.8401826484018,"r":7.30593607305936,"b":37.2602739726027,"l":54.7945205479452},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"title":{"text":"Sprzedaż i liczba klientów w sklepie nr 11","font":{"color":"rgba(0,0,0,1)","family":"","size":17.5342465753425},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[472.95,2014.05],"tickmode":"array","ticktext":["500","1000","1500","2000"],"tickvals":[500,1000,1500,2000],"categoryorder":"array","categoryarray":["500","1000","1500","2000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(179,179,179,1)","ticklen":3.65296803652968,"tickwidth":0.33208800332088,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(222,222,222,1)","gridwidth":0.33208800332088,"zeroline":false,"anchor":"y","title":{"text":"Liczba klientów","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-1000,21000],"tickmode":"array","ticktext":["0","5000","10000","15000","20000"],"tickvals":[0,5000,10000,15000,20000],"categoryorder":"array","categoryarray":["0","5000","10000","15000","20000"],"nticks":null,"ticks":"outside","tickcolor":"rgba(179,179,179,1)","ticklen":3.65296803652968,"tickwidth":0.33208800332088,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(222,222,222,1)","gridwidth":0.33208800332088,"zeroline":false,"anchor":"x","title":{"text":"Sprzedaż","font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(179,179,179,1)","width":0.66417600664176,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"y":0.938132733408324},"annotations":[{"text":"Promocja?","x":1.02,"y":1,"showarrow":false,"ax":0,"ay":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xref":"paper","yref":"paper","textangle":-0,"xanchor":"left","yanchor":"bottom","legendTitle":true}],"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","showSendToCloud":false},"source":"A","attrs":{"39ec3a241ac":{"x":{},"y":{},"colour":{},"type":"scatter"},"39ec38ac361":{"x":{},"y":{},"colour":{}}},"cur_data":"39ec3a241ac","visdat":{"39ec3a241ac":["function (y) ","x"],"39ec38ac361":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+
+]
+---
+
+# Histogram - `geom_histogram`
+
+Obowiązkowe argumenty `aes`:
+
+- x 
+
+Domyślnie tworzy zawsze 30 słupków.
+
+---
+
+# Histogram
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x = liczba_klientow)) + 
+  geom_histogram()
+```
+
+Domyślnie tworzonych jest 30 słupków.
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Histogram - 12 słupków
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x = liczba_klientow)) + 
+  geom_histogram(bins = 12)
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Histogram - słupek = 100 klientów
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x = liczba_klientow)) + 
+  geom_histogram(binwidth = 100)
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Histogram - fill jako zmienna
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x = liczba_klientow,
+                    fill = czy_promocja)) + 
+  geom_histogram(binwidth = 100)
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Histogram - fill jako kolor
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x = liczba_klientow)) + 
+  geom_histogram(binwidth = 100,
+                 fill = "blue")
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Krzywa gęstości
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x = liczba_klientow)) + 
+  geom_density(fill = "blue")
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Grupy
+
+Funkcja `cut()` pozwala na stworzenie zmiennej jakościowej z ilościowej:
+
+
+```r
+sklep11 &lt;- sklep11 %&gt;%
+  mutate(klienci3=cut(x = liczba_klientow, 
+                   breaks = c(min(liczba_klientow),1000,1500,max(liczba_klientow)), 
+                   labels = c("do 1000", "1000-1500", "powyżej 1500"),
+                   include.lowest = T))
+```
+
+---
+
+# Wykres słupkowy - `geom_bar` / `geom_col`
+
+- `geom_bar` - funkcja sama oblicza wartości do wyświetlenia na podstawie zbioru danych jednostkowych
+
+- `geom_col` - funkcja otrzymuje już obliczone wartości (dane zagregowane)
+
+---
+
+# Wykres słupkowy - `geom_bar`
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x = klienci3)) +
+  geom_bar()
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+
+]
+
+
+---
+
+# Wykres słupkowy - `geom_bar`
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x = klienci3)) +
+  geom_bar(fill = "#99d8c9")
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# Wykres słupkowy - `geom_col`
+
+.pull-left[
+
+
+```r
+n_klieci3 &lt;- sklep11 %&gt;%
+  count(klienci3)
+
+ggplot(n_klieci3, aes(x = klienci3, 
+                      y = n)) +
+  geom_col()
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+# `facet_wrap`
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) +
+  geom_point() +
+  facet_wrap( ~ czy_promocja)
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# `facet_wrap`
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) +
+  geom_point() +
+  facet_wrap(dzien_tyg ~ czy_promocja)
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-48-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# `facet_wrap`
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) +
+  geom_point() +
+  facet_wrap(dzien_tyg ~ czy_promocja,
+             nrow = 2)
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-50-1.png)&lt;!-- --&gt;
+
+]
+---
+
+# `facet_grid`
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) +
+  geom_point() +
+  facet_grid(dzien_tyg ~ czy_promocja)
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-52-1.png)&lt;!-- --&gt;
+]
+
+---
+
+# Wykres pudełkowy - `geom_boxplot`
+
+Obowiązkowe argumenty `aes`:
+
+- x - zmienna grupująca (tekstowa/faktor)
+
+- y - zmienna analizowana
+
+---
+
+# Wykres pudełkowy
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=czy_promocja, y=sprzedaz)) +
+  geom_boxplot()
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-54-1.png)&lt;!-- --&gt;
+
+
+]
+
+---
+
+# Wykres pudełkowy
+
+.pull-left[
+
+
+```r
+ggplot(sklep11, aes(x=czy_promocja, y=sprzedaz)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+]
+
+.pull-right[
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-56-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+class: inverse
+
+# Zadanie
+
+Stwórz następujący wykres
+
+![](04_wizualizacja_files/figure-html/unnamed-chunk-57-1.png)&lt;!-- --&gt;
+
+<div class="countdown" id="timer_5dcfa7a4" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

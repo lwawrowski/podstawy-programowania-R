@@ -19,34 +19,6 @@ library(tidyverse)
 library(countdown)
 ```
 
-# Rozpoczynanie pracy z R
-
-.pull-left[
-__Nowy projekt__
-
-1. Otwórz RStudio
-2. Stwórz nowy projekt
-3. Przenieś dane do folderu projektu
-4. Otwórz nowy skrypt R
-5. Wczytaj biblioteki
-6. Wczytaj dane
-7. Analizuj
-
-]
-
-.pull-right[
-__Istniejący projekt__
-
-1. Otwórz RStudio
-2. Otwórz istniejący skrypt R
-3. Wczytaj biblioteki
-4. Wczytaj dane
-5. Kontyuuj analizę
-
-]
-
----
-
 # Źródła wiedzy
 
 - [Przewodnik po wizualizacji danych](https://www.data-to-viz.com/)
@@ -55,17 +27,7 @@ __Istniejący projekt__
 
 - [Color Brewer](http://colorbrewer2.org)
 
----
-
-# Proste wykresy
-
-- `plot()` - wykres punktowy/liniowy
-
-- `hist()` - histogram
-
-- `barplot()` - wykres kolumnowy
-
-- `boxplot()` - wykres pudełkowy
+- [Nazwy kolorów do użycia w R](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
 
 ---
 
@@ -79,11 +41,21 @@ class: inverse
 
 3. Wczytaj zbiór danych `rossmann.xlsx` do pamięci R
 
-4. Wybierz jeden ze sklepów
-
-5. Stwórz kilka wykresów
+4. Za pomocą funkcji `filter` wybierz jeden ze sklepów
 
 `r countdown(minutes = 10, seconds = 0, top = 0)`
+
+---
+
+# Proste wykresy
+
+- `plot()` - wykres punktowy/liniowy
+
+- `hist()` - histogram
+
+- `barplot()` - wykres kolumnowy
+
+- `boxplot()` - wykres pudełkowy
 
 ---
 
@@ -396,23 +368,39 @@ ggplot(sklep11, aes(x=liczba_klientow,
 ```
 
 ]
+
 ---
 
-# Dodanie zmiennej płeć
-
-W zbiorze danych zmienna płeć ma typ `haven_labelled`, który nie jest obsługiwany przez pakiet ggplot2 - trzeba zamienić na zmienną tekstową z wykorzystaniem funkcji `as.character()`.
+# Wykres punktowy
 
 .pull-left[
 
-![](img/haven_labelled.png)
+```{r eval=FALSE}
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
+  geom_point() +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
+  theme_light()
+```
 
 ]
 
 .pull-right[
 
-```{r}
-psycho <- psycho %>% 
-  mutate(plec=as.character(plec))
+```{r echo=FALSE}
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
+  geom_point() +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
+  theme_light()
 ```
 
 ]
@@ -424,17 +412,16 @@ psycho <- psycho %>%
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x=poczucie_winy, 
-                y=wstyd,
-                color = plec)) + 
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
   geom_point() +
-  xlab("Poczucie winy") +
-  ylab("Wstyd") +
-  ylim(0,40) +
-  ggtitle("Poczucie winy i wstyd") +
-  theme_light() +
-  theme(plot.title = 
-          element_text(hjust = 0.5))
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  scale_color_discrete(name = "Promocja?") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
+  theme_light()
 ```
 
 ]
@@ -442,72 +429,16 @@ ggplot(psycho, aes(x=poczucie_winy,
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho, aes(x=poczucie_winy, 
-                y=wstyd, 
-                color = plec)) + 
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
   geom_point() +
-  xlab("Poczucie winy") +
-  ylab("Wstyd") +
-  ylim(0,40) +
-  ggtitle("Poczucie winy i wstyd") +
-  theme_light() +
-  theme(plot.title = element_text(hjust = 0.5))
-```
-
-]
-
----
-
-# Etykiety zmiennej
-
-W celu zdefiniowania etykiet dla zmiennej płeć należy zmienić jej typ na _faktor_:
-
-```{r}
-psycho <- psycho %>% 
-  mutate(plec_fct=factor(x = plec,
-                         levels = c("1", "2"), 
-                         labels = c("Kobieta", "Mężczyzna"), 
-                         ordered = F))
-
-```
-
-Za pomocą argumentu `ordered` można tworzyć cechy nominalne (`TRUE`) lub porządkowe (`FALSE`).
-
----
-
-# Wykres punktowy
-
-.pull-left[
-
-```{r eval=FALSE}
-ggplot(psycho, aes(x=poczucie_winy,
-                  y=wstyd,
-                  color = plec_fct)) + 
-  geom_point() +
-  xlab("Poczucie winy") +
-  ylab("Wstyd") +
-  ylim(0,40) +
-  ggtitle("Poczucie winy i wstyd") +
-  theme_light() +
-  theme(plot.title = 
-          element_text(hjust = 0.5))
-```
-
-]
-
-.pull-right[
-
-```{r echo=FALSE}
-ggplot(psycho, aes(x=poczucie_winy, 
-                y=wstyd, 
-                color = plec_fct)) + 
-  geom_point() +
-  xlab("Poczucie winy") +
-  ylab("Wstyd") +
-  ylim(0,40) +
-  ggtitle("Poczucie winy i wstyd") +
-  theme_light() +
-  theme(plot.title = element_text(hjust = 0.5))
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  scale_color_discrete(name = "Promocja?") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
+  theme_light()
 ```
 
 ]
@@ -518,18 +449,18 @@ ggplot(psycho, aes(x=poczucie_winy,
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x=poczucie_winy, 
-                y=wstyd,
-                color = plec_fct)) + 
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
   geom_point() +
-  xlab("Poczucie winy") +
-  ylab("Wstyd") +
-  ylim(0,40) +
-  scale_color_discrete(name = "Płeć") +
-  ggtitle("Poczucie winy i wstyd") +
-  theme_light() +
-  theme(plot.title = 
-          element_text(hjust = 0.5))
+    geom_smooth(method = "lm", se = F) +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  scale_color_discrete(name = "Promocja?") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
+  theme_light()
+
 ```
 
 ]
@@ -537,17 +468,17 @@ ggplot(psycho, aes(x=poczucie_winy,
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho, aes(x=poczucie_winy, 
-                y=wstyd, 
-                color = plec_fct)) + 
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
   geom_point() +
-  xlab("Poczucie winy") +
-  ylab("Wstyd") +
-  ylim(0,40) +
-  scale_color_discrete(name = "Płeć") +
-  ggtitle("Poczucie winy i wstyd") +
-  theme_light() +
-  theme(plot.title = element_text(hjust = 0.5))
+    geom_smooth(method = "lm", se = F) +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  scale_color_discrete(name = "Promocja?") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
+  theme_light()
 ```
 
 ]
@@ -558,19 +489,18 @@ ggplot(psycho, aes(x=poczucie_winy,
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x=poczucie_winy, 
-                y=wstyd,
-                color = plec_fct)) + 
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
   geom_point() +
   geom_smooth(method = "lm", se = F) +
-  xlab("Poczucie winy") +
-  ylab("Wstyd") +
-  ylim(0,40) +
-  scale_color_discrete(name = "Płeć") +
-  ggtitle("Poczucie winy i wstyd") +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  scale_color_discrete(name = "Promocja?") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
   theme_light() +
-  theme(plot.title = 
-          element_text(hjust = 0.5))
+  theme(legend.position = "bottom")
 ```
 
 ]
@@ -578,62 +508,18 @@ ggplot(psycho, aes(x=poczucie_winy,
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho, aes(x=poczucie_winy, 
-                y=wstyd, 
-                color = plec_fct)) + 
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
   geom_point() +
   geom_smooth(method = "lm", se = F) +
-  xlab("Poczucie winy") +
-  ylab("Wstyd") +
-  ylim(0,40) +
-  scale_color_discrete(name = "Płeć") +
-  ggtitle("Poczucie winy i wstyd") +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  scale_color_discrete(name = "Promocja?") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
   theme_light() +
-  theme(plot.title = element_text(hjust = 0.5))
-```
-
-]
----
-
-# Wykres punktowy
-
-.pull-left[
-
-```{r eval=FALSE}
-ggplot(psycho, aes(x=poczucie_winy, 
-                y=wstyd,
-                color = plec_fct)) + 
-  geom_point() +
-  geom_smooth(method = "lm", se = F) +
-  xlab("Poczucie winy") +
-  ylab("Wstyd") +
-  ylim(0,40) +
-  scale_color_discrete(name = "Płeć") +
-  ggtitle("Poczucie winy i wstyd") +
-  theme_light() +
-  theme(plot.title = 
-          element_text(hjust = 0.5),
-        legend.position = "bottom")
-```
-
-]
-
-.pull-right[
-
-```{r echo=FALSE}
-ggplot(psycho, aes(x=poczucie_winy, 
-                y=wstyd, 
-                color = plec_fct)) + 
-  geom_point() +
-  geom_smooth(method = "lm", se = F) +
-  xlab("Poczucie winy") +
-  ylab("Wstyd") +
-  ylim(0,40) +
-  scale_color_discrete(name = "Płeć") +
-  ggtitle("Poczucie winy i wstyd") +
-  theme_light() +
-  theme(plot.title = element_text(hjust = 0.5),
-        legend.position = "bottom")
+  theme(legend.position = "bottom")
 ```
 
 ]
@@ -645,20 +531,18 @@ ggplot(psycho, aes(x=poczucie_winy,
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x=poczucie_winy, 
-                y=wstyd,
-                color = plec_fct)) + 
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
   geom_point() +
   geom_smooth(method = "lm", se = F) +
-  xlab("Poczucie winy") +
-  ylab("Wstyd") +
-  ylim(0,40) +
-  scale_color_discrete(name = "Płeć") +
-  ggtitle("Poczucie winy i wstyd") +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  scale_color_discrete(name = "Promocja?") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
   theme_light() +
-  theme(plot.title = 
-          element_text(hjust = 0.5),
-        legend.position = c(0.08,0.87))
+  theme(legend.position = c(0.08,0.87))
 ```
 
 ]
@@ -666,43 +550,21 @@ ggplot(psycho, aes(x=poczucie_winy,
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho, aes(x=poczucie_winy, 
-                y=wstyd, 
-                color = plec_fct)) + 
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
   geom_point() +
   geom_smooth(method = "lm", se = F) +
-  xlab("Poczucie winy") +
-  ylab("Wstyd") +
-  ylim(0,40) +
-  scale_color_discrete(name = "Płeć") +
-  ggtitle("Poczucie winy i wstyd") +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  scale_color_discrete(name = "Promocja?") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
   theme_light() +
-  theme(plot.title = element_text(hjust = 0.5),
-        legend.position = c(0.08,0.87))
+  theme(legend.position = c(0.08,0.87))
 ```
 
 ]
-
----
-
-class: inverse
-
-# Zadanie
-
-Dodaj do zbioru danych identyfikator jednostek.
-
-`r countdown(minutes = 5, seconds = 0, top = 0)`
-
----
-
-# Dodanie identyfikatora
-
-Funkcja `nrow()` zwraca liczbę wierszy w podanym zbiorze danych.
-
-```{r}
-psycho <- psycho %>%
-  mutate(id=1:nrow(.)) # nrow(psycho)
-```
 
 ---
 
@@ -719,16 +581,16 @@ Za pomocą funkcji `ggplotly()` można zamienić każdy wykres ggplot2 na wykres
 .pull-left[
 
 ```{r eval=FALSE}
-p <- ggplot(psycho, aes(x=poczucie_winy, 
-                y=wstyd,
-                color = plec_fct,
-                label = id)) + 
+p <- ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
   geom_point() +
-  xlab("Poczucie winy") +
-  ylab("Wstyd") +
-  ylim(0,40) +
-  scale_color_discrete(name = "Płeć") +
-  ggtitle("Poczucie winy i wstyd") +
+  geom_smooth(method = "lm", se = F) +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  scale_color_discrete(name = "Promocja?") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
   theme_light()
 
 plotly::ggplotly(p)
@@ -739,16 +601,16 @@ plotly::ggplotly(p)
 .pull-right[
 
 ```{r echo=FALSE}
-p <- ggplot(psycho, aes(x=poczucie_winy, 
-                y=wstyd,
-                color = plec_fct,
-                label = id)) + 
+p <- ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz,
+                    color=czy_promocja)) + 
   geom_point() +
-  xlab("Poczucie winy") +
-  ylab("Wstyd") +
-  ylim(0,40) +
-  scale_color_discrete(name = "Płeć") +
-  ggtitle("Poczucie winy i wstyd") +
+  geom_smooth(method = "lm", se = F) +
+  xlab("Liczba klientów") +
+  ylab("Sprzedaż") +
+  scale_color_discrete(name = "Promocja?") +
+  ylim(0,20000) +
+  ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
   theme_light()
 
 plotly::ggplotly(p)
@@ -772,7 +634,7 @@ Domyślnie tworzy zawsze 30 słupków.
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x = wiek)) + 
+ggplot(sklep11, aes(x = liczba_klientow)) + 
   geom_histogram()
 ```
 
@@ -783,7 +645,7 @@ Domyślnie tworzonych jest 30 słupków.
 .pull-right[
 
 ```{r echo=FALSE, message=FALSE}
-ggplot(psycho, aes(x = wiek)) + 
+ggplot(sklep11, aes(x = liczba_klientow)) + 
   geom_histogram()
 ```
 
@@ -796,7 +658,7 @@ ggplot(psycho, aes(x = wiek)) +
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x = wiek)) + 
+ggplot(sklep11, aes(x = liczba_klientow)) + 
   geom_histogram(bins = 12)
 ```
 
@@ -805,7 +667,7 @@ ggplot(psycho, aes(x = wiek)) +
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho, aes(x = wiek)) + 
+ggplot(sklep11, aes(x = liczba_klientow)) + 
   geom_histogram(bins = 12)
 ```
 
@@ -813,13 +675,13 @@ ggplot(psycho, aes(x = wiek)) +
 
 ---
 
-# Histogram - słupek = 1 rok
+# Histogram - słupek = 100 klientów
 
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x = wiek)) + 
-  geom_histogram(binwidth = 1)
+ggplot(sklep11, aes(x = liczba_klientow)) + 
+  geom_histogram(binwidth = 100)
 ```
 
 ]
@@ -827,8 +689,8 @@ ggplot(psycho, aes(x = wiek)) +
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho, aes(x = wiek)) + 
-  geom_histogram(binwidth = 1)
+ggplot(sklep11, aes(x = liczba_klientow)) + 
+  geom_histogram(binwidth = 100)
 ```
 
 ]
@@ -840,9 +702,9 @@ ggplot(psycho, aes(x = wiek)) +
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x = wiek, 
-                   fill = plec_fct)) + 
-  geom_histogram(binwidth = 1)
+ggplot(sklep11, aes(x = liczba_klientow,
+                    fill = czy_promocja)) + 
+  geom_histogram(binwidth = 100)
 ```
 
 ]
@@ -850,9 +712,9 @@ ggplot(psycho, aes(x = wiek,
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho, aes(x = wiek, 
-                   fill = plec_fct)) + 
-  geom_histogram(binwidth = 1)
+ggplot(sklep11, aes(x = liczba_klientow,
+                    fill = czy_promocja)) + 
+  geom_histogram(binwidth = 100)
 ```
 
 ]
@@ -864,8 +726,8 @@ ggplot(psycho, aes(x = wiek,
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x = wiek)) + 
-  geom_histogram(binwidth = 1, 
+ggplot(sklep11, aes(x = liczba_klientow)) + 
+  geom_histogram(binwidth = 100,
                  fill = "blue")
 ```
 
@@ -874,41 +736,9 @@ ggplot(psycho, aes(x = wiek)) +
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho, aes(x = wiek)) + 
-  geom_histogram(binwidth = 1, fill = "blue")
-```
-
-]
-
----
-
-# Krzywa normalna
-
-.pull-left[
-
-```{r eval=FALSE}
-ggplot(psycho, aes(x=wstyd)) + 
-  geom_histogram(aes(y =..density..), 
-                 binwidth = 1) +
-  stat_function(fun = dnorm, 
-                size = 1, 
-    args = list(mean = 
-                  mean(psycho$wstyd), 
-                sd = 
-                  sd(psycho$wstyd)))
-```
-
-
-]
-
-.pull-right[
-
-```{r echo=FALSE}
-ggplot(psycho, aes(x=wstyd)) + 
-  geom_histogram(aes(y =..density..), binwidth = 1) +
-  stat_function(fun = dnorm, size = 1, 
-      args = list(mean = mean(psycho$wstyd), 
-                  sd = sd(psycho$wstyd)))
+ggplot(sklep11, aes(x = liczba_klientow)) + 
+  geom_histogram(binwidth = 100,
+                 fill = "blue")
 ```
 
 ]
@@ -920,7 +750,7 @@ ggplot(psycho, aes(x=wstyd)) +
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x = wiek)) + 
+ggplot(sklep11, aes(x = liczba_klientow)) + 
   geom_density(fill = "blue")
 ```
 
@@ -929,7 +759,7 @@ ggplot(psycho, aes(x = wiek)) +
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho, aes(x = wiek)) + 
+ggplot(sklep11, aes(x = liczba_klientow)) + 
   geom_density(fill = "blue")
 ```
 
@@ -937,68 +767,15 @@ ggplot(psycho, aes(x = wiek)) +
 
 ---
 
-# Wykres kwantyl-kwantyl
-
-.pull-left[
-
-```{r eval=FALSE}
-ggplot(psycho, aes(sample=wiek)) + 
-  stat_qq() + 
-  stat_qq_line()
-```
-
-]
-
-.pull-right[
-
-```{r echo=FALSE}
-ggplot(psycho, aes(sample=wiek)) + 
-  stat_qq() + 
-  stat_qq_line()
-```
-
-]
-
----
-
-class: inverse
-
-# Zadanie
-
-Stwórz zmienną `wiek4`, która będzie zawierała 4 grupy wieku.
-
-`r countdown(minutes = 10, seconds = 0, top = 0)`
-
-???
-
-```{r}
-psycho <- psycho %>%
-  mutate(plec=factor(plec, levels = c(1,2), labels = c("Kobieta", "Mężczyzna")))
-
-psycho <- psycho %>%
-  mutate(wiek4 = cut(wiek, breaks = c(18,24,30,36,42), include.lowest = T))
-```
-
-
----
-
-# Grupy wieku
+# Grupy
 
 Funkcja `cut()` pozwala na stworzenie zmiennej jakościowej z ilościowej:
 
 ```{r}
-psycho <- psycho %>%
-  mutate(wiek4=cut(x = wiek, 
-                   breaks = c(18,24,30,36,42), 
-                   include.lowest = T))
-```
-
-Przy większej liczbie kategorii warto skorzystać z funkcji `seq()`:
-
-```{r}
-psycho <- psycho %>%
-  mutate(wiek4=cut(x = wiek, 
-                   breaks = seq(from = 18, to = 42, by = 6), 
+sklep11 <- sklep11 %>%
+  mutate(klienci3=cut(x = liczba_klientow, 
+                   breaks = c(min(liczba_klientow),1000,1500,max(liczba_klientow)), 
+                   labels = c("do 1000", "1000-1500", "powyżej 1500"),
                    include.lowest = T))
 ```
 
@@ -1017,7 +794,7 @@ psycho <- psycho %>%
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x = wiek4)) +
+ggplot(sklep11, aes(x = klienci3)) +
   geom_bar()
 ```
 
@@ -1026,7 +803,7 @@ ggplot(psycho, aes(x = wiek4)) +
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho, aes(x = wiek4)) +
+ggplot(sklep11, aes(x = klienci3)) +
   geom_bar()
 ```
 
@@ -1040,7 +817,7 @@ ggplot(psycho, aes(x = wiek4)) +
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x = wiek4)) +
+ggplot(sklep11, aes(x = klienci3)) +
   geom_bar(fill = "#99d8c9")
 ```
 
@@ -1049,7 +826,7 @@ ggplot(psycho, aes(x = wiek4)) +
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho, aes(x = wiek4)) +
+ggplot(sklep11, aes(x = klienci3)) +
   geom_bar(fill = "#99d8c9")
 ```
 
@@ -1062,11 +839,11 @@ ggplot(psycho, aes(x = wiek4)) +
 .pull-left[
 
 ```{r eval=FALSE}
-n_wiek4 <- psycho %>%
-  count(wiek4)
+n_klieci3 <- sklep11 %>%
+  count(klienci3)
 
-ggplot(n_wiek4, aes(x = wiek4, 
-                    y = n)) +
+ggplot(n_klieci3, aes(x = klienci3, 
+                      y = n)) +
   geom_col()
 ```
 
@@ -1075,11 +852,11 @@ ggplot(n_wiek4, aes(x = wiek4,
 .pull-right[
 
 ```{r echo=FALSE}
-n_wiek4 <- psycho %>%
-  count(wiek4)
+n_klieci3 <- sklep11 %>%
+  count(klienci3)
 
-ggplot(n_wiek4, aes(x = wiek4, 
-                    y = n)) +
+ggplot(n_klieci3, aes(x = klienci3, 
+                      y = n)) +
   geom_col()
 
 ```
@@ -1088,104 +865,15 @@ ggplot(n_wiek4, aes(x = wiek4,
 
 ---
 
-# Wykres słupkowy - `geom_col`
-
-.pull-left[
-
-```{r eval=FALSE}
-wstyd_wiek4 <- psycho %>%
-  group_by(wiek4) %>%
-  summarise(srednia=mean(wstyd),
-            odch=sd(wstyd),
-            blad_sr=sd(wstyd)/sqrt(n()))
-
-ggplot(wstyd_wiek4, aes(x = wiek4, 
-                        y = srednia)) +
-  geom_col() + 
-  geom_errorbar(aes(ymin = srednia - odch, 
-                    ymax = srednia + odch), 
-                width = 0.5)
-
-```
-
-]
-
-.pull-right[
-
-```{r echo=FALSE}
-wstyd_wiek4 <- psycho %>%
-  group_by(wiek4) %>%
-  summarise(srednia=mean(wstyd),
-            odch=sd(wstyd),
-            blad_sr=sd(wstyd)/sqrt(n()))
-
-ggplot(wstyd_wiek4, aes(x = wiek4, 
-                        y = srednia)) +
-  geom_col() + 
-  geom_errorbar(aes(ymin = srednia - odch, 
-                    ymax = srednia + odch), 
-                width = 0.5)
-```
-
-]
-
----
-
-# Wykres słupkowy - `geom_col`
-
-.pull-left[
-
-```{r eval=FALSE}
-wstyd_wiek4_plec <- psycho %>%
-  group_by(wiek4,plec) %>%
-  summarise(srednia=mean(wstyd),
-            odch=sd(wstyd),
-            blad_sr=sd(wstyd)/sqrt(n()))
-
-ggplot(wstyd_wiek4_plec, aes(x = wiek4, 
-                             y = srednia, 
-                             fill = plec)) +
-  geom_col(position = "dodge") + 
-  geom_errorbar(aes(ymin = srednia - odch, 
-                    ymax = srednia + odch), 
-                width = 0.5, 
-                position = position_dodge(0.9))
-```
-
-]
-
-.pull-right[
-
-```{r echo=FALSE}
-wstyd_wiek4_plec <- psycho %>%
-  group_by(wiek4,plec) %>%
-  summarise(srednia=mean(wstyd),
-            odch=sd(wstyd),
-            blad_sr=sd(wstyd)/sqrt(n()))
-
-ggplot(wstyd_wiek4_plec, aes(x = wiek4, 
-                             y = srednia, 
-                             fill = plec)) +
-  geom_col(position = "dodge") + 
-  geom_errorbar(aes(ymin = srednia - odch, 
-                    ymax = srednia + odch), 
-                width = 0.5, 
-                position = position_dodge(0.9))
-```
-
-]
-
----
-
 # `facet_wrap`
 
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x = poczucie_winy, 
-                   y = wstyd)) +
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) +
   geom_point() +
-  facet_wrap( ~ plec)
+  facet_wrap( ~ czy_promocja)
 ```
 
 ]
@@ -1193,10 +881,10 @@ ggplot(psycho, aes(x = poczucie_winy,
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho, aes(x = poczucie_winy, 
-                   y = wstyd)) +
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) +
   geom_point() +
-  facet_wrap( ~ plec)
+  facet_wrap( ~ czy_promocja)
 ```
 ]
 
@@ -1207,10 +895,10 @@ ggplot(psycho, aes(x = poczucie_winy,
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x = poczucie_winy, 
-                   y = wstyd)) +
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) +
   geom_point() +
-  facet_wrap(wiek4 ~ plec)
+  facet_wrap(dzien_tyg ~ czy_promocja)
 ```
 
 ]
@@ -1218,10 +906,10 @@ ggplot(psycho, aes(x = poczucie_winy,
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho, aes(x = poczucie_winy, 
-                   y = wstyd)) +
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) +
   geom_point() +
-  facet_wrap(wiek4 ~ plec)
+  facet_wrap(dzien_tyg ~ czy_promocja)
 ```
 ]
 
@@ -1232,11 +920,11 @@ ggplot(psycho, aes(x = poczucie_winy,
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x = poczucie_winy, 
-                   y = wstyd)) +
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) +
   geom_point() +
-  facet_wrap(wiek4 ~ plec, 
-             ncol = 2)
+  facet_wrap(dzien_tyg ~ czy_promocja,
+             nrow = 2)
 ```
 
 ]
@@ -1244,11 +932,11 @@ ggplot(psycho, aes(x = poczucie_winy,
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho, aes(x = poczucie_winy, 
-                   y = wstyd)) +
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) +
   geom_point() +
-  facet_wrap(wiek4 ~ plec,
-             ncol = 2)
+  facet_wrap(dzien_tyg ~ czy_promocja,
+             nrow = 2)
 ```
 
 ]
@@ -1259,10 +947,10 @@ ggplot(psycho, aes(x = poczucie_winy,
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho, aes(x = poczucie_winy, 
-                   y = wstyd)) +
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) +
   geom_point() +
-  facet_grid(wiek4 ~ plec)
+  facet_grid(dzien_tyg ~ czy_promocja)
 ```
 
 ]
@@ -1270,77 +958,12 @@ ggplot(psycho, aes(x = poczucie_winy,
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho, aes(x = poczucie_winy, 
-                   y = wstyd)) +
+ggplot(sklep11, aes(x=liczba_klientow, 
+                    y=sprzedaz)) +
   geom_point() +
-  facet_grid(wiek4 ~ plec)
+  facet_grid(dzien_tyg ~ czy_promocja)
 ```
 ]
-
----
-
-class: inverse
-
-# Zadanie
-
-Dla zmiennych wstyd, poczucie_winy, indecisiveness, ruminacja i refleksja oblicz wartości minimum, mediana, średnia, maximum.
-
-`r countdown(minutes = 10, seconds = 0, top = 0)`
-
-???
-
-```{r}
-psycho %>%
-  summarise_at(vars(wstyd:refleksja), c("min", "median", "mean", "max"))
-```
-
----
-
-# Szeroka i wąska reprezentacja danych
-
-![](img/wide_long.png)
-
-[źródło](https://www.datasciencemadesimple.com%2Freshape-in-r-from-wide-to-long-from-long-to-wide)
-
----
-
-# Animacja
-
-![](img/tidyr-spread-gather.gif)
-
-[źródło](https://github.com/gadenbuie/tidyexplain)
-
----
-
-# Wide -> long - `pivot_longer()`
-
-```{r}
-psycho_long <- psycho %>%
-  select(id, wstyd:refleksja) %>%
-  pivot_longer(wstyd:refleksja)
-
-head(psycho_long)
-```
-
-
-???
-
-```{r}
-psycho_long %>%
-  group_by(name) %>%
-  summarise_all(c("min", "median", "mean", "max"))
-```
-
----
-
-# Long -> wide - `pivot_wider()`
-
-```{r}
-psycho_wide <- psycho_long %>%
-  pivot_wider()
-
-head(psycho_wide)
-```
 
 ---
 
@@ -1359,7 +982,7 @@ Obowiązkowe argumenty `aes`:
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho_long, aes(x=name, y=value)) +
+ggplot(sklep11, aes(x=czy_promocja, y=sprzedaz)) +
   geom_boxplot()
 ```
 
@@ -1368,7 +991,7 @@ ggplot(psycho_long, aes(x=name, y=value)) +
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho_long, aes(x=name, y=value)) +
+ggplot(sklep11, aes(x=czy_promocja, y=sprzedaz)) +
   geom_boxplot()
 ```
 
@@ -1382,7 +1005,7 @@ ggplot(psycho_long, aes(x=name, y=value)) +
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(psycho_long, aes(x=name, y=value)) +
+ggplot(sklep11, aes(x=czy_promocja, y=sprzedaz)) +
   geom_boxplot() +
   coord_flip()
 ```
@@ -1392,8 +1015,8 @@ ggplot(psycho_long, aes(x=name, y=value)) +
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(psycho_long, aes(x=name, y=value)) +
-  geom_boxplot()  +
+ggplot(sklep11, aes(x=czy_promocja, y=sprzedaz)) +
+  geom_boxplot() +
   coord_flip()
 ```
 
@@ -1405,156 +1028,18 @@ class: inverse
 
 # Zadanie
 
-Stwórz następujący wykres wykorzystując długą formę danych
+Stwórz następujący wykres
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.height=4}
 
-psycho %>%
-  select(ps,perf_cmda) %>%
-  pivot_longer(ps:perf_cmda) %>%
-  ggplot(aes(x=value)) +
-  geom_histogram(binwidth = 0.5) +
-  xlab("") + ylab("Liczebność") +
-  facet_wrap(~ name) +
-  theme_light()
-
+sklep11 %>%
+  ggplot(aes(x=as.character(dzien_tyg), y=liczba_klientow)) +
+  geom_boxplot() +
+  coord_flip() + 
+  theme_light() +
+  xlab("Dzień tygodnia") +
+  ylab("Liczba klientów")
+  
 ```
 
 `r countdown(minutes = 10, seconds = 0, top = 0)`
-
----
-
-# Pakiet _ggimage_
-
-.pull-left[
-
-```{r eval=FALSE}
-library(ggimage)
-
-ggplot(psycho, aes(x = poczucie_winy, 
-                   y = wstyd)) +
-  geom_image(image="img/unicorn2.png", 
-             size = 0.07) +
-  theme_light() +
-  xlim(15,25) + 
-  ylim(25,40)
-```
-
-]
-
-.pull-right[
-
-```{r echo=FALSE, warning=FALSE}
-library(ggimage)
-
-ggplot(psycho, aes(x = poczucie_winy, 
-                   y = wstyd)) +
-  geom_image(image = "img/unicorn2.png", size = 0.07) +
-  theme_light() +
-  xlim(15,25) + ylim(25,40)
-```
-
-]
-
----
-
-# Pakiet _ggimage_
-
-.pull-left[
-
-```{r eval=FALSE}
-library(ggimage)
-
-images <- data.frame(plec = c("1", "2"),
-                     img = c("img/unicorn.png",
-                             "img/rainbow.png"))
-
-psycho_img <- left_join(psycho, images,
-                        by = "plec")
-
-ggplot(psycho_img, aes(x = poczucie_winy, 
-                   y = wstyd)) +
-  geom_image(aes(image = img), size = 0.07) +
-  theme_light() +
-  xlim(15,25) + ylim(25,40)
-```
-
-]
-
-.pull-right[
-
-```{r echo=FALSE, warning=FALSE}
-library(ggimage)
-
-images <- data.frame(plec = c("1", "2"),
-                     img = c("img/unicorn.png",
-                             "img/rainbow.png"))
-
-psycho_img <- left_join(psycho, images,
-                        by = "plec")
-
-ggplot(psycho_img, aes(x = poczucie_winy, 
-                   y = wstyd)) +
-  geom_image(aes(image = img), size = 0.07) +
-  theme_light() +
-  xlim(15,25) + ylim(25,40)
-```
-
-]
-
-
----
-
-class: inverse
-
-# Zadanie domowe
-
-Stwórz następujące wykresy
-
-.pull-left[
-
-```{r echo=FALSE, fig.height=5}
-psycho %>%
-  mutate(wiek6=cut(wiek,seq(18,42,4),include.lowest = T)) %>%
-  ggplot(aes(x=ruminacja, y=refleksja, color = wiek6)) + 
-  geom_point() +
-  scale_color_discrete(name="Grupy wieku") +
-  xlim(0,30) +
-  ylim(0,30) +
-  theme_classic() +
-  theme(legend.position = "top")
-```
-
-
-]
-
-.pull-right[
-
-```{r echo=FALSE, fig.height=5}
-psycho %>%
-  mutate(wiek6=cut(wiek,seq(18,42,4),include.lowest = T)) %>%
-  ggplot(aes(x = wiek6)) + 
-  geom_bar(fill = "lightblue") +
-  xlab("Grupy wieku") +
-  ylab("Liczebność") +
-  facet_wrap(~ plec) +
-  theme_bw() 
-```
-
-
-]
-
-
-???
-
-Na podstawie zbioru `pgss2.RData` przeprowadź analizę liczby braków danych dla zmiennych oraz respondentów. Wyniki przedstaw na wykresach.
-
-```{r}
-load("data/pgss.RData")
-
-pgss2 <- pgss %>%
-  select(recordid:q37)
-
-save(pgss2, file="data/pgss2.RData")
-```
-
