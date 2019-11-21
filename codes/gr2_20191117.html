@@ -455,7 +455,36 @@ director_genre &lt;- filmy %&gt;%
   count(director, genre)
 
 dir_genre_wide &lt;- director_genre %&gt;%
-  pivot_wider(names_from = genre, values_from = n)</code></pre>
+  pivot_wider(names_from = genre, values_from = n)
+
+# dodatkowe grupowania
+
+# statystyki filmów w latach 2000-2010
+filmy_lata &lt;- filmy %&gt;%
+  filter(year &gt;= 2000, year &lt;= 2010) %&gt;%
+  group_by(year) %&gt;%
+  summarise(liczba_filmow=n(),
+            sr_ocena=mean(rating))
+
+# liczba filmów wyreżyserowanych w danym roku
+rezyser_lata &lt;- filmy %&gt;%
+  group_by(director, year) %&gt;%
+  count() %&gt;%
+  filter(year &gt;= 2000, year &lt;= 2010) 
+
+# liczba reżyserów w każdym roku
+liczba_rezyserow &lt;- rezyser_lata %&gt;%
+  ungroup() %&gt;% # trzeba usunąć grupowanie
+  count(year) %&gt;%
+  rename(liczba_rezyserow=n)
+
+# połączenie danych
+filmy_lata_rez &lt;- inner_join(filmy_lata, liczba_rezyserow)
+
+# liczba filmów według gatunku i roku
+gatunek_lata &lt;- filmy %&gt;%
+  group_by(genre, year) %&gt;%
+  count()</code></pre>
 </div>
 <div id="wizualizacja" class="section level2">
 <h2>wizualizacja</h2>

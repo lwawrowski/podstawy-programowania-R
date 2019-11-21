@@ -98,6 +98,35 @@ director_genre <- filmy %>%
 dir_genre_wide <- director_genre %>%
   pivot_wider(names_from = genre, values_from = n)
 
+# dodatkowe grupowania
+
+# statystyki filmów w latach 2000-2010
+filmy_lata <- filmy %>%
+  filter(year >= 2000, year <= 2010) %>%
+  group_by(year) %>%
+  summarise(liczba_filmow=n(),
+            sr_ocena=mean(rating))
+
+# liczba filmów wyreżyserowanych w danym roku
+rezyser_lata <- filmy %>%
+  group_by(director, year) %>%
+  count() %>%
+  filter(year >= 2000, year <= 2010) 
+
+# liczba reżyserów w każdym roku
+liczba_rezyserow <- rezyser_lata %>%
+  ungroup() %>% # trzeba usunąć grupowanie
+  count(year) %>%
+  rename(liczba_rezyserow=n)
+
+# połączenie danych
+filmy_lata_rez <- inner_join(filmy_lata, liczba_rezyserow)
+
+# liczba filmów według gatunku i roku
+gatunek_lata <- filmy %>%
+  group_by(genre, year) %>%
+  count()
+
 ```
 
 
