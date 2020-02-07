@@ -1,0 +1,123 @@
+---
+title: "Podstawy programowania"
+subtitle: "Programowanie"
+author: "&copy; Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r include=FALSE}
+library(countdown)
+```
+
+# Wykonywanie warunkowe
+
+Za pomocą instrukcji if możemy warunkowo wykonywać kod. Ogólna postać jest następująca:
+
+```r
+if(warunek){
+  # kod wykonany jeśli warunek jest równy TRUE
+} else if(warunek) {
+  # kod wykonany jeśli warunek jest równy TRUE
+} else {
+  # kod wykonany jeśli warunek jest równy FALSE
+}
+```
+
+Element warunek musi zwracać wartość logiczną `TRUE` albo `FALSE`.
+
+Operatory łączenia:
+
+- i : &&
+
+- lub : ||
+
+---
+
+class: inverse
+
+# Zadanie
+
+Do obiektu przypisz liczbę, a następnie napisz kod wykonywania warunkowego, który zwróci różne komunikaty:
+
+- podzielna przez 3,
+
+- podzielna przez 5,
+
+- podzielna przez 3 i 5,
+
+- niepodzielna ani przez 3 ani przez 5.
+
+Operator zwracający resztę z dzielenia to `%%`.
+
+`r countdown(minutes = 10, seconds = 0, top = 0)`
+
+---
+
+# Funkcje
+
+Funkcję ograniczają potrzebę kopiowania kodu i ułatwiają wprowadzanie zmian.
+
+Stworzenie funkcji wymaga:
+
+1. wymyślenia nazwy funkcji
+
+2. określenia elementów wejściowych
+
+3. umieszczenia kodu w ciele funkcji
+
+---
+
+# Dobre praktyki tworzenia funkcji
+
+- nazwy funkcji powinny być czasownikami
+
+- ustalona notacja: podkreślnik vs. camelCase
+
+- wspólny przedrostek
+
+---
+
+class: inverse
+
+# Zadanie
+
+Napisz funkcję, która na podstawie podanej godziny wyświetli komunikat "Dzień dobry" lub "Dobry wieczór".
+
+`r countdown(minutes = 10, seconds = 0, top = 0)`
+
+---
+
+# Pętla for
+
+Pętla składa się z trzech elementów:
+
+- wyjście
+
+- sekwencja
+
+- ciało
+
+```r
+for(iterator in zakres){
+  # ciało pętli
+}
+```
+
+---
+
+class: inverse
+
+# Zadanie
+
+Napisz pętlę, która przeprowadzi 1000 losowań lotto - 6 liczb z 49.
+
+`r countdown(minutes = 10, seconds = 0, top = 0)`
