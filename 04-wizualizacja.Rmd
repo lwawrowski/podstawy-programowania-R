@@ -1,5 +1,9 @@
 # Wizualizacja danych
 
+[Prezentacja](presentations/04_wizualizacja.html)
+
+## Wprowadzenie
+
 [Przewodnik po wizualizacji danych](https://www.data-to-viz.com/)
 
 [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/)

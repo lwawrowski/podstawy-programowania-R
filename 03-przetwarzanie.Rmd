@@ -1,6 +1,10 @@
 # Przetwarzanie danych 
 
-## Pakiet tidyverse
+[Prezentacja - wczytywanie danych](presentations/02_wczytywanie.html)
+
+[Prezentacja - przetwarzanie](presentations/03_przetwarzanie.html)
+
+## Wprowadzenie - pakiet tidyverse
 
 Pakiet `tidyverse` to zestaw pakietów do kompleksowego przetwarzania i wizualizacji danych. Ładuje następujące pakiety:
 

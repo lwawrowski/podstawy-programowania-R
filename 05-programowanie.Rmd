@@ -1,6 +1,6 @@
 # Programowanie w R
 
-[Prezentacja](presentations/ppr20190427.html)
+[Prezentacja](presentations/05_programowanie.html)
 
 ## Funkcje
 

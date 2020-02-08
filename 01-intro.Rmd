@@ -1,5 +1,9 @@
 # Wprowadzenie do R
 
+[Prezentacja](presentations/01_wprowadzenie.html)
+
+## Wprowadzenie
+
 GNU R to interpretowany język programowania oraz środowisko do obliczeń statystycznych i wizualizacji wyników [Wikipedia 2017].
 
 Robert A. Muenchen - [The Popularity of Data Science Software](http://r4stats.com/articles/popularity/)
