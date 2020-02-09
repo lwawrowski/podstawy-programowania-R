@@ -2,6 +2,25 @@
 
 [Prezentacja](presentations/05_programowanie.html)
 
+## Instrukcje warunkowe
+
+Za pomocą instrukcji if możemy warunkowo wykonywać kod. Ogólna postać jest następująca:
+
+```r
+if(warunek){
+  # kod wykonany jeśli warunek jest równy TRUE
+} else if(warunek) {
+  # kod wykonany jeśli warunek jest równy TRUE
+} else {
+  # kod wykonany jeśli warunek jest równy FALSE
+}
+```
+
+Element warunek musi zwracać wartość logiczną `TRUE` albo `FALSE`. Chcąć uwzględnić więcej niż jeden warunek należy wykorzystać odpowiedni operator łączenia:
+
+- i : &&
+- lub : ||
+
 ## Funkcje
 
 Funkcję ograniczają potrzebę kopiowania kodu i ułatwiają wprowadzanie zmian.
@@ -18,6 +37,6 @@ Istnieją pewne dobre praktyki tworzenia funkcji:
 - podkreślnik vs. notacja camelCase i konsekwencja stosowania,
 - wspólny przedrostek np. rnorm, runif.
 
-## Instrukcje warunkowe
-
 ## Pętle
+
+Pętlę są wykorzystywane w sytuacji, w której chcemy powtórzyć wykonanie kodu.

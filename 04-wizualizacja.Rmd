@@ -26,8 +26,6 @@ sklep77 <- rossmann %>%
   filter(sklep_id==77, czy_otwarty=="Tak")
 ```
 
-## Wbudowane funkcje
-
 Do prostych wykresów można wykorzystać wbudowaną funkcję `plot`.
 
 ```{r}
@@ -36,15 +34,15 @@ plot(sklep77$sprzedaz, sklep77$liczba_klientow,
      main = "Sprzedaż i liczba klientów w sklepie Rossmann nr 77")
 ```
 
-## Pakiet ggplot2
+Jej możliwości są jednak ograniczone i stworzenie bardziej zaawansowanych grafik będzie wymagające. 
 
-Wiodący pakiet do wizualizacji danych:
+Wiodącym pakietem do wizualizacji danych w R jest ggplot2:
 
 - dokumentacja: https://ggplot2.tidyverse.org/
 - [cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)
 - tworzenie wykresów poprzez dodawanie (`+`) kolejnych warstw
 
-### Wykres punktowy
+## Wykres punktowy
 
 Ten sam wykres co wcześniej, ale z wykorzystaniem pakietu ggplot2.
 
@@ -203,7 +201,7 @@ ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow, color=czy_promocja)) +
 
 ```
 
-### Histogram
+## Histogram
 
 Rozkład cechy można ocenić na podstawie histogramu - domyślnie rysowanych jest 30 słupków.
 
@@ -256,7 +254,7 @@ ggplot(data = sklep77, aes(x=sprzedaz)) +
 
 ```
 
-### Wykres pudełkowy
+## Wykres pudełkowy
 
 Wykres pudełkowy umożliwia porównywanie rozkładów cechy wg zmiennej grupującej. Wymogiem jest aby na osi `x` znajdowała się zmienna grupująca, a na osi `y` cecha analizowana. 
 
@@ -302,7 +300,7 @@ ggplot(sklep77, aes(x=dzien_tyg, y=sprzedaz)) +
   scale_x_discrete(limits = rev(levels(sklep77$dzien_tyg)))
 ```
 
-### Wykres słupkowy
+## Wykres słupkowy
 
 W zależności od typu danych wejściowych, wykres słupkowy można stworzyć na dwa sposoby:
 
@@ -415,7 +413,7 @@ ggplot(rossmann_asort3, aes(x=sklep_asort, y=n, fill=sklep_typ)) +
 
 ```
 
-### Wykres kafelkowy
+## Wykres kafelkowy
 
 Do wizualizacji tabeli częstości można użyć wykresu kafelkowego. W tym celu najpierw zliczamy wystąpienia wariantów cech czy_promocja oraz czy_swieto_szkolne i wynik przekazujemy bezpośrednio do funkcji `ggplot()`.
 
@@ -456,7 +454,7 @@ sklep77 %>%
 
 ```
 
-### Uwzględnienie czasu
+## Uwzględnienie czasu
 
 Próba stworzenia wykresu przedstawiającego zmianę sprzedaży w czasie za pomocą oryginalnych danych spowoduje uzsykanie niezbyt czytelnej grafiki.
 
@@ -499,7 +497,7 @@ ggplot(sklep77a, aes(x=data,
 
 ```
 
-### Facets
+## Facets
 
 ```{r}
 sr_sprzedaz <- rossmann %>%
@@ -555,7 +553,7 @@ head(sprzedaz_prom_odl_long)
 ```
 
 
-## Pakiet plotly
+## Wykres interaktywny
 
 Za pomocą pakietu `plotly` w prosty sposób można zamienić statystyczny wykres `ggplot` na interaktywny.
 
