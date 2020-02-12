@@ -35,7 +35,7 @@ class: inverse
 
 # Wczytanie danych
 
-1. Ściągnij zbiór `rossmann.xlsx` i umieść w folderze `data`
+1. Ściągnij zbiór [rossmann.xlsx](http://wawrowski.edu.pl/data/rossmann.xlsx) i umieść w folderze `data`
 
 2. Utwórz nowy skrypt i wczytaj biblioteki `tidyverse` i `readxl`
 

@@ -61,8 +61,17 @@ __Istniejący projekt__
 
 ---
 
-# R base vs. tidyverse
+class: inverse
 
+# Zadanie
+
+Wczytaj zbiór danych dotyczący [filmów](http://wawrowski.edu.pl/data/movies.csv).
+
+`r countdown(minutes = 5, seconds = 0, top = 0)`
+
+---
+
+# R base vs. tidyverse
 
 **Podstawowe funkcje R**
 
@@ -221,7 +230,7 @@ class: inverse
 
 # Zadanie
 
-Wczytaj zbiór danych z Polskiego Generalnego Sondażu Społecznego - `pgss.RData` za pomocą funkcji `load()`. Zmienna _q34_ zawiera informacje o dochodach z pracy respondenta. Utwórz nowy zbiór danych, który nie będzie zawierał braków danych w tej zmiennej.
+Wczytaj zbiór danych z Polskiego Generalnego Sondażu Społecznego - [pgss.RData](http://wawrowski.edu.pl/data/pgss.RData) za pomocą funkcji `load()`. Zmienna _q34_ zawiera informacje o dochodach z pracy respondenta. Utwórz nowy zbiór danych, który nie będzie zawierał braków danych w tej zmiennej.
 
 `r countdown(minutes = 10, seconds = 0, top = 0)`
 
@@ -270,7 +279,7 @@ iris2 <- iris %>%
 
 # Kolejność w przetwarzaniu potokowym
 
-OK
+GOOD
 
 ```{r eval=FALSE}
 iris %>%
@@ -288,7 +297,7 @@ iris %>%
 
 --
 
-NOT OK
+BAD
 
 ```{r error=TRUE}
 iris %>%
@@ -406,7 +415,7 @@ class: inverse
 
 # Zadanie
 
-Po wczytaniu zbioru danych `gus.RData` połącz ze sobą zbiory danych zawierające informacje o liczbie przedsiębiorstw na 10 tys. mieszkańców (zbiór _pod_10tys_), stopie bezrobocia (zbiór _bezrobocie_) oraz wynagrodzeniu (zbiór _wyn_).
+Po wczytaniu zbioru danych [gus.RData](http://wawrowski.edu.pl/data/gus.RData) połącz ze sobą zbiory danych zawierające informacje o liczbie przedsiębiorstw na 10 tys. mieszkańców (zbiór _pod_10tys_), stopie bezrobocia (zbiór _bezrobocie_) oraz wynagrodzeniu (zbiór _wyn_).
 
 `r countdown(minutes = 10, seconds = 0, top = 0)`
 
