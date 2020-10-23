@@ -16,7 +16,7 @@ output:
 
 # Język R
 
-Interpretowany język programowania oraz środowisko do obliczeń statystycznych i wizualizacji wyników [[Wikipedia 2019]](https://pl.wikipedia.org/wiki/R_(j%C4%99zyk_programowania).
+Interpretowany język programowania oraz środowisko do obliczeń statystycznych i wizualizacji wyników [[Wikipedia 2020]](https://pl.wikipedia.org/wiki/R_(j%C4%99zyk_programowania%29).
 
 .pull-left[
 Zalety:
@@ -25,7 +25,7 @@ Zalety:
 - wieloplatformowy
 - wsparcie społeczności
 - wykorzystywany przez naukowców
-- 15078 pakietów (10.10.2019)
+- 16449  pakietów (23.10.2019)
 - własne czasopismo [R Journal](https://journal.r-project.org/)
 
 ]
@@ -34,6 +34,7 @@ Zalety:
 Wady:
 
 - niska jakość niektórych pakietów
+- trzeba korzystać z wielu pakietów
 - czasami coś nie działa
 - przetwarzanie w pamięci
 ]
@@ -67,27 +68,6 @@ Wady:
 <img src="img/stats_cars.jpg" height="450">
 
 [Źrodło](https://twitter.com/statsepi/status/795574223439876100)
-
----
-
-# R i jednorożce
-
-```{r unicorn, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12}
-library(tidyverse)
-library(ggimage)
-
-set.seed(123)
-df <- data.frame(x=sample(x = 1:10, size = 10, replace = T),
-                 y=sample(x = 1:10, size = 10, replace = T))
-
-ggplot(df, aes(x=x, y=y)) + 
-  geom_image(image="img/unicorn2.png", 
-             size = 0.07) +
-  xlim(1,10) + ylim(1,10) +
-  theme_light()
-
-```
-
 
 ---
 

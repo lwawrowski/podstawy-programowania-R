@@ -1,0 +1,59 @@
+---
+title: "Podstawy programowania"
+subtitle: "Wstęp"
+author: "&copy; Łukasz Wawrowski"
+date: ""
+output:
+  xaringan::moon_reader:
+    css: ["default.css", "default-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: "16:9"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+# dr Łukasz Wawrowski
+
+[wawrowski.edu.pl](http://www.wawrowski.edu.pl/)
+
+.pull-left[
+
+Aktualne zatrudnienie:
+
+- [Uniwersytet Ekonomiczny w Poznaniu](http://statystyka.ue.poznan.pl/)
+- [Sieć Badawcza Łukasiewicz](http://ibemag.pl/pl/)
+- [QED Software](https://qed.pl/)
+
+Nieaktualne:
+
+- [Urząd Statystyczny w Poznaniu](https://poznan.stat.gov.pl/osrodki/osrodek-statystyki-malych-obszarow-1088/)
+- [DOJI S.A.](https://doji.com.pl/)
+
+]
+
+.pull-right[
+
+Zainteresowania naukowe:
+
+- sztuczna inteligencja
+- statystyka małych obszarów
+- statystyka społeczna - ubóstwo
+- metoda reprezentacyjna
+
+]
+
+---
+
+<iframe src="https://embed.polleverywhere.com/multiple_choice_polls/HdapsAQtmrh1seHcyRhOe?controls=none&short_poll=true" width="100%" height="100%" frameBorder="0"></iframe>
+
+---
+
+<iframe src="https://embed.polleverywhere.com/multiple_choice_polls/eQS5jxnJBtETVeQhKREXI?controls=none&short_poll=true" width="100%" height="100%" frameBorder="0"></iframe>
+
+---
+
+class: inverse, center, middle
+
+# Pytania?
