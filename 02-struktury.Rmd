@@ -1,5 +1,9 @@
 # Struktury danych
 
+[Prezentacja](presentations/01a_typy_danych.html)
+
+## Obiekty
+
 W R praktycznie wszystko jest obiektem. Może to być zbiór danych, ale także wykres czy mapa. Zasadnicza różnica to klasa tych obiektów i operacje jakie mogą być na nich wykonywane. 
 
 Funkcje w R wymagają jako argumentów określonych typów obiektów - stąd tak ważna jak znajomość istniejących struktur.
