@@ -18,152 +18,6 @@ output:
 library(countdown)
 ```
 
-
-# R club rules
-
-- R jest wrażliwy na wielkość liter: dane i DANE to dwie różne rzeczy
-
-- separatorem części dziesiętnej liczby jest kropka
-
-- nazwa obiektu nie może zaczynać się od liczby
-
-- nie zapisujemy zawartości pamięci przy zamykaniu R
-
----
-
-# Komentarze i sekcje
-
-> Real programmers don't comment their code. If it was hard to write it should be hard to understand.
-
---
-
-**Komentarz** w R to znak `#`
-
-```
-
-# treść komentarza
-
-```
-
-Skrót klawiszowy: ctrl + shift + c - używany do tworzenia i usuwania komentarza
-
----
-
-# Uruchamianie kodu R
-
-- przycisk Run w oknie skryptu
-
-- skrót klawiszowy: ctrl + enter (RStudio) lub ctrl + r (R)
-
-**Scenariusz 1**
-
-Umieszczamy kursor w linii, którą chcemy wywołać i podejmujemy akcję uruchomienia.
-
-**Scenariusz 2**
-
-Zaznaczamy fragment kodu i go uruchamiamy.
-
----
-
-# Funkcja w R
-
-```
-
-nazwa_funkcji(argument1 = wartosc1, argument2 = wartosc2)
-
-```
-
---
-
-- wartości argumentów można deklarować używając nazw - nieważna kolejność
-
-```
-
-nazwa_funkcji(argument2 = wartosc2, argument1 = wartosc1)
-
-```
---
-
-- wartości argumentów można deklarować pozycyjnie - ważna kolejność
-
-```
-
-nazwa_funkcji(wartosc1, wartosc2, wartosc3)
-
-```
-
----
-
-# Obiekty
-
-W R wszystko może być obiektem: zbiór danych, wykres, mapa. 
-
-Operator przypisania w R to `<-`
-
-```
-nazwa <- obiekt
-```
-
-Można także korzystać ze znaku równości `=`, ale nie jest to zalecane, ponieważ ten znak pojawia się w wielu innych miejscach, a `<-` oznacza wyłącznie stworzenie obiektu.
-
----
-
-# Typy obiektów
-
-- wartości
-
-- wektor
-
-- czynnik/faktor
-
-- macierz
-
-- lista
-
-- ramka danych
-
-- ...
-
----
-
-# Obiekty
-
-.pull-left[
-
-<img src="img/vars_name.jpg" height="450">
-
-]
-
-.pull-right[
-
-Konwencje nazywania obiektów:
-
-- alllowercase
-
-- period.separated
-
-- underscore_separated
-
-- lowerCamelCase
-
-- UpperCamelCase
-
-]
-
----
-
-class: inverse
-
-# Zadanie
-
-Oblicz w R wartość wyrażenia i przypisz wynik do obiektu.
-
-$$log_{10}100 + \sqrt{121}$$
-
-`r countdown(minutes = 5, seconds = 0, top = 0)`
-
----
-
 # Zestaw analityka - tidyverse
 
 .pull-left[
@@ -203,6 +57,14 @@ library("tidyverse")
 ]
 
 [Strona projektu Tidyverse](https://www.tidyverse.org/)
+
+---
+
+# Instalacja vs. wczytywanie
+
+![](img/packages.jpg)
+
+[źródło](https://twitter.com/visnut/status/1248087845589274624)
 
 ---
 
@@ -289,6 +151,16 @@ Zapisywanie do pliku Excela z pakietem _openxlsx_:
 
 ---
 
+# Wczytanie zbioru danych
+
+Importujemy zbiór danych dotyczących wyników wyborów prezydenckich w 2020 roku.
+
+Plik z danymi: http://wawrowski.edu.pl/data/wybory2020.xlsx
+
+[Źródło](https://prezydent20200628.pkw.gov.pl/prezydent20200628/pl/dane_w_arkuszach)
+
+---
+
 class: inverse
 
 # Zadanie
@@ -296,3 +168,23 @@ class: inverse
 Wywołaj funkcję `summary()` na wczytanym zbiorze danych.
 
 `r countdown(minutes = 2, seconds = 0, top = 0)`
+
+---
+
+# Pakiet _janitor_ 
+
+Surowe dane zwykle nie posiadają nazw kolumn przystosowanych do przetwarzania przez komputer
+
+- nazwy zmiennych nie powinny zawierać polskich liter i spacji
+
+- nazwy zmiennych nie powinny zaczynać się od liczby
+
+Te problemy rozwiązuje pakiet _janitor_ (dozorca, woźny) i funkcja `clean_names()`:
+
+```r
+
+zbior <- janitor::clean_names(zbior)
+
+```
+
+- funkcja ta zamienia wielkie litery na małe, spacje na podkreślniki i znaki transliteruje do ASCII.
