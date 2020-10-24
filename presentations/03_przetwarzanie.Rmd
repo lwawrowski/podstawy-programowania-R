@@ -168,6 +168,26 @@ iris_setosa <- iris %>%
 
 Znak `%>%` oznacza, że jako argument wejściowy `data` w kolejnej funkcji zostanie wpisany wynik działania wcześniejszej funkcji.
 
+Skrót klawiszowy: ctrl + shift + m
+
+---
+
+# Wybrane funkcje
+
+- `select()` - wybór zmiennych
+
+- `filter()` - wybór obserwacji
+
+- `mutate()` - tworzenie/modyfikacja zmiennej
+
+- `rename()` - zmiana nazwy zmiennej
+
+- `count()` - zliczanie obserwacji
+
+- `summarise()` - podsumowania danych
+
+- `group_by()` - operowanie na grupach
+
 ---
 
 # Filtrowanie - `filter()`

@@ -188,3 +188,41 @@ zbior <- janitor::clean_names(zbior)
 ```
 
 - funkcja ta zamienia wielkie litery na małe, spacje na podkreślniki i znaki transliteruje do ASCII.
+
+---
+
+class: inverse
+
+# Pytania do zbioru danych
+
+1. Ile obwodów głosowania miało frekwencję powyżej 80%?
+
+2. Ile obwodów głosowania znajduje się w Poznaniu?   
+
+3. Ile jest obwodów według typu obszaru?
+
+4. Jaka była średnia frekwencja w województwach?
+
+5. Gdzie była największa różnica pomiędzy kandydatami?
+
+```{r eval=FALSE, include=FALSE}
+library(tidyverse)
+
+raw_data <- readxl::read_xlsx("../data/wybory2020.xlsx")
+
+raw_data <- janitor::clean_names(raw_data)
+
+wp <- raw_data %>% 
+  select(symbol_kontrolny:percent_glosow_niewaznych, percent_glosow_waznych:rafal_kazimierz_trzaskowski)
+  
+wp %>% filter(frekwencja > 70) %>% count()
+
+wp %>% count(typ_obszaru)
+
+wp %>% group_by(wojewodztwo) %>% summarise(srednia_frekwencja=mean(frekwencja)) %>% arrange(srednia_frekwencja)
+
+diff <- wp %>% 
+  mutate(roznica = abs(andrzej_sebastian_duda-rafal_kazimierz_trzaskowski))
+
+```
+
