@@ -359,9 +359,9 @@ class: inverse
 
 # Zadanie
 
-W zbiorze `movies` stwórz nową zmienną, która będzie zawierała wiek filmu.
+W zbiorze dotyczącym wyborów stwórz nową zmienną, która będzie zawierała różnicę pomiędzy wynikami kandydatów.
 
-`r countdown(minutes = 7, seconds = 0, top = 0)`
+`r countdown(minutes = 5, seconds = 0, top = 0)`
 
 ---
 
@@ -382,7 +382,7 @@ class: inverse
 
 # Zadanie 
 
-Ile wynosiła średnia, mediana i odchylenie standardowe czasu trwania analizowanych filmów?
+Ile wynosiła średnia, mediana i odchylenie standardowe wartości frekwencji?
 
 `r countdown(minutes = 5, seconds = 0, top = 0)`
 
@@ -417,7 +417,7 @@ class: inverse
 
 # Zadanie
 
-Wybierz filmy z lat 2000-2010. Ile filmów wyprodukowano w poszczególnych latach i ile wynosiła ich średnia ocena?
+Ile wynosiła liczebność i średnia frekwencja w poszczególnych typach gmin.
 
 `r countdown(minutes = 5, seconds = 0, top = 0)`
 
@@ -441,7 +441,7 @@ Po wczytaniu zbioru danych [gus.RData](http://wawrowski.edu.pl/data/gus.RData) p
 
 ---
 
-# Szeroka i wąska reprezentacja danych
+# Szeroka i długa reprezentacja danych
 
 ![](img/wide_long.png)
 
@@ -486,3 +486,15 @@ iris_wide <- iris_long %>%
 
 head(iris_wide)
 ```
+
+---
+
+class: inverse
+
+# Zadanie
+
+Oblicz średnią frekwencję w grupach zdefiniowanych przez typ gminy oraz województwo. Następnie zmień reprezentację danych na szeroką i umieść województwa w wierszach, a typ gminy w kolumnach.
+
+![](img/wide_zadanie.png)
+
+`r countdown(minutes = 10, seconds = 0, top = 0)`
