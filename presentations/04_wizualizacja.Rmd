@@ -102,7 +102,7 @@ Tworzenie wykresów poprzez dodawanie (`+`) kolejnych warstw.
 
 - [cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)
 
-- [rozszerzenia](http://www.ggplot2-exts.org/gallery/)
+- [rozszerzenia](https://exts.ggplot2.tidyverse.org/gallery/)
 
 - [top 50](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)
 
