@@ -1,0 +1,234 @@
+---
+title: "Wizualizacja danych - zadania"
+author: "Łukasz Wawrowski"
+date: ""
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, warning = F, error = F, message = F)
+```
+
+## Wczytywanie danych
+
+Wczytaj zbiór danych [movies.csv](http://wawrowski.edu.pl/data/movies.csv) zawierający dane dotyczące filmów.
+
+<details><summary>Odpowiedź</summary>
+<p>
+
+```{r echo=TRUE}
+library(tidyverse)
+
+filmy <- read_csv("http://wawrowski.edu.pl/data/movies.csv")
+```
+
+</p>
+</details>
+
+## Wykres punktowy
+
+Stwórz wykres przedstawiający zależność pomiędzy oceną a długością filmu.
+
+```{r}
+ggplot(filmy, aes(x=rating, y=duration)) + 
+  geom_point() +
+  xlab("Ocena filmu") +
+  ylab("Długość filmu (w minutach") +
+  xlim(0,10) +
+  theme_light()
+```
+<details><summary>Odpowiedź</summary>
+<p>
+
+```r
+ggplot(filmy, aes(x=rating, y=duration)) + 
+  geom_point() +
+  xlab("Ocena filmu") +
+  ylab("Długość filmu (w minutach") +
+  xlim(0,10) +
+  theme_light()
+```
+
+</p>
+</details>
+
+## Histogram
+
+Na histogramach przedstaw rozkład ocen dla filmów akcji, komedii i dramatów (szerokość słupka 0,5).
+
+```{r}
+filmy %>% 
+  filter(genre %in% c("Action", "Comedy", "Drama")) %>% 
+  ggplot(data = ., mapping = aes(x=rating)) + 
+  geom_histogram(binwidth = 0.5, fill = "blue") +
+  xlim(0,10) +
+  xlab("Ocena filmu") +
+  ylab("Liczba filmów") +
+  facet_wrap(~ genre) +
+  theme_bw()
+```
+
+<details><summary>Odpowiedź</summary>
+<p>
+
+Wersja 1
+
+```r
+filmy %>% 
+  filter(genre %in% c("Action", "Comedy", "Drama")) %>% 
+  ggplot(data = ., mapping = aes(x=rating)) + 
+  geom_histogram(binwidth = 0.5, fill = "blue") +
+  xlim(0,10) +
+  xlab("Ocena filmu") +
+  ylab("Liczba filmów") +
+  facet_wrap(~ genre) +
+  theme_bw()
+```
+
+Wersja 2
+
+```r
+wybrane_filmy <- filmy %>% 
+  filter(genre %in% c("Action", "Comedy", "Drama"))
+  
+ggplot(data = wybrane_filmy, mapping = aes(x=rating)) + 
+  geom_histogram(binwidth = 0.5, fill = "blue") +
+  xlim(0,10) +
+  xlab("Ocena filmu") +
+  ylab("Liczba filmów") +
+  facet_wrap(~ genre) +
+  theme_bw()
+```
+
+</p>
+</details>
+
+## Wykres słupkowy
+
+Przestaw na wykresie liczbę filmów wyreżyserowanych przez 10 reżyserów z największą liczbą filmów.
+
+```{r}
+filmy %>% 
+  count(director) %>% 
+  top_n(10, n) %>% 
+  mutate(director=fct_reorder(director,n)) %>% 
+  ggplot(aes(x=n, y=director)) +
+  geom_col(fill = "#8856a7") +
+  geom_text(aes(label = n), hjust = 1.5, color = "white") +
+  xlab("Liczba filmów") +
+  ylab("Reżyser") +
+  theme_classic()
+```
+
+<details><summary>Podpowiedź</summary>
+<p>
+
+Do uporządkowania słupków w kolejności malejącej użyj funkcji `fct_reorder` w połączeniu z funkcją `mutate`.
+
+Dodanie etykiet możliwe jest z wykorzystaniem funkcji `geom_text`.
+
+</p>
+</details>
+
+<details><summary>Odpowiedź</summary>
+<p>
+
+```r
+filmy %>% 
+  count(director) %>% 
+  top_n(10, n) %>% 
+  mutate(director=fct_reorder(director,n)) %>% 
+  ggplot(aes(x=n, y=director)) +
+  geom_col(fill = "#8856a7") +
+  geom_text(aes(label = n), hjust = 1.5, color = "white") +
+  xlab("Liczba filmów") +
+  ylab("Reżyser") +
+  theme_classic()
+```
+
+</p>
+</details>
+
+Przestaw na wykresie po 5 najlepiej ocenianych filmów z lat 2014-2016
+
+```{r}
+filmy %>% 
+  filter(year %in% 2014:2016) %>% 
+  group_by(year) %>% 
+  top_n(5, rating) %>%
+  ungroup() %>% 
+  mutate(title = fct_reorder(title, rating)) %>% 
+  ggplot(aes(y=title, x=rating, fill = as.factor(year))) +
+  geom_col() +
+  xlab("Ocena filmu") +
+  ylab("Tytuł filmu") +
+  scale_fill_discrete(name = "Rok") +
+  theme_light() +
+  theme(legend.position = "top")
+  
+```
+
+<details><summary>Odpowiedź</summary>
+<p>
+
+```r
+filmy %>% 
+  filter(year %in% 2014:2016) %>% 
+  group_by(year) %>% 
+  top_n(5, rating) %>%
+  ungroup() %>% 
+  mutate(title = fct_reorder(title, rating)) %>% 
+  ggplot(aes(y=title, x=rating, fill = as.factor(year))) +
+  geom_col() +
+  xlab("Ocena filmu") +
+  ylab("Tytuł filmu") +
+  scale_fill_discrete(name = "Rok") +
+  theme_light() +
+  theme(legend.position = "top")
+```
+
+</p>
+</details>
+
+## Wykres pudełkowy
+
+Na wykresie pudełkowym przedstaw rozkład długości filmów w kolejnych dekadach. 
+
+```{r}
+filmy %>% 
+  mutate(year_decade=cut(year, seq(1920, 2020, 10), include.lowest=T, dig.lab=4)) %>% 
+  ggplot(aes(x=duration, y=year_decade)) +
+  geom_boxplot() +
+  xlab("Długość filmu (w minutach)") +
+  ylab("Dekada") +
+  theme_minimal()
+```
+
+<details><summary>Podpowiedź</summary>
+<p>
+
+Do podziału lat na dekady można zastosować funkcję `cut` z funkcją `seq`.
+
+</p>
+</details>
+
+
+</p>
+</details>
+
+<details><summary>Odpowiedź</summary>
+<p>
+
+```r
+filmy %>% 
+  mutate(year_decade=cut(year, seq(1920, 2020, 10), include.lowest=T, dig.lab=4)) %>% 
+  ggplot(aes(x=duration, y=year_decade)) +
+  geom_boxplot() +
+  xlab("Długość filmu (w minutach)") +
+  ylab("Dekada") +
+  theme_minimal()
+```
+
+</p>
+</details>
+
