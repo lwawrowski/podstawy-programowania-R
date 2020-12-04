@@ -18,53 +18,42 @@ output:
 library(countdown)
 ```
 
-# Wykonywanie warunkowe
+# Wprowadzenie
 
-Za pomocą instrukcji if możemy warunkowo wykonywać kod. Ogólna postać jest następująca:
+- mniej języka naturalnego, więcej operatorów
 
-```r
-if(warunek){
-  # kod wykonany jeśli warunek jest równy TRUE
-} else if(warunek) {
-  # kod wykonany jeśli warunek jest równy TRUE
-} else {
-  # kod wykonany jeśli warunek jest równy FALSE
-}
-```
+- komunikacja człowiek-komputer
 
-Element warunek musi zwracać wartość logiczną `TRUE` albo `FALSE`.
+- rozwiązywanie bardziej złożonych problemów za pomocą:
 
-Operatory łączenia:
+  - funkcji
+  - warunków
+  - pętli
 
-- i : &&
-
-- lub : ||
 
 ---
 
-class: inverse
+class: inverse, middle, center
 
-# Zadanie
-
-Do obiektu przypisz liczbę, a następnie napisz kod wykonywania warunkowego, który zwróci różne komunikaty:
-
-- podzielna przez 3,
-
-- podzielna przez 5,
-
-- podzielna przez 3 i 5,
-
-- niepodzielna ani przez 3 ani przez 5.
-
-Operator zwracający resztę z dzielenia to `%%`.
-
-`r countdown(minutes = 10, seconds = 0, top = 0)`
+# Funkcje
 
 ---
 
 # Funkcje
 
+> Metoda Copy'ego i Paste'a jest potężnym narzędziem, ale nie powinna być nadużywana
+
 Funkcję ograniczają potrzebę kopiowania kodu i ułatwiają wprowadzanie zmian.
+
+1. Funkcję zawierającą dużo kodu można ładnie nazwać, co ułatwia rozumienie programu
+
+2. W przypadku potrzeby wprowadzenia zmian wystarczy to zrobić tylko w jednym miejscu
+
+3. Unikanie problemów przy kopiowaniu np. zamiana nazwy zmiennej 
+
+---
+
+# Przepis na funkcję
 
 Stworzenie funkcji wymaga:
 
@@ -84,15 +73,195 @@ Stworzenie funkcji wymaga:
 
 - wspólny przedrostek
 
+```r
+# Good
+input_select()
+input_checkbox()
+input_text()
+
+# Not so good
+select_input()
+checkbox_input()
+text_input()
+```
+
+---
+
+# Składnia funkcji
+
+```{r}
+
+oblicz_srednia <- function(liczby, zaokraglenie = 2){
+
+  srednia <- mean(liczby)
+  
+  srednia_zaokr <- round(x = srednia, digits = zaokraglenie)
+  
+  return(srednia_zaokr)
+
+}
+
+temp <- c(-1, 7, 9, 11, 8, 4, 3, 2)
+
+oblicz_srednia(temp)
+
+oblicz_srednia(liczby = temp, zaokraglenie = 0)
+
+```
+
+Funkcje to programowanie na wysokim poziomie abstrakcji. Tworzymy obliczenia dla _jakichś_ danych wejściowych, a wywołujemy je na _konkretnych_ obiektach.
+
+---
+
+# Przykład
+
+Obliczenie wskaźnika dla wybranych kolumn:
+
+$$\text{wsk}=\frac{min(x)-max(x)}{\bar{x}}$$
+
+---
+
+# Bardzo złe pomysły
+
+```r
+# Too short
+f()
+
+# Not a verb, or descriptive
+my_awesome_function()
+
+# Never do this!
+col_mins <- function(x, y) {}
+rowMaxes <- function(y, x) {}
+
+# Don't do this!
+T <- FALSE
+c <- 10
+mean <- function(x) sum(x)
+```
+
+[Źródło](https://r4ds.had.co.nz/functions.html)
+
 ---
 
 class: inverse
 
 # Zadanie
 
-Napisz funkcję, która na podstawie podanej godziny wyświetli komunikat "Dzień dobry" lub "Dobry wieczór".
+Stwórz funkcję, która będzie normalizować wartości cechy w zakresie od 0 do 1 według wzoru:
 
+$$z = \frac{x - min(x)}{max(x)-min(x)}$$
 `r countdown(minutes = 10, seconds = 0, top = 0)`
+
+---
+
+class: inverse, middle, center
+
+# Warunki
+
+---
+
+# Wykonywanie warunkowe
+
+Za pomocą instrukcji if możemy warunkowo wykonywać kod. Ogólna postać jest następująca:
+
+```r
+if(warunek1){
+  # kod wykonany jeśli warunek jest równy TRUE
+} else if(warunek2) {
+  # kod wykonany jeśli warunek1 jest równy FALSE, a warunek2 jest równy TRUE
+} else {
+  # kod wykonany jeśli warunek1 i warunek2 jest równy FALSE
+}
+```
+
+Warunek musi zwracać wartość logiczną `TRUE` albo `FALSE`.
+
+Szczególnie przydatne w funkcjach do sprawdzania poprawności argumentów wejściowych (patrz też: [`stopifnot`](https://rdrr.io/r/base/stopifnot.html)).
+
+---
+
+# Porównywanie
+
+```{r}
+x <- 4
+x
+
+x == 4
+
+length(x) > 0
+
+x == NA
+
+is.na(x)
+
+```
+
+---
+
+# Operatory łączenia
+
+Dopuszczalne operatory łączenia: `&&` (i), `||` (lub).
+
+```{r}
+x <- 4
+x
+
+x > 2 && x < 6
+
+x > 2 && x < 3
+
+x > 2 || x < 3
+
+```
+
+---
+
+# Przykład
+
+Sprawdzenie czy liczba jest mniejsza, większa od 0 czy równa 0.
+
+---
+
+class: inverse
+
+# Zadanie
+
+Napisz funkcję, która na podstawie wartości liczby który zwróci różne komunikaty:
+
+- liczba podzielna przez 3,
+
+- liczba podzielna przez 5,
+
+- liczba podzielna przez 3 i 5,
+
+- liczba niepodzielna ani przez 3 ani przez 5.
+
+Operator zwracający resztę z dzielenia to `%%`:
+
+```{r}
+10 %% 2
+
+10 %% 3
+```
+
+`r countdown(minutes = 15, seconds = 0, top = 0)`
+
+---
+
+class: inverse, middle, center
+
+# Pętle
+
+---
+
+# Pętla
+
+- powtarzanie danej akcji z innymi danymi wejściowymi
+
+- w R zaimplementowane są pętle: for, while, repeat
+
+- zamiast pętli można wektoryzować przetwarzanie
 
 ---
 
@@ -100,11 +269,11 @@ Napisz funkcję, która na podstawie podanej godziny wyświetli komunikat "Dzie�
 
 Pętla składa się z trzech elementów:
 
-- wyjście
+- wyjście - zarezerwowanie odpowiedniej ilości miejsca w pamięci na wynik
 
-- sekwencja
+- sekwencja - iterator i liczba wykonywanych razy (zakres)
 
-- ciało
+- ciało - przetwarzanie, którego wynik za każdym przebiegiem pętli będzie inny
 
 ```r
 for(iterator in zakres){
@@ -114,10 +283,121 @@ for(iterator in zakres){
 
 ---
 
+# Wypisanie nazw miesięcy
+
+```{r}
+for(month in 1:length(month.name)){
+
+  print(month.name[month])
+  
+}
+```
+
+---
+
+# Wypisanie nazw miesięcy
+
+```{r}
+for(month in seq_along(month.name)){
+
+  print(month.name[month])
+  
+}
+```
+
+---
+
+# Przykład
+
+100 krotny rzut kostką.
+
+???
+
+```{r}
+wynik_kostka <- numeric(100)
+
+for(rzut in seq_along(wynik_kostka)){
+  
+  wynik_kostka[rzut] <- sample(1:6, 1)  
+  
+}
+
+table(wynik_kostka)
+
+```
+
+---
+
+# Wektoryzacja
+
+Ile liczb w wektorze jest dodatnich.
+
+```{r}
+liczby <- sample(x = seq(-100,100,1), size = 10000, replace = T)
+```
+
+
+.pull-left[
+
+```{r}
+f_petla <- function(x){
+  
+  wynik <- logical(length(x))
+  
+  for(i in seq_along(x)){
+    
+    wynik[i] <- x[i] > 0
+    
+  }
+  
+  return(sum(wynik))
+  
+}
+
+f_petla(liczby)
+```
+]
+
+.pull-right[
+
+```{r}
+f_wektor <- function(x){
+  
+  wynik <- x > 0
+  
+  return(sum(wynik))
+}
+
+f_wektor(liczby)
+```
+
+]
+
+---
+
+# Wektoryzacja
+
+```{r}
+microbenchmark::microbenchmark(f_petla(liczby), f_wektor(liczby))
+```
+
+
+---
+
+# Inne sposoby na pętle
+
+- funkcje z rodziny apply: `lapply`, `sapply`, `vapply` 
+
+- funkcje `map` z pakietu [purrr](https://purrr.tidyverse.org/) - napisane w C, operujące głównie na listach
+
+- przetwarzanie równoległego: pakiet parallel 
+
+---
+
 class: inverse
 
 # Zadanie
 
-Napisz pętlę, która przeprowadzi 1000 losowań lotto - 6 liczb z 49.
+Napisz pętlę, która wyświetli tekst piosenki [99 bottles of beer on the wall](https://pl.wikipedia.org/wiki/99_Bottles_of_Beer)
 
 `r countdown(minutes = 10, seconds = 0, top = 0)`
