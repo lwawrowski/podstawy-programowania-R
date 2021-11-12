@@ -86,7 +86,7 @@ project/
 
 Pakiet _readr_:
 
-- `read_table()` - ogólna funkcja do plików tekstowych
+- `read_delim()` - ogólna funkcja do plików tekstowych
 
 - `read_csv()` - uwzględnia nagłówek, separator kolumn to przecinek, separator miejsc dziesiętnych to kropka
 
@@ -143,7 +143,9 @@ Zapisywanie do formatu R:
 
 Zapisywanie do pliku tekstowego (txt, csv):
 
-- `write.table(x = obiekt, file = "plik.csv", sep = ";", dec = ",", row.names = FALSE)`
+- `write_csv(x = obiekt, file = "plik.csv")`
+
+- `write_csv2(x = obiekt, file = "plik.csv")`
 
 Zapisywanie do pliku Excela z pakietem _openxlsx_:
 
@@ -193,36 +195,8 @@ zbior <- janitor::clean_names(zbior)
 
 class: inverse
 
-# Pytania do zbioru danych
+# Zadanie
 
-1. Ile obwodów głosowania miało frekwencję powyżej 80%?
+Wczytaj do R plik movies: http://wawrowski.edu.pl/data/movies.csv i wywołaj na nim funkcję `summary()`.
 
-2. Ile obwodów głosowania znajduje się w Poznaniu?   
-
-3. Ile jest obwodów według typu obszaru?
-
-4. Jaka była średnia frekwencja w województwach?
-
-5. Gdzie była największa różnica pomiędzy kandydatami?
-
-```{r eval=FALSE, include=FALSE}
-library(tidyverse)
-
-raw_data <- readxl::read_xlsx("../data/wybory2020.xlsx")
-
-raw_data <- janitor::clean_names(raw_data)
-
-wp <- raw_data %>% 
-  select(symbol_kontrolny:percent_glosow_niewaznych, percent_glosow_waznych:rafal_kazimierz_trzaskowski)
-  
-wp %>% filter(frekwencja > 70) %>% count()
-
-wp %>% count(typ_obszaru)
-
-wp %>% group_by(wojewodztwo) %>% summarise(srednia_frekwencja=mean(frekwencja)) %>% arrange(srednia_frekwencja)
-
-diff <- wp %>% 
-  mutate(roznica = abs(andrzej_sebastian_duda-rafal_kazimierz_trzaskowski))
-
-```
-
+`r countdown(minutes = 5, seconds = 0, top = 0)`

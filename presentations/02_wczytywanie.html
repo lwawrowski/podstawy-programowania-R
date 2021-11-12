@@ -4,7 +4,7 @@
     <title>Podstawy programowania</title>
     <meta charset="utf-8" />
     <meta name="author" content="© Łukasz Wawrowski" />
-    <script src="libs/header-attrs-2.3/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
     <link href="libs/countdown-0.3.5/countdown.css" rel="stylesheet" />
     <script src="libs/countdown-0.3.5/countdown.js"></script>
     <link rel="stylesheet" href="default.css" type="text/css" />
@@ -91,7 +91,7 @@ project/
 
 Pakiet _readr_:
 
-- `read_table()` - ogólna funkcja do plików tekstowych
+- `read_delim()` - ogólna funkcja do plików tekstowych
 
 - `read_csv()` - uwzględnia nagłówek, separator kolumn to przecinek, separator miejsc dziesiętnych to kropka
 
@@ -148,7 +148,9 @@ Zapisywanie do formatu R:
 
 Zapisywanie do pliku tekstowego (txt, csv):
 
-- `write.table(x = obiekt, file = "plik.csv", sep = ";", dec = ",", row.names = FALSE)`
+- `write_csv(x = obiekt, file = "plik.csv")`
+
+- `write_csv2(x = obiekt, file = "plik.csv")`
 
 Zapisywanie do pliku Excela z pakietem _openxlsx_:
 
@@ -172,7 +174,7 @@ class: inverse
 
 Wywołaj funkcję `summary()` na wczytanym zbiorze danych.
 
-<div class="countdown" id="timer_5f949443" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_618e9649" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -200,20 +202,13 @@ zbior &lt;- janitor::clean_names(zbior)
 
 class: inverse
 
-# Pytania do zbioru danych
+# Zadanie
 
-1. Ile obwodów głosowania miało frekwencję powyżej 80%?
+Wczytaj do R plik movies: http://wawrowski.edu.pl/data/movies.csv i wywołaj na nim funkcję `summary()`.
 
-2. Ile obwodów głosowania znajduje się w Poznaniu?   
-
-3. Ile jest obwodów według typu obszaru?
-
-4. Jaka była średnia frekwencja w województwach?
-
-5. Gdzie była największa różnica pomiędzy kandydatami?
-
-
-
+<div class="countdown" id="timer_618e978a" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

@@ -180,6 +180,8 @@ Oblicz $log_{10}100 + \sqrt{121}$
 
 - `NULL` - zbiór pusty
 
+Braki danych często uniemożliwiają wywołanie niektórych funkcji. Jeśli jest taka możliwość dodaje się argument `na.rm = TRUE` (skrót od NA remove).
+
 ---
 
 # Obiekty

@@ -47,27 +47,51 @@ __Istniejący projekt__
 
 ---
 
-# Przygotowanie danych
+class: inverse
 
-- braki danych
+# Zadanie
 
-- duplikaty
+Wczytaj zbiór danych dotyczący wyników wyborów prezydenckich w 2020 roku.
 
-- wartości odstające
-
-- ujednolicone kategorie
-
-[źródło](https://www.analyticsinhr.com/blog/hr-analytics-data-cleaning-guide/)
+`r countdown(minutes = 5, seconds = 0, top = 0)`
 
 ---
 
 class: inverse
 
-# Zadanie
+# Pytania do zbioru danych
 
-Wczytaj zbiór danych dotyczący [filmów](http://wawrowski.edu.pl/data/movies.csv).
+1. Ile obwodów głosowania miało frekwencję powyżej 80%?
 
-`r countdown(minutes = 5, seconds = 0, top = 0)`
+2. Ile obwodów głosowania znajduje się w Poznaniu?   
+
+3. Ile jest obwodów według typu obszaru?
+
+4. Jaka była średnia frekwencja w województwach?
+
+5. Gdzie była największa różnica pomiędzy kandydatami?
+
+
+```{r eval=FALSE, include=FALSE}
+library(tidyverse)
+
+raw_data <- readxl::read_xlsx("../data/wybory2020.xlsx")
+
+raw_data <- janitor::clean_names(raw_data)
+
+wp <- raw_data %>% 
+  select(symbol_kontrolny:percent_glosow_niewaznych, percent_glosow_waznych:rafal_kazimierz_trzaskowski)
+  
+wp %>% filter(frekwencja > 70) %>% count()
+
+wp %>% count(typ_obszaru)
+
+wp %>% group_by(wojewodztwo) %>% summarise(srednia_frekwencja=mean(frekwencja)) %>% arrange(srednia_frekwencja)
+
+diff <- wp %>% 
+  mutate(roznica = abs(andrzej_sebastian_duda-rafal_kazimierz_trzaskowski))
+
+```
 
 ---
 
@@ -243,26 +267,6 @@ tylko z wykorzystaniem funkcji `is.na()`:
 - `!is.na(zmienna)`
 
 Funkcja `complete.cases()` służy do identyfikacji obserwacji, które zawierają braki danych.
-
----
-
-class: inverse
-
-# Zadanie
-
-Wczytaj zbiór danych z Polskiego Generalnego Sondażu Społecznego - [pgss.RData](http://wawrowski.edu.pl/data/pgss.RData) za pomocą funkcji `load()`. Zmienna _q34_ zawiera informacje o dochodach z pracy respondenta. Utwórz nowy zbiór danych, który nie będzie zawierał braków danych w tej zmiennej.
-
-`r countdown(minutes = 10, seconds = 0, top = 0)`
-
---
-
-Ile obserwacji liczyłby ten zbiór danych gdyby usunąć wszystkie obserwacje zawierające braki danych.
-
-???
-
-pgss_na <- pgss %>% filter_all(all_vars(!is.na(.)))
-
-pgss_na <- pgss %>% filter(complete.cases(.))
 
 ---
 

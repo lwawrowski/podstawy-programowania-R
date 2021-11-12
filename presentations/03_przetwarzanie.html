@@ -4,7 +4,7 @@
     <title>Podstawy programowania</title>
     <meta charset="utf-8" />
     <meta name="author" content="© Łukasz Wawrowski" />
-    <script src="libs/header-attrs-2.3/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
     <link href="libs/countdown-0.3.5/countdown.css" rel="stylesheet" />
     <script src="libs/countdown-0.3.5/countdown.js"></script>
     <link rel="stylesheet" href="default.css" type="text/css" />
@@ -51,29 +51,34 @@ __Istniejący projekt__
 
 ---
 
-# Przygotowanie danych
+class: inverse
 
-- braki danych
+# Zadanie
 
-- duplikaty
+Wczytaj zbiór danych dotyczący wyników wyborów prezydenckich w 2020 roku.
 
-- wartości odstające
-
-- ujednolicone kategorie
-
-[źródło](https://www.analyticsinhr.com/blog/hr-analytics-data-cleaning-guide/)
+<div class="countdown" id="timer_618e9512" style="top:0;right:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 ---
 
 class: inverse
 
-# Zadanie
+# Pytania do zbioru danych
 
-Wczytaj zbiór danych dotyczący [filmów](http://wawrowski.edu.pl/data/movies.csv).
+1. Ile obwodów głosowania miało frekwencję powyżej 80%?
 
-<div class="countdown" id="timer_5fafa8cd" style="top:0;right:0;" data-warnwhen="0">
-<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
-</div>
+2. Ile obwodów głosowania znajduje się w Poznaniu?   
+
+3. Ile jest obwodów według typu obszaru?
+
+4. Jaka była średnia frekwencja w województwach?
+
+5. Gdzie była największa różnica pomiędzy kandydatami?
+
+
+
 
 ---
 
@@ -222,7 +227,7 @@ class: inverse
 
 Utwórz zbiór danych zawierający filmy, które są filmami akcji, miały swoją premierę po 2010 roku i trwały powyżej 120 minut lub miały ocenę powyżej 8.0. Alternatywa ma dotyczyć tylko dwóch ostatnich warunków.
 
-<div class="countdown" id="timer_5fafa90f" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_618e974f" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -247,28 +252,6 @@ tylko z wykorzystaniem funkcji `is.na()`:
 - `!is.na(zmienna)`
 
 Funkcja `complete.cases()` służy do identyfikacji obserwacji, które zawierają braki danych.
-
----
-
-class: inverse
-
-# Zadanie
-
-Wczytaj zbiór danych z Polskiego Generalnego Sondażu Społecznego - [pgss.RData](http://wawrowski.edu.pl/data/pgss.RData) za pomocą funkcji `load()`. Zmienna _q34_ zawiera informacje o dochodach z pracy respondenta. Utwórz nowy zbiór danych, który nie będzie zawierał braków danych w tej zmiennej.
-
-<div class="countdown" id="timer_5fafa9d9" style="top:0;right:0;" data-warnwhen="0">
-<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
-</div>
-
---
-
-Ile obserwacji liczyłby ten zbiór danych gdyby usunąć wszystkie obserwacje zawierające braki danych.
-
-???
-
-pgss_na &lt;- pgss %&gt;% filter_all(all_vars(!is.na(.)))
-
-pgss_na &lt;- pgss %&gt;% filter(complete.cases(.))
 
 ---
 
@@ -334,8 +317,8 @@ iris %&gt;%
 
 ```
 ## Error: Problem with `filter()` input `..1`.
-## x object 'Petal.Width' not found
 ## i Input `..1` is `Petal.Width &lt; 0.5`.
+## x object 'Petal.Width' not found
 ```
 
 ---
@@ -372,7 +355,7 @@ class: inverse
 
 W zbiorze dotyczącym wyborów stwórz nową zmienną, która będzie zawierała różnicę pomiędzy wynikami kandydatów.
 
-<div class="countdown" id="timer_5fafa9d9" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_618e960f" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -401,7 +384,7 @@ class: inverse
 
 Ile wynosiła średnia, mediana i odchylenie standardowe wartości frekwencji?
 
-<div class="countdown" id="timer_5fafaa11" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_618e984a" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -417,10 +400,6 @@ iris %&gt;%
   group_by(Species) %&gt;%
   summarise(liczebnosc=n(),
             srednia_pl=mean(Petal.Length))
-```
-
-```
-## `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 ```
@@ -459,7 +438,7 @@ class: inverse
 
 Ile wynosiła liczebność i średnia frekwencja w poszczególnych typach gmin.
 
-<div class="countdown" id="timer_5fafaaa9" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_618e96bd" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -479,7 +458,7 @@ class: inverse
 
 Po wczytaniu zbioru danych [gus.RData](http://wawrowski.edu.pl/data/gus.RData) połącz ze sobą zbiory danych zawierające informacje o liczbie przedsiębiorstw na 10 tys. mieszkańców (zbiór _pod_10tys_), stopie bezrobocia (zbiór _bezrobocie_) oraz wynagrodzeniu (zbiór _wyn_).
 
-<div class="countdown" id="timer_5fafa9f0" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_618e982f" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
@@ -578,7 +557,7 @@ Oblicz średnią frekwencję w grupach zdefiniowanych przez typ gminy oraz wojew
 
 ![](img/wide_zadanie.png)
 
-<div class="countdown" id="timer_5fafab4f" style="top:0;right:0;" data-warnwhen="0">
+<div class="countdown" id="timer_618e97ee" style="top:0;right:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
     </textarea>
