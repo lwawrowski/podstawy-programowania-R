@@ -27,6 +27,8 @@ library(countdown)
 
 - nie zapisujemy zawartości pamięci przy zamykaniu R
 
+- w systemie Windows korzystamy z `/` (slash) lub `\\` przy ścieżkach plików 
+
 ---
 
 # R jako kalkulator
@@ -95,21 +97,21 @@ nazwa_funkcji(argument1 = wartosc1, argument2 = wartosc2)
 
 --
 
-- wartości argumentów można deklarować pozycyjnie - ważna kolejność
-
-```
-
-nazwa_funkcji(wartosc1, wartosc2, wartosc3)
-
-```
-
---
-
 - wartości argumentów można deklarować używając nazw - nieważna kolejność
 
 ```
 
 nazwa_funkcji(argument2 = wartosc2, argument1 = wartosc1)
+
+```
+
+--
+
+- wartości argumentów można deklarować pozycyjnie - ważna kolejność
+
+```
+
+nazwa_funkcji(wartosc1, wartosc2, wartosc3)
 
 ```
 
