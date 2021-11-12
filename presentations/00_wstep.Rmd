@@ -1,6 +1,6 @@
 ---
 title: "Podstawy programowania"
-subtitle: "Wstęp"
+subtitle: "Organizacja zajęć"
 author: "&copy; Łukasz Wawrowski"
 date: ""
 output:
@@ -16,13 +16,14 @@ output:
 
 # dr Łukasz Wawrowski
 
-[wawrowski.edu.pl](http://www.wawrowski.edu.pl/)
+Strona internetowa: [wawrowski.edu.pl](http://www.wawrowski.edu.pl/)
+
+Adres e-mail: lukasz.wawrowski@cdv.pl
 
 .pull-left[
 
 Aktualne zatrudnienie:
 
-- [Uniwersytet Ekonomiczny w Poznaniu](http://statystyka.ue.poznan.pl/)
 - [Sieć Badawcza Łukasiewicz](http://ibemag.pl/pl/)
 - [QED Software](https://qed.pl/)
 
@@ -30,6 +31,7 @@ Nieaktualne:
 
 - [Urząd Statystyczny w Poznaniu](https://poznan.stat.gov.pl/osrodki/osrodek-statystyki-malych-obszarow-1088/)
 - [DOJI S.A.](https://doji.com.pl/)
+- [Uniwersytet Ekonomiczny w Poznaniu](http://statystyka.ue.poznan.pl/)
 
 ]
 
@@ -37,23 +39,87 @@ Nieaktualne:
 
 Zainteresowania naukowe:
 
+- machine learning
 - sztuczna inteligencja
 - statystyka małych obszarów
 - statystyka społeczna - ubóstwo
-- metoda reprezentacyjna
 
 ]
 
 ---
 
-<iframe src="https://embed.polleverywhere.com/multiple_choice_polls/HdapsAQtmrh1seHcyRhOe?controls=none&short_poll=true" width="100%" height="100%" frameBorder="0"></iframe>
+# Moodle
+
+Kurs: Podstawy programowania w R
+
+Kurs znajduje się pod linkiem: https://moodle.cdv.pl/course/view.php?id=992
+
+Hasło do kursu to: cdv2021
 
 ---
 
-<iframe src="https://embed.polleverywhere.com/multiple_choice_polls/eQS5jxnJBtETVeQhKREXI?controls=none&short_poll=true" width="100%" height="100%" frameBorder="0"></iframe>
+# Obecność
+
+Na moodle znajduje się zasób o nazwie **Frekwencja**
+
+Na początku każdych zajęć należy wybrać status **Obecność**
+
+W przypadku braku akcji zostanie przypisany status **Nieobecność**
+
+Screenshot uczestników w Google Meet
+
+---
+
+# Narzędzie
+
+Program R i interfejs RStudio dostępny online: https://rstudio.cloud/
+
+Linki instalacyjne do wersji desktopowej:
+
+- R: https://cloud.r-project.org/
+
+- RStudio: https://rstudio.com/products/rstudio/download/
+
+---
+
+### Program zajęć - Podstawy programowania w R
+
+1. Wprowadzenie
+
+2. Typy danych
+
+3. Wczytywanie danych
+
+4. Przetwarzanie danych
+
+5. Wizualizacja danych
+
+6. Pętle, warunki, własne funkcje
+
+---
+
+### Program zajęć - Metody przetwarzania i analizy danych w R
+
+1. Eksploracyjna analiza danych
+
+2. Testy statystyczne
+
+3. Regresja
+
+4. Grupowanie
+
+5. Klasyfikacja
 
 ---
 
 class: inverse, center, middle
 
 # Pytania?
+
+---
+
+<iframe src="https://embed.polleverywhere.com/multiple_choice_polls/eQS5jxnJBtETVeQhKREXI?controls=none&short_poll=true" width="100%" height="100%"></iframe>
+
+---
+
+<iframe src="https://embed.polleverywhere.com/free_text_polls/pv6A4hPWLzQu3xdgEQrf0?controls=none&short_poll=true" width="100%" height="100%"></iframe>
