@@ -100,6 +100,8 @@ Tworzenie wykresów poprzez dodawanie (`+`) kolejnych warstw.
 
 - [dokumentacja](https://ggplot2.tidyverse.org/)
 
+- [podręcznik](https://ggplot2-book.org/)
+
 - [cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)
 
 - [rozszerzenia](https://exts.ggplot2.tidyverse.org/gallery/)
@@ -359,12 +361,7 @@ ggplot(sklep11, aes(x=liczba_klientow,
   ylab("Sprzedaż") +
   ylim(0,20000) +
   ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
-  theme_light() +
-  ggsave("figs/sklep11.png", 
-         width = 12, 
-         height = 10, 
-         scale = 0.5, 
-         dpi = 1200)
+  theme_light()
 ```
 
 ]
