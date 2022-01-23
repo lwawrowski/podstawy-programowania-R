@@ -25,6 +25,10 @@ library(countdown)
 
 - [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/)
 
+- [Odkrywać! Ujawniać! Objaśniać! Zbiór esejów o sztuce prezentowania danych](http://www.biecek.pl/Eseje/indexObraz.html)
+
+- [Plebiscyt na najgorszy wykres roku 2021](http://smarterpoland.pl/index.php/2021/12/plebiscyt-na-najgorszy-wykres-roku-2021/)
+
 - [Color Brewer](http://colorbrewer2.org)
 
 - [Nazwy kolorów do użycia w R](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
@@ -567,7 +571,7 @@ ggplot(sklep11, aes(x=liczba_klientow,
 
 # Wykresy interaktywne
 
-_Plotly_ to biblioteka do wykresów, która posiada swoją własną składnię.
+[plotly](https://plotly.com/) to biblioteka do wykresów, która posiada swoją własną składnię.
 
 Za pomocą funkcji `ggplotly()` można zamienić każdy wykres ggplot2 na wykres interaktywny.
 
