@@ -329,6 +329,9 @@ Przetestuj kilka motywów i wybierz jeden z nich.
    
    - `dpi` - liczba punktów na cal
 
+W przypadku generowania plików pdf z polskimi znakami trzeb dodać argument `device = cairo_pdf`.
+
+Funkcja `ggsave()` zapisuje ostatnio stworzony wykres. [Wątek](https://github.com/tidyverse/ggplot2/issues/4513) na temat zachowania tej funkcji. 
 
 ---
 
@@ -344,7 +347,8 @@ ggplot(sklep11, aes(x=liczba_klientow,
   ylab("Sprzedaż") +
   ylim(0,20000) +
   ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
-  theme_light() +
+  theme_light()
+
   ggsave("figs/sklep11.png", 
          width = 12, 
          height = 10, 
