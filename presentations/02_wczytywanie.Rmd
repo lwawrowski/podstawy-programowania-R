@@ -155,11 +155,11 @@ Zapisywanie do pliku Excela z pakietem _openxlsx_:
 
 # Wczytanie zbioru danych
 
-Importujemy zbiór danych dotyczących wyników wyborów prezydenckich w 2020 roku.
+Importujemy zbiór danych dotyczący wyników meczów rozegranych w ramach Mistrzostw Świata.
 
-Plik z danymi: http://wawrowski.edu.pl/data/wybory2020.xlsx
+Plik z danymi: http://wawrowski.edu.pl/data/WorldCupMatches.xlsx
 
-[Źródło](https://prezydent20200628.pkw.gov.pl/prezydent20200628/pl/dane_w_arkuszach)
+[Źródło](https://www.kaggle.com/datasets/abecklas/fifa-world-cup)
 
 ---
 

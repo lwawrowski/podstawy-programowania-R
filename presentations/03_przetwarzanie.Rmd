@@ -51,9 +51,9 @@ class: inverse
 
 # Zadanie
 
-Wczytaj zbiór danych dotyczący wyników wyborów prezydenckich w 2020 roku.
+Wczytaj zbiór danych dotyczący wyników meczów rozegranych w ramach Mistrzostw Świata.
 
-`r countdown(minutes = 5, seconds = 0, top = 0)`
+`r countdown(minutes = 2, seconds = 0, top = 0)`
 
 ---
 
@@ -61,36 +61,39 @@ class: inverse
 
 # Pytania do zbioru danych
 
-1. Ile obwodów głosowania miało frekwencję powyżej 80%?
+1. Ile razy Włochy grały w finale MŚ?
 
-2. Ile obwodów głosowania znajduje się w Poznaniu?   
+2. Jaka jest największa liczba bramek w jednym meczu?   
 
-3. Ile jest obwodów według typu obszaru?
+3. Jakie miasto najczęściej gościło piłkarzy?
 
-4. Jaka była średnia frekwencja w województwach?
+4. Jaka była średnia liczba widzów?
 
-5. Gdzie była największa różnica pomiędzy kandydatami?
+5. Ile było meczów, w których drużyna prowadząca po pierwszej połowie ostatecznie przegrywała?
 
 
 ```{r eval=FALSE, include=FALSE}
 library(tidyverse)
 
-raw_data <- readxl::read_xlsx("../data/wybory2020.xlsx")
+fifa <- readxl::read_xlsx("c:\\Users\\lukas\\Downloads\\WorldCupMatches.xlsx")
 
-raw_data <- janitor::clean_names(raw_data)
+fifa <- janitor::clean_names(fifa)
 
-wp <- raw_data %>% 
-  select(symbol_kontrolny:percent_glosow_niewaznych, percent_glosow_waznych:rafal_kazimierz_trzaskowski)
-  
-wp %>% filter(frekwencja > 70) %>% count()
+fifa %>% 
+  filter(stage=="Final" & (home_team_name == "Italy" | away_team_name == "Italy"))
 
-wp %>% count(typ_obszaru)
+fifa %>% 
+  mutate(sum_goals=home_team_goals+away_team_goals) %>% 
+  select(year, home_team_name, away_team_name, stage, home_team_goals, away_team_goals, sum_goals) %>% 
+  arrange(desc(sum_goals))
 
-wp %>% group_by(wojewodztwo) %>% summarise(srednia_frekwencja=mean(frekwencja)) %>% arrange(srednia_frekwencja)
+fifa %>% 
+  count(city) %>% 
+  arrange(n)
 
-diff <- wp %>% 
-  mutate(roznica = abs(andrzej_sebastian_duda-rafal_kazimierz_trzaskowski))
-
+fifa %>% 
+  filter((half_time_home_goals > half_time_away_goals & away_team_goals > home_team_goals) | 
+           (half_time_home_goals < half_time_away_goals & away_team_goals < home_team_goals))
 ```
 
 ---
@@ -363,7 +366,7 @@ class: inverse
 
 # Zadanie
 
-W zbiorze dotyczącym wyborów stwórz nową zmienną, która będzie zawierała różnicę pomiędzy wynikami kandydatów.
+W zbiorze dotyczącym wyborów stwórz nową zmienną, która będzie zawierała bezwzględną różnicę pomiędzy wynikami zespołów.
 
 `r countdown(minutes = 5, seconds = 0, top = 0)`
 
@@ -386,7 +389,7 @@ class: inverse
 
 # Zadanie 
 
-Ile wynosiła średnia, mediana i odchylenie standardowe wartości frekwencji?
+Ile wynosiła średnia, mediana i odchylenie standardowe wartości liczby zdobytych bramek?
 
 `r countdown(minutes = 5, seconds = 0, top = 0)`
 
@@ -421,7 +424,7 @@ class: inverse
 
 # Zadanie
 
-Ile wynosiła liczebność i średnia frekwencja w poszczególnych typach gmin.
+Oblicz liczbę meczów rozgrywanych w poszczególnych miastach oraz średnią liczbę strzelonych bramek.
 
 `r countdown(minutes = 5, seconds = 0, top = 0)`
 
@@ -497,8 +500,4 @@ class: inverse
 
 # Zadanie
 
-Oblicz średnią frekwencję w grupach zdefiniowanych przez typ gminy oraz województwo. Następnie zmień reprezentację danych na szeroką i umieść województwa w wierszach, a typ gminy w kolumnach.
-
-![](img/wide_zadanie.png)
-
-`r countdown(minutes = 10, seconds = 0, top = 0)`
+W jakich godzinach były rozgrywane mecze w historii MŚ? Znajdź funkcję, która pozwoli na wyodrębnienie godziny z kolumny datetime.
