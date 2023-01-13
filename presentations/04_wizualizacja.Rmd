@@ -23,11 +23,13 @@ library(countdown)
 
 - [Przewodnik po wizualizacji danych](https://www.data-to-viz.com/)
 
-- [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/)
+- [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/)
 
-- [Odkrywać! Ujawniać! Objaśniać! Zbiór esejów o sztuce prezentowania danych](http://www.biecek.pl/Eseje/indexObraz.html)
+- [Odkrywać! Ujawniać! Objaśniać! Zbiór esejów o sztuce prezentowania danych](http://www.biecek.pl/Eseje/index.html)
 
 - [Plebiscyt na najgorszy wykres roku 2021](http://smarterpoland.pl/index.php/2021/12/plebiscyt-na-najgorszy-wykres-roku-2021/)
+
+- [Wykresy od kuchni](https://betaandbit.github.io/Wykresy/)
 
 - [Color Brewer](http://colorbrewer2.org)
 
