@@ -1,0 +1,19 @@
+project:
+  type: book
+
+book:
+  title: "Podstawy programowania w R"
+  author: "Łukasz Wawrowski"
+  date: "02/24/2023"
+  chapters:
+    - index.qmd
+    - 01-intro.qmd
+    - 02-struktury.qmd
+    - 03-przetwarzanie.qmd
+    - 04-wizualizacja.qmd
+    - 05-programowanie.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc-title: "Spis treści"

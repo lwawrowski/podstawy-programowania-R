@@ -1,15 +1,4 @@
---- 
-title: "Podstawy programowania R"
-author: "Łukasz Wawrowski"
-date: ""
-site: bookdown::bookdown_site
-output: bookdown::gitbook
-documentclass: book
-github-repo: lwawrowski/podstawy-programowania-R
-description: "Materiały dydaktyczne do kursu Podstawy programowania."
----
-
-# Wprowadzenie {-}
+# Wprowadzenie {.unnumbered}
 
 Polecana literatura:
 
