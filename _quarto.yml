@@ -2,6 +2,7 @@ project:
   type: book
 
 book:
+  favicon: favicon.png
   title: "Podstawy programowania w R"
   author: "Łukasz Wawrowski"
   date: "02/24/2023"
