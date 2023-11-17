@@ -25,17 +25,16 @@ Zalety:
 - wieloplatformowy
 - wsparcie społeczności
 - wykorzystywany przez naukowców
-- jedno oficjalne źródło pakietów
-- 18900 pakietów (25.11.2022)
-- własne czasopismo [R Journal](https://journal.r-project.org/)
+- jedno oficjalne źródło pakietów, które ze sobą współpracują
+- 20043 pakietów (17.11.2023)
 
 ]
 
 .pull-right[
 Wady:
 - trzeba korzystać z wielu pakietów
-- czasami coś nie działa
 - przetwarzanie w pamięci
+- ograniczone programowanie obiektowe
 ]
 
 --
@@ -46,23 +45,25 @@ Hadley Wickham
 
 ---
 
+### Wymagane doświadczenie wg języka programowania
+
+![](img/req_experience_langs.png)
+
+[źródło](https://jobs-in-data.com/blog/machine-learning-vs-data-scientist)
+
+---
+
 # Możliwości R
 
 - obliczenia i wizualizacje
 
-- raporty w [markdown](https://rmarkdown.rstudio.com/gallery.html) lub [quarto](https://quarto.org/docs/gallery/)
+- raporty, strony internetowe, podręczniki, prezentacje w [markdown](https://rmarkdown.rstudio.com/gallery.html) lub [quarto](https://quarto.org/docs/gallery/)
 
 - [interaktywne dashboardy](https://shiny.rstudio.com/gallery/)
 
-- [strony internetowe](https://pkgs.rstudio.com/distill/articles/examples.html)
-
-- [książki](https://bookdown.org/)
-
-- prezentacje
+- [mapy](https://r.geocompx.org/)
 
 - [zaliczenia i egzaminy](http://www.r-exams.org/)
-
-- [mapy](https://raw.githubusercontent.com/lwawrowski/geomarketing/master/mapa_wybory.png)
 
 - ...
 
@@ -70,11 +71,9 @@ Hadley Wickham
 
 # Źródła wiedzy i pomocy
 
-- [Wprowadzenie do R z żyrafami](https://tinystats.github.io/teacups-giraffes-and-statistics/index.html)
+- [Big Book of R](https://www.bigbookofr.com/)
 
-- [R Bootcamp - wizualizacja i przetwarzanie](https://r-bootcamp.netlify.com/)
-
-- [R for Data Science](http://r4ds.had.co.nz/) - kompendium R po angielsku 
+- [R for Data Science](https://r4ds.hadley.nz/) - kompendium R po angielsku 
 
 - [Język R](https://helion.pl/ksiazki/jezyk-r-kompletny-zestaw-narzedzi-dla-analitykow-danych-hadley-wickham-garrett-grolemund,jezrkv.htm) - polskie tłumaczenie, wydanie papierowe
 

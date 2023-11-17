@@ -51,7 +51,7 @@ class: inverse
 
 # Zadanie
 
-Wczytaj zbiór danych dotyczący wyników meczów rozegranych w ramach Mistrzostw Świata.
+Wczytaj zbiór danych dotyczący wyników wyborów.
 
 `r countdown(minutes = 2, seconds = 0, top = 0)`
 

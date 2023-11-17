@@ -4,7 +4,7 @@
     <title>Podstawy programowania</title>
     <meta charset="utf-8" />
     <meta name="author" content="© Łukasz Wawrowski" />
-    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.22/header-attrs.js"></script>
     <link rel="stylesheet" href="default.css" type="text/css" />
     <link rel="stylesheet" href="default-fonts.css" type="text/css" />
   </head>
@@ -12,56 +12,35 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Podstawy programowania
+]
+.subtitle[
 ## Organizacja zajęć
+]
+.author[
 ### © Łukasz Wawrowski
+]
 
 ---
 
 
 # dr Łukasz Wawrowski
 
-Strona internetowa: [wawrowski.edu.pl](http://www.wawrowski.edu.pl/)
+Strona internetowa z materiałami: [wawrowski.edu.pl](http://www.wawrowski.edu.pl/)
 
 Adres e-mail: lukasz.wawrowski@cdv.pl
 
-.pull-left[
-
 Aktualne zatrudnienie:
 
-- [Sieć Badawcza Łukasiewicz](http://ibemag.pl/pl/)
-- [QED Software](https://qed.pl/)
+- [Sieć Badawcza Łukasiewicz](https://emag.lukasiewicz.gov.pl/pl/)
 
 Poprzednie:
 
 - [Urząd Statystyczny w Poznaniu](https://poznan.stat.gov.pl/osrodki/osrodek-statystyki-malych-obszarow-1088/)
 - [DOJI S.A.](https://doji.com.pl/)
-- [Uniwersytet Ekonomiczny w Poznaniu](http://statystyka.ue.poznan.pl/)
-
-]
-
-.pull-right[
-
-Zainteresowania naukowe:
-
-- machine learning
-- sztuczna inteligencja
-- statystyka małych obszarów
-- statystyka społeczna - ubóstwo
-
-]
-
----
-
-# Narzędzie
-
-Program R i interfejs RStudio dostępny online: https://rstudio.cloud/
-
-Linki instalacyjne do wersji desktopowej:
-
-- R: https://cloud.r-project.org/
-
-- RStudio: https://rstudio.com/products/rstudio/download/
+- [Uniwersytet Ekonomiczny w Poznaniu](https://ue.poznan.pl/uniwersytet/instytuty-i-katedry/instytut-informatyki-i-ekonomii-ilosciowej/katedra-statystyki/)
+- [QED Software](https://qed.pl/)
 
 ---
 
@@ -146,6 +125,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

@@ -16,47 +16,20 @@ output:
 
 # dr Łukasz Wawrowski
 
-Strona internetowa: [wawrowski.edu.pl](http://www.wawrowski.edu.pl/)
+Strona internetowa z materiałami: [wawrowski.edu.pl](http://www.wawrowski.edu.pl/)
 
 Adres e-mail: lukasz.wawrowski@cdv.pl
 
-.pull-left[
-
 Aktualne zatrudnienie:
 
-- [Sieć Badawcza Łukasiewicz](http://ibemag.pl/pl/)
-- [QED Software](https://qed.pl/)
+- [Sieć Badawcza Łukasiewicz](https://emag.lukasiewicz.gov.pl/pl/)
 
 Poprzednie:
 
 - [Urząd Statystyczny w Poznaniu](https://poznan.stat.gov.pl/osrodki/osrodek-statystyki-malych-obszarow-1088/)
 - [DOJI S.A.](https://doji.com.pl/)
-- [Uniwersytet Ekonomiczny w Poznaniu](http://statystyka.ue.poznan.pl/)
-
-]
-
-.pull-right[
-
-Zainteresowania naukowe:
-
-- machine learning
-- sztuczna inteligencja
-- statystyka małych obszarów
-- statystyka społeczna - ubóstwo
-
-]
-
----
-
-# Narzędzie
-
-Program R i interfejs RStudio dostępny online: https://rstudio.cloud/
-
-Linki instalacyjne do wersji desktopowej:
-
-- R: https://cloud.r-project.org/
-
-- RStudio: https://rstudio.com/products/rstudio/download/
+- [Uniwersytet Ekonomiczny w Poznaniu](https://ue.poznan.pl/uniwersytet/instytuty-i-katedry/instytut-informatyki-i-ekonomii-ilosciowej/katedra-statystyki/)
+- [QED Software](https://qed.pl/)
 
 ---
 

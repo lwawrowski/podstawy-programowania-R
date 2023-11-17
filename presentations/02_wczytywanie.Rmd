@@ -63,9 +63,6 @@ library("tidyverse")
 # Instalacja vs. wczytywanie
 
 ![](img/packages.jpg)
-
-[źródło](https://twitter.com/visnut/status/1248087845589274624)
-
 ---
 
 # Struktura projektu
@@ -155,11 +152,11 @@ Zapisywanie do pliku Excela z pakietem _openxlsx_:
 
 # Wczytanie zbioru danych
 
-Importujemy zbiór danych dotyczący wyników meczów rozegranych w ramach Mistrzostw Świata.
+Importujemy zbiór danych dotyczący wyników wyborów parlamentarnych w 2023 roku.
 
-Plik z danymi: http://wawrowski.edu.pl/data/WorldCupMatches.xlsx
+Plik z danymi: http://wawrowski.edu.pl/data/wybory2023.csv
 
-[Źródło](https://www.kaggle.com/datasets/abecklas/fifa-world-cup)
+[Źródło](https://wybory.gov.pl/sejmsenat2023/pl/dane_w_arkuszach)
 
 ---
 
