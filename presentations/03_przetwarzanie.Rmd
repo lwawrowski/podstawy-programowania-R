@@ -61,39 +61,51 @@ class: inverse
 
 # Pytania do zbioru danych
 
-1. Ile razy Włochy grały w finale MŚ?
+1. Ile obwodów głosowania miało frekwencję powyżej 80%?
 
-2. Jaka jest największa liczba bramek w jednym meczu?   
+2. Ile obwodów głosowania znajduje się w Poznaniu?   
 
-3. Jakie miasto najczęściej gościło piłkarzy?
+3. Jaka była średnia frekwencja w województwach?
 
-4. Jaka była średnia liczba widzów?
+4. Gdzie była największa różnica pomiędzy wybranymi partiami?
 
-5. Ile było meczów, w których drużyna prowadząca po pierwszej połowie ostatecznie przegrywała?
+5. W jakich miastach za granicą utworzono najwięcej obowodów głosowania?
 
 
 ```{r eval=FALSE, include=FALSE}
 library(tidyverse)
 
-fifa <- readxl::read_xlsx("c:\\Users\\lukas\\Downloads\\WorldCupMatches.xlsx")
+wybory <- read_csv2("../data/wybory2023.csv")
+wybory <- janitor::clean_names(wybory)
+wybory <- wybory %>% 
+  filter(!is.na(komisja_otrzymala_kart_do_glosowania))
 
-fifa <- janitor::clean_names(fifa)
+wybory <- wybory %>% 
+  mutate(frekwencja=liczba_wyborcow_ktorym_wydano_karty_do_glosowania/liczba_wyborcow_uprawnionych_do_glosowania)
 
-fifa %>% 
-  filter(stage=="Final" & (home_team_name == "Italy" | away_team_name == "Italy"))
+wybory_frek <- wybory %>% 
+  filter(frekwencja > 0.8)
 
-fifa %>% 
-  mutate(sum_goals=home_team_goals+away_team_goals) %>% 
-  select(year, home_team_name, away_team_name, stage, home_team_goals, away_team_goals, sum_goals) %>% 
-  arrange(desc(sum_goals))
+wybory_poz <- wybory %>% 
+  filter(gmina == "m. Poznań")
 
-fifa %>% 
-  count(city) %>% 
-  arrange(n)
+wybory_woj <- wybory %>% 
+  group_by(wojewodztwo) %>% 
+  summarise(mean(frekwencja))
 
-fifa %>% 
-  filter((half_time_home_goals > half_time_away_goals & away_team_goals > home_team_goals) | 
-           (half_time_home_goals < half_time_away_goals & away_team_goals < home_team_goals))
+wybory_diff <- wybory %>% 
+  rename(ko=koalicyjny_komitet_wyborczy_koalicja_obywatelska_po_n_ipl_zieloni,
+         td=koalicyjny_komitet_wyborczy_trzecia_droga_polska_2050_szymona_holowni_polskie_stronnictwo_ludowe) %>% 
+  mutate(roznica_ko_td=abs(ko-td)) %>% 
+  arrange(desc(roznica_ko_td))
+
+wybory_zagranica <- wybory %>% 
+  filter(powiat=="zagranica") %>% 
+  count(gmina)
+
+wybory_proc <- wybory_diff %>% 
+  mutate_at(vars(ko, td), list(proc=~./liczba_glosow_waznych_oddanych_lacznie_na_wszystkie_listy_kandydatow))
+
 ```
 
 ---
@@ -366,7 +378,7 @@ class: inverse
 
 # Zadanie
 
-W zbiorze dotyczącym wyborów stwórz nową zmienną, która będzie zawierała bezwzględną różnicę pomiędzy wynikami zespołów.
+W zbiorze dotyczącym wyborów stwórz nowe zmienne, które będą zawierały procentowy wynik komitetów.
 
 `r countdown(minutes = 5, seconds = 0, top = 0)`
 
@@ -389,7 +401,7 @@ class: inverse
 
 # Zadanie 
 
-Ile wynosiła średnia, mediana i odchylenie standardowe wartości liczby zdobytych bramek?
+Ile wynosiła średnia, mediana i odchylenie standardowe wartości frekwencji?
 
 `r countdown(minutes = 5, seconds = 0, top = 0)`
 
@@ -424,7 +436,7 @@ class: inverse
 
 # Zadanie
 
-Oblicz liczbę meczów rozgrywanych w poszczególnych miastach oraz średnią liczbę strzelonych bramek.
+Oblicz liczbę komisji w poszczególnych województwach oraz średnią liczbę nieważnych głosów.
 
 `r countdown(minutes = 5, seconds = 0, top = 0)`
 
@@ -493,11 +505,3 @@ iris_wide <- iris_long %>%
 
 head(iris_wide)
 ```
-
----
-
-class: inverse
-
-# Zadanie
-
-W jakich godzinach były rozgrywane mecze w historii MŚ? Znajdź funkcję, która pozwoli na wyodrębnienie godziny z kolumny datetime.
