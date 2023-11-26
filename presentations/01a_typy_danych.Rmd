@@ -274,6 +274,8 @@ Typy wektorów
 
 - `is.numeric()`, `is.logical()` - czy wektor jest danego typu
 
+- `as.numeric()`, `as.logical()` - rzutowanie wektora na dany typ
+
 - `rep()` - tworzy wektor poprzez replikację podanego argumentu
 
 - `seq()` - tworzy wektor jako sekwencję o podanym początku i końcu
