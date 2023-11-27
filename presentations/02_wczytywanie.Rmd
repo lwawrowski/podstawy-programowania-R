@@ -32,7 +32,6 @@ install.packages("tidyverse")
 - httr - dostęp do stron html
 - rvest - web scraping
 - DBI - dostęp do baz danych
-- lubridate - operacje na datach
 - hms - operacje na czasie dnia
 - blob - przechowywanie danych binarnych
 - magrittr - przetwarzanie potokowe `%>%`
@@ -45,14 +44,15 @@ install.packages("tidyverse")
 library("tidyverse")
 ```
 
-- ggplot2 - wykresy
-- dplyr - przetwarzanie danych
-- tidyr - porządkowoanie danych
-- readr - wczytywanie plików tekstowych
-- purrr - programowanie funkcyjne
-- tibble - format dla zbiorów
-- stringr - operacje na tekstach
+- dplyr - przetwarzanie danych tabelarycznych
 - forcats - operacje na czynnikach
+- ggplot2 - wykresy
+- lubridate - operacje na datach
+- purrr - programowanie funkcyjne
+- readr - wczytywanie plików tekstowych
+- stringr - operacje na tekstach
+- tibble - nowoczesny data.frame
+- tidyr - porządkowanie danych
 
 ]
 
@@ -88,6 +88,10 @@ Pakiet _readr_:
 - `read_csv()` - uwzględnia nagłówek, separator kolumn to przecinek, separator miejsc dziesiętnych to kropka
 
 - `read_csv2()` - uwzględnia nagłówek, separator kolumn to średnik, separator miejsc dziesiętnych to przecinek
+
+-- 
+
+R dostarcza także funkcje `read.csv()`, `read.csv2()`, `read.delim()`, które są starszymi odpowiednikami funkcji z pakietu _readr_.
 
 ---
 

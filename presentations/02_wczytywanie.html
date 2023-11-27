@@ -43,7 +43,6 @@ install.packages("tidyverse")
 - httr - dostęp do stron html
 - rvest - web scraping
 - DBI - dostęp do baz danych
-- lubridate - operacje na datach
 - hms - operacje na czasie dnia
 - blob - przechowywanie danych binarnych
 - magrittr - przetwarzanie potokowe `%&gt;%`
@@ -56,14 +55,15 @@ install.packages("tidyverse")
 library("tidyverse")
 ```
 
-- ggplot2 - wykresy
-- dplyr - przetwarzanie danych
-- tidyr - porządkowoanie danych
-- readr - wczytywanie plików tekstowych
-- purrr - programowanie funkcyjne
-- tibble - format dla zbiorów
-- stringr - operacje na tekstach
+- dplyr - przetwarzanie danych tabelarycznych
 - forcats - operacje na czynnikach
+- ggplot2 - wykresy
+- lubridate - operacje na datach
+- purrr - programowanie funkcyjne
+- readr - wczytywanie plików tekstowych
+- stringr - operacje na tekstach
+- tibble - nowoczesny data.frame
+- tidyr - porządkowanie danych
 
 ]
 
@@ -99,6 +99,10 @@ Pakiet _readr_:
 - `read_csv()` - uwzględnia nagłówek, separator kolumn to przecinek, separator miejsc dziesiętnych to kropka
 
 - `read_csv2()` - uwzględnia nagłówek, separator kolumn to średnik, separator miejsc dziesiętnych to przecinek
+
+-- 
+
+R dostarcza także funkcje `read.csv()`, `read.csv2()`, `read.delim()`, które są starszymi odpowiednikami funkcji z pakietu _readr_.
 
 ---
 
@@ -177,7 +181,7 @@ class: inverse
 
 Wywołaj funkcję `summary()` na wczytanym zbiorze danych.
 
-<div class="countdown" id="timer_ec2c1531" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_d505121c" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -210,7 +214,7 @@ class: inverse
 
 Wczytaj do R plik movies: http://wawrowski.edu.pl/data/movies.csv i wywołaj na nim funkcję `summary()`.
 
-<div class="countdown" id="timer_1acb9c6d" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_92423291" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

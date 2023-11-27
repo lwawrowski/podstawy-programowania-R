@@ -264,6 +264,11 @@ Typy wektorów
 
 - tekstowe
 
+--
+
+Indeksowanie wektora `wektor[numer_elementu]`
+
+
 ---
 
 # Funkcje związane z wektorami
@@ -396,6 +401,14 @@ df <- data.frame(plec=c("m", "k", "k", "m", "k", "m", "m", "m"),
 Tworzenie za pomocą funkcji `list()`
 
 Może zawierać wiele różnych typów danych
+
+---
+
+# Indeksowanie listy
+
+![](img/list_pepper.png)
+
+[źródło](https://twitter.com/hadleywickham/status/643381054758363136)
 
 ---
 
