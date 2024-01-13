@@ -63,7 +63,7 @@ class: inverse
 
 Wczytaj zbiór danych dotyczący wyników wyborów.
 
-<div class="countdown" id="timer_ba52bb38" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_5f07d564" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -202,6 +202,8 @@ Skrót klawiszowy: ctrl + shift + m
 
 - `group_by()` - operowanie na grupach
 
+- `arrange()` - sortowanie
+
 ---
 
 # Filtrowanie - `filter()`
@@ -215,6 +217,8 @@ Porównywanie:
 - `!=` symbol negacji (jest różne)
 
 - `&gt;` i `&lt;` większe i mniejsze
+
+- `&gt;=` i `&lt;=` większe lub równe i mniejsze lub równe 
 
 Operatory:
 
@@ -232,11 +236,11 @@ class: inverse
 
 # Zadanie
 
-Utwórz zbiór danych zawierający filmy, które są filmami akcji, miały swoją premierę po 2010 roku i trwały powyżej 120 minut lub miały ocenę powyżej 8.0. Alternatywa ma dotyczyć tylko dwóch ostatnich warunków.
+Utwórz zbiór danych zawierający filmy, które są filmami akcji, miały swoją premierę po 2010 roku i trwały co najmniej 120 minut lub miały ocenę powyżej 8.0. Alternatywa ma dotyczyć tylko dwóch ostatnich warunków.
 
-<div class="countdown" id="timer_71a97cff" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_a4a8414b" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
-<code class="countdown-time"><span class="countdown-digits minutes">07</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
 
 ---
@@ -293,7 +297,9 @@ iris2 &lt;- iris %&gt;%
 
 # Kolejność w przetwarzaniu potokowym
 
-GOOD
+.pull-left[
+
+DOBRZE
 
 
 ```r
@@ -312,9 +318,13 @@ iris %&gt;%
 ## 6  setosa          5.4         3.9
 ```
 
+]
+
 --
 
-BAD
+.pull-right[
+
+ŹLE
 
 
 ```r
@@ -329,6 +339,8 @@ iris %&gt;%
 ## Caused by error:
 ## ! object 'Petal.Width' not found
 ```
+
+]
 
 ---
 
@@ -364,7 +376,7 @@ class: inverse
 
 W zbiorze dotyczącym wyborów stwórz nowe zmienne, które będą zawierały procentowy wynik komitetów.
 
-<div class="countdown" id="timer_a70e0299" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_de62282b" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -394,7 +406,7 @@ class: inverse
 
 Ile wynosiła średnia, mediana i odchylenie standardowe wartości frekwencji?
 
-<div class="countdown" id="timer_ae7aa5bf" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_bcf8d3e4" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -443,13 +455,38 @@ iris %&gt;%
 
 ---
 
+# Sortowanie - `arrange()`
+
+Sortuje podane kolumny w porządku rosnącym.
+
+
+```r
+iris %&gt;%
+  arrange(Sepal.Length, Sepal.Width) %&gt;% 
+  head()
+```
+
+```
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          4.3         3.0          1.1         0.1  setosa
+## 2          4.4         2.9          1.4         0.2  setosa
+## 3          4.4         3.0          1.3         0.2  setosa
+## 4          4.4         3.2          1.3         0.2  setosa
+## 5          4.5         2.3          1.3         0.3  setosa
+## 6          4.6         3.1          1.5         0.2  setosa
+```
+
+Posortowanie w porządku malejącym wymaga użycia funkcji `desc()` w odniesieniu do wybranej kolumny.
+
+---
+
 class: inverse
 
 # Zadanie
 
 Oblicz liczbę komisji w poszczególnych województwach oraz średnią liczbę nieważnych głosów.
 
-<div class="countdown" id="timer_6cf3eb7b" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_cc170950" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -470,7 +507,7 @@ class: inverse
 
 Po wczytaniu zbioru danych [gus.RData](http://wawrowski.edu.pl/data/gus.RData) połącz ze sobą zbiory danych zawierające informacje o liczbie przedsiębiorstw na 10 tys. mieszkańców (zbiór _pod_10tys_), stopie bezrobocia (zbiór _bezrobocie_) oraz wynagrodzeniu (zbiór _wyn_).
 
-<div class="countdown" id="timer_67b61813" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_c3a4d64e" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>

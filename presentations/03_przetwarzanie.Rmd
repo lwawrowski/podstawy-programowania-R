@@ -227,6 +227,8 @@ Skrót klawiszowy: ctrl + shift + m
 
 - `group_by()` - operowanie na grupach
 
+- `arrange()` - sortowanie
+
 ---
 
 # Filtrowanie - `filter()`
@@ -240,6 +242,8 @@ Porównywanie:
 - `!=` symbol negacji (jest różne)
 
 - `>` i `<` większe i mniejsze
+
+- `>=` i `<=` większe lub równe i mniejsze lub równe 
 
 Operatory:
 
@@ -257,9 +261,9 @@ class: inverse
 
 # Zadanie
 
-Utwórz zbiór danych zawierający filmy, które są filmami akcji, miały swoją premierę po 2010 roku i trwały powyżej 120 minut lub miały ocenę powyżej 8.0. Alternatywa ma dotyczyć tylko dwóch ostatnich warunków.
+Utwórz zbiór danych zawierający filmy, które są filmami akcji, miały swoją premierę po 2010 roku i trwały co najmniej 120 minut lub miały ocenę powyżej 8.0. Alternatywa ma dotyczyć tylko dwóch ostatnich warunków.
 
-`r countdown(minutes = 7, seconds = 0, top = 0)`
+`r countdown(minutes = 5, seconds = 0, top = 0)`
 
 ---
 
@@ -318,7 +322,9 @@ iris2 <- iris %>%
 
 # Kolejność w przetwarzaniu potokowym
 
-GOOD
+.pull-left[
+
+DOBRZE
 
 ```{r eval=FALSE}
 iris %>%
@@ -334,9 +340,13 @@ iris %>%
 
 ```
 
+]
+
 --
 
-BAD
+.pull-right[
+
+ŹLE
 
 ```{r error=TRUE}
 iris %>%
@@ -344,6 +354,8 @@ iris %>%
   filter(Petal.Width < 0.5)
 
 ```
+
+]
 
 ---
 
@@ -429,6 +441,22 @@ Jeżeli chcemy tylko wyznaczyć liczebności grup to wystarczy funkcja `count()`
 iris %>%
   count(Species)
 ```
+
+---
+
+# Sortowanie - `arrange()`
+
+Sortuje podane kolumny w porządku rosnącym.
+
+```{r}
+
+iris %>%
+  arrange(Sepal.Length, Sepal.Width) %>% 
+  head()
+
+```
+
+Posortowanie w porządku malejącym wymaga użycia funkcji `desc()` w odniesieniu do wybranej kolumny.
 
 ---
 
