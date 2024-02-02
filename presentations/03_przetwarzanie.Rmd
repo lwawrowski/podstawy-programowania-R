@@ -285,7 +285,7 @@ tylko z wykorzystaniem funkcji `is.na()`:
 
 - `!is.na(zmienna)`
 
-Funkcja `complete.cases()` służy do identyfikacji obserwacji, które zawierają braki danych.
+Funkcja `complete.cases()` służy do identyfikacji obserwacji, które nie zawierają braków danych w całym zbiorze danych.
 
 ---
 

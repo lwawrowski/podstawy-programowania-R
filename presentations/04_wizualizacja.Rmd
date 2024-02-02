@@ -25,10 +25,6 @@ library(countdown)
 
 - [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/)
 
-- [Odkrywać! Ujawniać! Objaśniać! Zbiór esejów o sztuce prezentowania danych](http://www.biecek.pl/Eseje/index.html)
-
-- [Plebiscyt na najgorszy wykres roku 2021](http://smarterpoland.pl/index.php/2021/12/plebiscyt-na-najgorszy-wykres-roku-2021/)
-
 - [Wykresy od kuchni](https://betaandbit.github.io/Wykresy/)
 
 - [Color Brewer](http://colorbrewer2.org)
@@ -108,13 +104,9 @@ Tworzenie wykresów poprzez dodawanie (`+`) kolejnych warstw.
 
 - [podręcznik](https://ggplot2-book.org/)
 
-- [cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)
+- [cheatsheet](https://rstudio.github.io/cheatsheets/data-visualization.pdf)
 
 - [rozszerzenia](https://exts.ggplot2.tidyverse.org/gallery/)
-
-- [top 50](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)
-
-- [wykresy krok po kroku](https://evamaerey.github.io/ggplot_flipbook/ggplot_flipbook_xaringan.html)
 
 ???
 
@@ -298,12 +290,9 @@ ggplot(sklep11, aes(x=liczba_klientow,
 - theme_minimal
 - theme_void
 
-Powyższe motywy są zaimplementowane w pakiecie ggplot2, ale można także skorzystać z dodatkowych pakietów:
+Powyższe motywy są zaimplementowane w pakiecie ggplot2, ale można także skorzystać z dodatkowych pakietów: [ggthemes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/), [bbplot](https://github.com/bbc/bbplot), [xkcd](https://cran.r-project.org/web/packages/xkcd/).
 
-- [theme_bbc](https://github.com/bbc/bbplot)
-- [theme_xkcd](https://cran.r-project.org/web/packages/xkcd/)
-
-Albo stworzyć [swój własny motyw](https://www.statworx.com/de/blog/custom-themes-in-ggplot2/).
+Istnieje także możliwość stworzenia [własnego motywu](https://www.statworx.com/de/blog/custom-themes-in-ggplot2/).
 
 ---
 
@@ -313,7 +302,7 @@ class: inverse
 
 Przetestuj kilka motywów i wybierz jeden z nich.
 
-`r countdown(minutes = 5, seconds = 0, top = 0)`
+`r countdown(minutes = 2, seconds = 0, top = 0)`
 
 ---
 
@@ -1050,3 +1039,11 @@ sklep11 %>%
 ```
 
 `r countdown(minutes = 10, seconds = 0, top = 0)`
+
+---
+
+# Zadania
+
+Wykonaj zadania zamieszczone na [stronie](http://www.wawrowski.edu.pl/ppr/presentations/04_wizualizacja_zadania.html).
+
+Bootcamp z zadaniami z przetwarzania i wizualizacji: https://r-bootcamp.netlify.app/
