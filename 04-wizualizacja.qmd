@@ -4,10 +4,6 @@
 
 ## Wprowadzenie
 
-[Przewodnik po wizualizacji danych](https://www.data-to-viz.com/)
-
-[Fundamentals of Data Visualization](https://serialmentor.com/dataviz/)
-
 Będziemy działać na zbiorze dotyczącym sprzedaży w sklepach: [rossmann.xlsx](http://wawrowski.edu.pl/data/rossmann.xlsx) i [rossmann.RData](http://wawrowski.edu.pl/data/rossmann.RData).
 
 ```{r message=FALSE, warning=FALSE}
@@ -572,14 +568,6 @@ p <- ggplot(data = sklep77, aes(x=sprzedaz, y=liczba_klientow, color=czy_promocj
 plotly::ggplotly(p)
 ```
 
-*Zadanie*
+## Zadania
 
-Stwórz trzy grafiki dla danych dotyczących [filmów](data/movies.csv).
-
-```{r}
-filmy <- read.csv("data/movies.csv")
-
-summary(filmy)
-```
-
-Z racji mnogości gatunków można ograniczyć się do kilku wybranych. 
+Wykonaj polecenia znajdujące się na [stronie](presentations/04_wizualizacja_zadania.html).

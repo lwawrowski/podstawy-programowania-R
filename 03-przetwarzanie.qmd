@@ -16,6 +16,7 @@ Pakiet `tidyverse` to zestaw pakietów do kompleksowego przetwarzania i wizualiz
 - tibble - sposób przechowywania danych,
 - stringr - przetwarzanie tekstów,
 - forcats - przetwarzanie faktorów
+- lubridate - operacje na datach
 
 Manifest tidyverse ustala następujące zasady:
 
@@ -469,12 +470,15 @@ Taki plik jest plikiem csv, który możemy otworzyć w Excelu i zapisać go z ro
 
 ## Zadania
 
-Na podstawie zbioru rossmann odpowiedź na pytania:
+### Rossmann
+
+Na podstawie [zbioru Rossmann](http://wawrowski.edu.pl/data/rossmann.xlsx) odpowiedź na pytania:
 
 1. Ile było sklepów o asortymencie rozszerzonym w dniu 25-02-2014?
 2. W jaki dzień tygodnia średnia liczba klientów była największa w sklepie nr 101?
 3. Sklep jakiego typu charakteryzuje się największą medianą sprzedaży?
 4. Czy w ciągu roku odległość do najbliższego sklepu konkurencji zmieniła się dla jakiegokolwiek sklepu Rossmann?
+5. Połącz dane ze sklepów Rossmann z danymi o średnim kursie EUR/PLN z 2014 roku, który można pobrać ze strony [NBP](http://www.nbp.pl/home.aspx?f=/kursy/arch_a.html). Przelicz wielkość sprzedaży na złotówki. 
 
 ```{r include=FALSE}
 rossmann %>%
@@ -497,6 +501,23 @@ rossmann_odl <- rossmann %>%
   summarise(sd=sd(sklep_konkurencja))
 ```
 
-## Case study
+### Wybory 2020
 
-Rozważmy sklepy Rossmann, które w 2014 roku były otwarte powyżej 300 dni w roku. Czy średnia sprzedaż wyrażona w zł w sklepach Rossmann różni się statystycznie pomiędzy grupami zdefiniowanymi przez asortyment sklepu? Dane na temat średniego kursu miesięcznego euro pobierz ze stron [NBP](http://www.nbp.pl/home.aspx?f=/kursy/arch_a.html). 
+Na podstawie [zbioru dotyczącego wyborów prezydenckich w 2020 roku](http://wawrowski.edu.pl/data/wybory2020.xlsx) odpowiedź na pytania:
+
+1. Ile obwodów głosowania miało frekwencję powyżej 80%?
+2. Ile obwodów głosowania znajduje się w Poznaniu?   
+3. Ile jest obwodów według typu obszaru?
+4. Jaka była średnia frekwencja w województwach?
+5. Gdzie była największa różnica pomiędzy kandydatami?
+
+### Mistrzostwa Świata
+
+Na podstawie [zbioru dotyczącego wyników meczów rozegranych w ramach Mistrzostw Świata](http://wawrowski.edu.pl/data/WorldCupMatches.xlsx) odpowiedź na pytania:
+
+1. Ile razy Włochy grały w finale MŚ?
+2. Jaka jest największa liczba bramek w jednym meczu?   
+3. Jakie miasto najczęściej gościło piłkarzy?
+4. Jaka była średnia liczba widzów?
+5. Ile było meczów, w których drużyna prowadząca po pierwszej połowie ostatecznie przegrywała?
+

@@ -1,0 +1,60 @@
+---
+title: "Programowanie - zadania"
+author: "Łukasz Wawrowski"
+---
+
+# Paradoks dnia urodzin
+
+[Artykuł na wikipedii](https://pl.wikipedia.org/wiki/Paradoks_dnia_urodzin)
+
+Ile minimalnie osób należy wybrać, żeby prawdopodobieństwo znalezienia wśród nich co najmniej dwóch osób obchodzących urodziny tego samego dnia było większe od 0,5.
+
+Rozwiązaniem problemu jest liczba 23. Ta zaskakująco mała liczba osób jest przyczyną określenia „Paradoks dnia urodzin”.
+
+## Zadanie
+
+Napisz funkcję, która jako argument będzie przyjmowała liczbę osób (max. 100), dla których ma wylosować datę urodzenia (bez roku). Następnie sprawdź czy któraś data powtarza się w ramach wylosowanych wartości i zapisz wynik (prawda lub fałsz). Powtórz losowanie 100000 razy. Wynikiem jest prawdopodobieństwo wyznaczone poprzez podzielenie liczby przypadków, gdzie data się powtórzyła przez liczbę wszystkich losowań. 
+
+```{r}
+#| eval: false
+
+paradoks_urodzin(23)
+```
+
+`W grupie 23 osób prawdopodobieństwo, że dwie osoby będą miały urodziny tego samego dnia wynosi 50.95%.`
+
+# Poszukiwacz dzielników
+
+Termin dzielnik liczby oznacza liczbę, która dzieli ją bez reszty.
+
+## Zadanie
+
+Napisz funkcję, która dla podanej liczby będzie zwracała jej dzielniki. Użyj pętli do sprawdzenia czy potencjalny dzielnik faktycznie dzieli się bez reszty.
+
+```{r}
+#| eval: false
+
+dzielnik_liczby(26)
+
+```
+
+`Dzielniki liczby 26 to: 1, 2, 13, 26.`
+
+# Papier, kamień, nożyce, 
+
+[Artykuł na wikipedii](https://pl.wikipedia.org/wiki/Papier,_kamie%C5%84,_no%C5%BCyce)
+
+## Zadanie
+
+Napisz funkcję, która jako argument przyjmuje jeden z trzech symboli (kamień/nożyce/papier). Komputer może objąć trzy strategię: losowo wybierać symbol, zawsze wygrywać lub zawsze przegrywać. Możesz użyć funkcji opóźniającej podanie wyniki, aby zwiększyć emocje.
+
+```{r}
+#| eval: false
+
+pkn(symbol="kamień", tryb="losowy")
+```
+
+`kamień vs. nożyce - wygrałeś!`
+
+
+*Źródło: https://inventwithpython.com/bigbookpython/*

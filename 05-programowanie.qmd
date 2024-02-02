@@ -40,3 +40,7 @@ Istnieją pewne dobre praktyki tworzenia funkcji:
 ## Pętle
 
 Pętlę są wykorzystywane w sytuacji, w której chcemy powtórzyć wykonanie kodu.
+
+## Zadania
+
+Wykonaj polecenia znajdujące się na [stronie](presentations/05_programowanie_zadania.html).
