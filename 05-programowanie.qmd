@@ -2,6 +2,40 @@
 
 [Prezentacja](presentations/05_programowanie.html)
 
+## Wprowadzenie
+
+W odróżnieniu od treści prezentowanych w poprzednich rozdziałach, w tym nie będziemy korzystać z zewnętrznych pakietów. Zagadnienia związane z tworzeniem własnych funkcji oraz modyfikacją przepływu sterowania będą od nas wymagały poznania wielu różnych operatorów wbudowanych w bazowe pakiety R. 
+
+W rozdziale skorzystamy ze sztucznie wygenerowanego zbioru danych:
+
+```{r}
+set.seed(123)
+dane <- data.frame(x1=rnorm(10), x2=rnorm(10), x3=rnorm(10), x4=rnorm(10))
+dane
+```
+
+
+## Funkcje
+
+Funkcję ograniczają potrzebę kopiowania kodu i ułatwiają wprowadzanie zmian. Zamiast dodawać komentarze do dużej ilości kodu można opakować go w funkcję, co ułatwi zrozumienie programu. Jeśli istnieje potrzeba wprowadzenia zmian to wystarczy zrobić to w jednym miejscu. 
+
+W przypadku potrzeby wprowadzenia zmian wystarczy to zrobić tylko w jednym miejscu
+
+Unikanie problemów przy kopiowaniu np. zamiana nazwy zmiennej
+
+Stworzenie funkcji wymaga:
+
+- wymyślenia nazwy funkcji,
+- określenia elementów wejściowych,
+- umieszczenia kodu w ciele funkcji.
+
+Istnieją pewne dobre praktyki tworzenia funkcji:
+
+- nazwy funkcji powinny być czasownikami,
+- podkreślnik vs. notacja camelCase i konsekwencja stosowania,
+- wspólny przedrostek np. rnorm, runif.
+
+
 ## Instrukcje warunkowe
 
 Za pomocą instrukcji if możemy warunkowo wykonywać kod. Ogólna postać jest następująca:
@@ -20,22 +54,6 @@ Element warunek musi zwracać wartość logiczną `TRUE` albo `FALSE`. Chcąć u
 
 - i : &&
 - lub : ||
-
-## Funkcje
-
-Funkcję ograniczają potrzebę kopiowania kodu i ułatwiają wprowadzanie zmian.
-
-Stworzenie funkcji wymaga:
-
-- wymyślenia nazwy funkcji,
-- określenia elementów wejściowych,
-- umieszczenia kodu w ciele funkcji.
-
-Istnieją pewne dobre praktyki tworzenia funkcji:
-
-- nazwy funkcji powinny być czasownikami,
-- podkreślnik vs. notacja camelCase i konsekwencja stosowania,
-- wspólny przedrostek np. rnorm, runif.
 
 ## Pętle
 
