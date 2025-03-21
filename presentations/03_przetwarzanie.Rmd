@@ -69,7 +69,7 @@ class: inverse
 
 4. Gdzie była największa różnica pomiędzy wybranymi partiami?
 
-5. W jakich miastach za granicą utworzono najwięcej obowodów głosowania?
+5. W jakich miastach za granicą utworzono najwięcej obwodów głosowania?
 
 
 ```{r eval=FALSE, include=FALSE}
@@ -269,7 +269,7 @@ Utwórz zbiór danych zawierający filmy, które są filmami akcji, miały swoj�
 
 # Braki danych
 
-W przypadku cech logicznych i numerycznych brak danych jest oznaczany jako `NA`. Jest to wartość nieliczbowa i **nie można** jej porównywać w następujący sposób:
+Brak danych jest oznaczany jako `NA`. Jest to wartość nieliczbowa i **nie można** jej porównywać w następujący sposób:
 
 - `zmienna == NA`
 
@@ -361,9 +361,11 @@ iris %>%
 
 # Zmiana nazwy - `rename()`
 
-Zapis w konwencji `nowa_nazwa=stara_nazwa`
+Zapis w konwencji `rename(nowa_nazwa=stara_nazwa)`
 
 Można także wykorzystać funkcję `select()` - zmieniając nazwę podczas wybierania zmiennych
+
+Funkcja `rename_with()` umożliwia zmianę nazw z wykorzystaniem funkcji np. zamieniając nazwy kolumn na zapisane wielkimi literami.
 
 ---
 
@@ -378,11 +380,15 @@ iris <- iris %>%
 
 ```
 
+Funkcje:
+
 - `mutate_all` - modyfikacja wszystkich zmiennych według podanej formuły
 
 - `mutate_if` - modyfikacja wszystkich zmiennych spełniających warunek
 
 - `mutate_at` - modyfikacja wszystkich wskazanych zmiennych
+
+są zastępowane przez jedną funkcję `across`.
 
 ---
 
@@ -533,3 +539,9 @@ iris_wide <- iris_long %>%
 
 head(iris_wide)
 ```
+
+---
+
+class: inverse, center, middle
+
+# Pytania?

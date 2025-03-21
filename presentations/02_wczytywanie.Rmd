@@ -201,3 +201,9 @@ class: inverse
 Wczytaj do R plik movies: http://wawrowski.edu.pl/data/movies.csv i wywołaj na nim funkcję `summary()`.
 
 `r countdown(minutes = 5, seconds = 0, top = 0)`
+
+---
+
+class: inverse, center, middle
+
+# Pytania?

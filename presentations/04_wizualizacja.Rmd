@@ -27,9 +27,15 @@ library(countdown)
 
 - [Wykresy od kuchni](https://betaandbit.github.io/Wykresy/)
 
+- [Najgorszy wykres roku](https://danetyka.com/najgorszy-wykres-2024/)
+
+Kolory
+
 - [Color Brewer](http://colorbrewer2.org)
 
 - [Nazwy kolorów do użycia w R](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
+
+- [Pakiet paleteer](https://r-graph-gallery.com/color-palette-finder)
 
 ---
 
