@@ -191,8 +191,6 @@ ggplot(sklep11, aes(x=liczba_klientow,
 
 - `labs(caption = "tekst")` - podpis
 
-- `coord_flip()` - obraca wykres
-
 ---
 
 # Wykres punktowy
@@ -455,7 +453,6 @@ ggplot(sklep11, aes(x=liczba_klientow,
                     y=sprzedaz,
                     color=czy_promocja)) + 
   geom_point() +
-    geom_smooth(method = "lm", se = F) +
   xlab("Liczba klientów") +
   ylab("Sprzedaż") +
   scale_color_discrete(name = "Promocja?") +
@@ -474,7 +471,6 @@ ggplot(sklep11, aes(x=liczba_klientow,
                     y=sprzedaz,
                     color=czy_promocja)) + 
   geom_point() +
-    geom_smooth(method = "lm", se = F) +
   xlab("Liczba klientów") +
   ylab("Sprzedaż") +
   scale_color_discrete(name = "Promocja?") +
@@ -495,7 +491,6 @@ ggplot(sklep11, aes(x=liczba_klientow,
                     y=sprzedaz,
                     color=czy_promocja)) + 
   geom_point() +
-  geom_smooth(method = "lm", se = F) +
   xlab("Liczba klientów") +
   ylab("Sprzedaż") +
   scale_color_discrete(name = "Promocja?") +
@@ -514,7 +509,6 @@ ggplot(sklep11, aes(x=liczba_klientow,
                     y=sprzedaz,
                     color=czy_promocja)) + 
   geom_point() +
-  geom_smooth(method = "lm", se = F) +
   xlab("Liczba klientów") +
   ylab("Sprzedaż") +
   scale_color_discrete(name = "Promocja?") +
@@ -537,14 +531,13 @@ ggplot(sklep11, aes(x=liczba_klientow,
                     y=sprzedaz,
                     color=czy_promocja)) + 
   geom_point() +
-  geom_smooth(method = "lm", se = F) +
   xlab("Liczba klientów") +
   ylab("Sprzedaż") +
   scale_color_discrete(name = "Promocja?") +
   ylim(0,20000) +
   ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
   theme_light() +
-  theme(legend.position = c(0.08,0.87))
+  theme(legend.position = "inside", legend.position.inside = c(0.1,0.8))
 ```
 
 ]
@@ -556,14 +549,13 @@ ggplot(sklep11, aes(x=liczba_klientow,
                     y=sprzedaz,
                     color=czy_promocja)) + 
   geom_point() +
-  geom_smooth(method = "lm", se = F) +
   xlab("Liczba klientów") +
   ylab("Sprzedaż") +
   scale_color_discrete(name = "Promocja?") +
   ylim(0,20000) +
   ggtitle("Sprzedaż i liczba klientów w sklepie nr 11") +
   theme_light() +
-  theme(legend.position = c(0.08,0.87))
+  theme(legend.position = "inside", legend.position.inside = c(0.1,0.8))
 ```
 
 ]
@@ -587,7 +579,6 @@ p <- ggplot(sklep11, aes(x=liczba_klientow,
                     y=sprzedaz,
                     color=czy_promocja)) + 
   geom_point() +
-  geom_smooth(method = "lm", se = F) +
   xlab("Liczba klientów") +
   ylab("Sprzedaż") +
   scale_color_discrete(name = "Promocja?") +
@@ -607,7 +598,6 @@ p <- ggplot(sklep11, aes(x=liczba_klientow,
                     y=sprzedaz,
                     color=czy_promocja)) + 
   geom_point() +
-  geom_smooth(method = "lm", se = F) +
   xlab("Liczba klientów") +
   ylab("Sprzedaż") +
   scale_color_discrete(name = "Promocja?") +
@@ -769,20 +759,6 @@ ggplot(sklep11, aes(x = liczba_klientow)) +
 
 ---
 
-# Grupy
-
-Funkcja `cut()` pozwala na stworzenie zmiennej jakościowej z ilościowej:
-
-```{r}
-sklep11 <- sklep11 %>%
-  mutate(klienci3=cut(x = liczba_klientow, 
-                   breaks = c(min(liczba_klientow),1000,1500,max(liczba_klientow)), 
-                   labels = c("do 1000", "1000-1500", "powyżej 1500"),
-                   include.lowest = T))
-```
-
----
-
 # Wykres słupkowy - `geom_bar` / `geom_col`
 
 - `geom_bar` - funkcja sama oblicza wartości do wyświetlenia na podstawie zbioru danych jednostkowych
@@ -796,7 +772,7 @@ sklep11 <- sklep11 %>%
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(sklep11, aes(x = klienci3)) +
+ggplot(sklep11, aes(x = czy_promocja)) +
   geom_bar()
 ```
 
@@ -805,7 +781,7 @@ ggplot(sklep11, aes(x = klienci3)) +
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(sklep11, aes(x = klienci3)) +
+ggplot(sklep11, aes(x = czy_promocja)) +
   geom_bar()
 ```
 
@@ -819,7 +795,7 @@ ggplot(sklep11, aes(x = klienci3)) +
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(sklep11, aes(x = klienci3)) +
+ggplot(sklep11, aes(x = czy_promocja)) +
   geom_bar(fill = "#99d8c9")
 ```
 
@@ -828,7 +804,7 @@ ggplot(sklep11, aes(x = klienci3)) +
 .pull-right[
 
 ```{r echo=FALSE}
-ggplot(sklep11, aes(x = klienci3)) +
+ggplot(sklep11, aes(x = czy_promocja)) +
   geom_bar(fill = "#99d8c9")
 ```
 
@@ -841,10 +817,10 @@ ggplot(sklep11, aes(x = klienci3)) +
 .pull-left[
 
 ```{r eval=FALSE}
-n_klieci3 <- sklep11 %>%
-  count(klienci3)
+sklep_promocja <- sklep11 %>%
+  count(czy_promocja)
 
-ggplot(n_klieci3, aes(x = klienci3, 
+ggplot(sklep_promocja, aes(x = czy_promocja, 
                       y = n)) +
   geom_col()
 ```
@@ -854,10 +830,10 @@ ggplot(n_klieci3, aes(x = klienci3,
 .pull-right[
 
 ```{r echo=FALSE}
-n_klieci3 <- sklep11 %>%
-  count(klienci3)
+sklep_promocja <- sklep11 %>%
+  count(czy_promocja)
 
-ggplot(n_klieci3, aes(x = klienci3, 
+ggplot(sklep_promocja, aes(x = czy_promocja, 
                       y = n)) +
   geom_col()
 
