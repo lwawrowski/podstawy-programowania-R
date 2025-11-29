@@ -4,7 +4,7 @@
     <title>Podstawy programowania</title>
     <meta charset="utf-8" />
     <meta name="author" content="© Łukasz Wawrowski" />
-    <script src="libs/header-attrs-2.22/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
     <link rel="stylesheet" href="default.css" type="text/css" />
     <link rel="stylesheet" href="default-fonts.css" type="text/css" />
   </head>
@@ -29,38 +29,18 @@ class: center, middle, inverse, title-slide
 
 Interpretowany język programowania oraz środowisko do obliczeń statystycznych i wizualizacji wyników [[Wikipedia 2022]](https://pl.wikipedia.org/wiki/R_(j%C4%99zyk_programowania%29).
 
-.pull-left[
-Zalety:
-
 - darmowy
 - wieloplatformowy
 - wsparcie społeczności
 - wykorzystywany przez naukowców
 - jedno oficjalne źródło pakietów, które ze sobą współpracują
-- 21766 pakietów (6.12.2024)
-
-]
-
-.pull-right[
-Wady:
-- trzeba korzystać z wielu pakietów
-- przetwarzanie w pamięci
-- ograniczone programowanie obiektowe
-]
+- 23065 pakietów (27.11.2025)
 
 --
 
 &gt; "R is not a language driven by the purity of its philosophy; R is a language designed to get shit done."
 
 Hadley Wickham
-
----
-
-### Wymagane doświadczenie wg języka programowania
-
-![](img/req_experience_langs.png)
-
-[źródło](https://jobs-in-data.com/blog/machine-learning-vs-data-scientist)
 
 ---
 
@@ -86,35 +66,27 @@ Hadley Wickham
 
 - [R for Data Science](https://r4ds.hadley.nz/) - kompendium R po angielsku 
 
-- [Język R](https://helion.pl/ksiazki/jezyk-r-kompletny-zestaw-narzedzi-dla-analitykow-danych-hadley-wickham-garrett-grolemund,jezrkv.htm) - polskie tłumaczenie, wydanie papierowe
-
-- [Programowanie w języku R. Analiza danych, obliczenia, symulacje.](https://ksiegarnia.pwn.pl/Programowanie-w-jezyku-R,647767533,p.html) - wydanie papierowe nastawione na programowanie
-
 - [Ściągawki](https://posit.co/resources/cheatsheets/) - atrakcyjny wizualnie krótki opis funkcji w formacie A4
-
-- [CRAN Task View](https://cran.r-project.org/web/views/) - zestawy pakietów przyporządkowane do tematów
-
-- [METACRAN](https://www.r-pkg.org/) - wygodna wyszukiwarka pakietów
 
 - [rweekly.org](https://rweekly.org/) - przegląd wieści ze świata R w każdy poniedziałek
 
+- [konferencja useR! 2026](https://user2026.r-project.org/)
+
 ---
 
-# Instalacja RStudio
+# Interfejs R
 
 Desktop:
 
-1. R [(r-project.org)](https://www.r-project.org/) -&gt; CRAN -&gt; 0-Cloud -&gt; Download R for Windows -&gt; base
+- R [(r-project.org)](https://www.r-project.org/) -&gt; CRAN -&gt; 0-Cloud -&gt; Download R for Windows -&gt; base
 
-2. RStudio Desktop [(https://posit.co/)](https://posit.co/download/rstudio-desktop/)
+- RStudio Desktop [(https://posit.co/)](https://posit.co/download/rstudio-desktop/)
+
+- Positron [(https://positron.posit.co/)](https://positron.posit.co/)
 
 Online:
 
-1. Posit Cloud [posit.cloud](https://posit.cloud/)
-
---
-
-[Positron Beta](https://positron.posit.co/)
+- Posit Cloud [posit.cloud](https://posit.cloud/)
 
 ---
 
@@ -701,10 +673,10 @@ class: inverse, center, middle
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"ratio": "16:9",
-"highlightStyle": "github",
-"highlightLines": true,
-"countIncrementalSlides": false
+  "ratio": "16:9",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
