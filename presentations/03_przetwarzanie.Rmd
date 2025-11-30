@@ -57,59 +57,6 @@ Wczytaj zbiór danych dotyczący wyników wyborów.
 
 ---
 
-class: inverse
-
-# Pytania do zbioru danych
-
-1. Ile obwodów głosowania miało frekwencję powyżej 80%?
-
-2. Ile obwodów głosowania znajduje się w Poznaniu?   
-
-3. Jaka była średnia frekwencja w województwach?
-
-4. Gdzie była największa różnica pomiędzy wybranymi partiami?
-
-5. W jakich miastach za granicą utworzono najwięcej obwodów głosowania?
-
-
-```{r eval=FALSE, include=FALSE}
-library(tidyverse)
-
-wybory <- read_csv2("../data/wybory2023.csv")
-wybory <- janitor::clean_names(wybory)
-wybory <- wybory %>% 
-  filter(!is.na(komisja_otrzymala_kart_do_glosowania))
-
-wybory <- wybory %>% 
-  mutate(frekwencja=liczba_wyborcow_ktorym_wydano_karty_do_glosowania/liczba_wyborcow_uprawnionych_do_glosowania)
-
-wybory_frek <- wybory %>% 
-  filter(frekwencja > 0.8)
-
-wybory_poz <- wybory %>% 
-  filter(gmina == "m. Poznań")
-
-wybory_woj <- wybory %>% 
-  group_by(wojewodztwo) %>% 
-  summarise(mean(frekwencja))
-
-wybory_diff <- wybory %>% 
-  rename(ko=koalicyjny_komitet_wyborczy_koalicja_obywatelska_po_n_ipl_zieloni,
-         td=koalicyjny_komitet_wyborczy_trzecia_droga_polska_2050_szymona_holowni_polskie_stronnictwo_ludowe) %>% 
-  mutate(roznica_ko_td=abs(ko-td)) %>% 
-  arrange(desc(roznica_ko_td))
-
-wybory_zagranica <- wybory %>% 
-  filter(powiat=="zagranica") %>% 
-  count(gmina)
-
-wybory_proc <- wybory_diff %>% 
-  mutate_at(vars(ko, td), list(proc=~./liczba_glosow_waznych_oddanych_lacznie_na_wszystkie_listy_kandydatow))
-
-```
-
----
-
 # R base vs. tidyverse
 
 **Podstawowe funkcje R**
@@ -289,6 +236,16 @@ Funkcja `complete.cases()` służy do identyfikacji obserwacji, które nie zawie
 
 ---
 
+class: inverse
+
+# Zadanie
+
+Ile obwodów głosowania znajduje się w Poznaniu?
+
+`r countdown(minutes = 5, seconds = 0, top = 0)`
+
+---
+
 # Wybieranie kolumn - `select()`
 
 Wybór kolumn, które mają się znaleźć w nowym zbiorze:
@@ -396,9 +353,29 @@ class: inverse
 
 # Zadanie
 
-W zbiorze dotyczącym wyborów stwórz nowe zmienne, które będą zawierały procentowy wynik komitetów.
+W zbiorze dotyczącym wyborów stwórz nowe zmienne, które będą zawierały procentowy wynik kandydatów. Gdzie była największa różnica pomiędzy wybranymi kandydatami?
 
-`r countdown(minutes = 5, seconds = 0, top = 0)`
+`r countdown(minutes = 8, seconds = 0, top = 0)`
+
+---
+
+# Warunkowe tworzenie zmiennej
+
+Funkcje pozwalające na warunkowe tworzenie nowej zmiennej:
+
+- `if_else(condition, true, false)`
+
+- `case_when(condtion1 ~ value1, condition2 ~ value2, .default = value3)`
+
+---
+
+class: inverse
+
+# Zadanie
+
+Ile obwodów głosowania miało frekwencję powyżej 80%?
+
+`r countdown(minutes = 3, seconds = 0, top = 0)`
 
 ---
 
@@ -476,6 +453,55 @@ Oblicz liczbę komisji w poszczególnych województwach oraz średnią liczbę n
 
 ---
 
+class: inverse
+
+# Zadanie
+
+`r countdown(minutes = 10, seconds = 0, top = 0)`
+
+W jakich krajach i miastach za granicą utworzono najwięcej obwodów głosowania?
+
+
+```{r eval=FALSE, include=FALSE}
+library(tidyverse)
+
+wybory <- read_csv2("../data/wybory2025.csv")
+wybory <- janitor::clean_names(wybory)
+wybory <- wybory %>% 
+  filter(!is.na(komisja_otrzymala_kart_do_glosowania))
+
+wybory <- wybory %>% 
+  mutate(frekwencja=liczba_kart_wyjetych_z_urny/liczba_wyborcow_uprawnionych_do_glosowania_umieszczonych_w_spisie_z_uwzglednieniem_dodatkowych_formularzy_w_chwili_zakonczenia_glosowania)
+
+wybory_frek <- wybory %>% 
+  filter(frekwencja > 0.8)
+
+wybory_poz <- wybory %>% 
+  filter(gmina == "m. Poznań")
+
+wybory_woj <- wybory %>% 
+  group_by(wojewodztwo) %>% 
+  summarise(mean(frekwencja))
+
+wybory_diff <- wybory %>% 
+  rename(ko=koalicyjny_komitet_wyborczy_koalicja_obywatelska_po_n_ipl_zieloni,
+         td=koalicyjny_komitet_wyborczy_trzecia_droga_polska_2050_szymona_holowni_polskie_stronnictwo_ludowe) %>% 
+  mutate(roznica_ko_td=abs(ko-td)) %>% 
+  arrange(desc(roznica_ko_td))
+
+wybory_zagranica <- wybory %>% 
+  filter(is.na(teryt_gminy))
+
+wybory_zagranica <- wybory %>% 
+  filter(is.na(teryt_gminy))
+
+wybory_proc <- wybory_diff %>% 
+  mutate_at(vars(ko, td), list(proc=~./liczba_glosow_waznych_oddanych_lacznie_na_wszystkie_listy_kandydatow))
+
+```
+
+---
+
 # Łączenie danych
 
 ![](img/join.png)
@@ -539,6 +565,16 @@ iris_wide <- iris_long %>%
 
 head(iris_wide)
 ```
+
+---
+
+class: inverse
+
+# Zadanie
+
+Stwórz zbiór danych, który będzie zawierał średni wynik kandydatów w przekroju województw, na następnie zamień reprezentację tego zbioru na reprezentację długą.
+
+`r countdown(minutes = 10, seconds = 0, top = 0)`
 
 ---
 

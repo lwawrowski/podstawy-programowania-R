@@ -156,11 +156,13 @@ Zapisywanie do pliku Excela z pakietem _openxlsx_:
 
 # Wczytanie zbioru danych
 
-Importujemy zbiór danych dotyczący wyników wyborów parlamentarnych w 2023 roku.
+Importujemy zbiór danych dotyczący wyników wyborów w 2025 roku.
 
-Plik z danymi: http://wawrowski.edu.pl/data/wybory2023.csv
+Plik z danymi: http://wawrowski.edu.pl/data/wybory2025.csv
 
-[Źródło](https://wybory.gov.pl/sejmsenat2023/pl/dane_w_arkuszach)
+[Źródło](https://prezydent2025.pkw.gov.pl/prezydent2025/pl/dane_w_arkuszach)
+
+Alternatywnie: [(https://github.com/lwawrowski/blog-quarto/tree/master/_site/data)](https://github.com/lwawrowski/blog-quarto/tree/master/_site/data)
 
 ---
 
