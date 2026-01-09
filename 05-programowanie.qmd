@@ -14,14 +14,9 @@ dane <- data.frame(x1=rnorm(10), x2=rnorm(10), x3=rnorm(10), x4=rnorm(10))
 dane
 ```
 
-
 ## Funkcje
 
 Funkcję ograniczają potrzebę kopiowania kodu i ułatwiają wprowadzanie zmian. Zamiast dodawać komentarze do dużej ilości kodu można opakować go w funkcję, co ułatwi zrozumienie programu. Jeśli istnieje potrzeba wprowadzenia zmian to wystarczy zrobić to w jednym miejscu. 
-
-W przypadku potrzeby wprowadzenia zmian wystarczy to zrobić tylko w jednym miejscu
-
-Unikanie problemów przy kopiowaniu np. zamiana nazwy zmiennej
 
 Stworzenie funkcji wymaga:
 
@@ -35,30 +30,305 @@ Istnieją pewne dobre praktyki tworzenia funkcji:
 - podkreślnik vs. notacja camelCase i konsekwencja stosowania,
 - wspólny przedrostek np. rnorm, runif.
 
+Podstawowa składnia definiowania funkcji w R:
+
+```r
+nazwa_funkcji <- function(argument1, argument2, ...) {
+  # ciało funkcji - zbiór instrukcji
+  
+  # zwracana wartość
+  return(wynik)
+}
+```
+
+Przykład prostej funkcji, która oblicza wskaźnik będący stosunkiem średniej do odchylenia standardowego:
+
+```r
+oblicz_wskaznik <- function(x) {
+  wskaznik <- mean(x) / sd(x)
+  return(wskaznik)
+}
+```
+
+W R można definiować funkcje na kilka sposobów, które różnią się składnią, ale działają identycznie:
+
+```{r}
+# Sposób 1 - pełna składnia z nawiasami klamrowymi i return
+normalize <- function(x) {
+  return((x - min(x)) / (max(x) - min(x)))
+}
+
+# Sposób 2 - bez jawnego return
+normalize <- function(x) {
+  (x - min(x)) / (max(x) - min(x))
+}
+
+# Sposób 3 - skrócona składnia, bez klamr
+normalize <- function(x) (x - min(x)) / (max(x) - min(x))
+
+# Sposób 4 - nowoczesna składnia od R 4.1 z operatorem \()
+normalize <- \(x) (x - min(x)) / (max(x) - min(x))
+```
+
+W każdym z powyższych przypadków funkcja robi to samo - normalizuje wartości wektora do przedziału [0, 1].
+
+Funkcje najlepiej tworzyć, gdy:
+- Powtarzamy ten sam fragment kodu wielokrotnie
+- Chcemy uporządkować logicznie kod
+- Chcemy stworzyć narzędzie wielokrotnego użytku
+
+Przykład zastosowania funkcji do normalizacji danych:
+
+```{r}
+# Zastosowanie funkcji normalize dla każdej kolumny
+dane$z1 <- normalize(dane$x1)
+dane$z2 <- normalize(dane$x2)
+dane$z3 <- normalize(dane$x3)
+dane$z4 <- normalize(dane$x4)
+
+# Wizualizacja efektu normalizacji
+plot(dane$x1, dane$z1)
+```
+
 
 ## Instrukcje warunkowe
 
 Za pomocą instrukcji if możemy warunkowo wykonywać kod. Ogólna postać jest następująca:
 
+Podstawowa składnia:
+
 ```r
-if(warunek){
-  # kod wykonany jeśli warunek jest równy TRUE
-} else if(warunek) {
-  # kod wykonany jeśli warunek jest równy TRUE
+if (warunek) {
+  # kod wykonywany, gdy warunek jest TRUE
 } else {
-  # kod wykonany jeśli warunek jest równy FALSE
+  # kod wykonywany, gdy warunek jest FALSE
 }
 ```
 
-Element warunek musi zwracać wartość logiczną `TRUE` albo `FALSE`. Chcąć uwzględnić więcej niż jeden warunek należy wykorzystać odpowiedni operator łączenia:
+Rozszerzona składnia if-else if-else:
+
+```r
+if (warunek1) {
+  # kod wykonywany, gdy warunek1 jest TRUE
+} else if (warunek2) {
+  # kod wykonywany, gdy warunek1 jest FALSE, ale warunek2 jest TRUE
+} else {
+  # kod wykonywany, gdy oba warunki są FALSE
+}
+```
+
+Element warunek musi zwracać wartość logiczną `TRUE` albo `FALSE`. Chcąc uwzględnić więcej niż jeden warunek należy wykorzystać odpowiedni operator łączenia:
 
 - i : &&
 - lub : ||
 
+Przykład funkcji sprawdzającej wartość:
+
+```r
+sprawdz_wartosc <- function(wartosc) {
+  # Sprawdzanie poprawności danych
+  if (is.na(wartosc)) {
+    stop("Podana wartość to NA")
+  }
+  if (is.character(wartosc)) {
+    stop("Podana wartość to tekst")
+  }
+  
+  # Sprawdzanie wartości
+  if (wartosc > 0) {
+    print("Wartość > 0")
+  } else if (wartosc < 0) {
+    print("Wartość < 0")
+  } else {
+    print("Wartość = 0")
+  }
+}
+```
+
+W tym przypadku użyliśmy warunków wewnątrz funkcji dodatkowo używając ich do weryfikacji poprawności argumentów wejściowych.
+
+
+
+Tak zdefiniowane warunki pozwalają na warunkowe wykonywanie całych bloków kodu np. jeśli w zbiorze danych znajduje się kolumna _wiek_ to stwórz i zapis wykres, a w przeciwnym wypadku połącz się z zewnętrznym źródłem danych w celu uzupełnienia brakujących informacji. 
+
+W tym miejscu zapoznamy się także z warunkowym przetwarzaniem wartości obiektu z wykorzystaniem funkcji `ifelse` oraz jej ulepszonym wariantem z pakietu `dplyr`. Funkcja `ifelse()` jest wektorową wersją instrukcji warunkowej, działającą element po elemencie:
+
+```r
+ifelse(test, yes, no)
+```
+
+gdzie:
+- `test` to wektor wartości logicznych (TRUE/FALSE)
+- `yes` to wartości zwracane dla elementów, które spełniają warunek
+- `no` to wartości zwracane dla elementów, które nie spełniają warunku
+
+Przykład:
+
+```{r}
+wartosc <- 10
+ifelse(test = wartosc > 0, yes = "Wartość > 0", no = "Wartość < 0")
+
+# Zastosowanie dla każdego wiersza w ramce danych
+dane$x1_zero <- ifelse(dane$x1 > 0, "wartość > 0", "wartość < 0")
+```
+
+Można zagnieżdżać wywołania `ifelse()` dla bardziej złożonych warunków:
+
+```r
+dane$z1_zero <- ifelse(dane$z1 > 0, "wartość > 0", 
+                       ifelse(dane$z1 < 0, "wartość < 0", "wartość = 0"))
+```
+
+Funkcja `case_when()` z pakietu dplyr (część tidyverse) oferuje bardziej czytelną alternatywę dla zagnieżdżonych if-else:
+
+```r
+library(tidyverse)
+
+dane <- dane %>% 
+  mutate(z1_zero = case_when(
+    z1 > 0 ~ "wartość > 0",
+    z1 < 0 ~ "wartość < 0",
+    z1 == 0 ~ "wartość = 0"
+  ))
+```
+
+W funkcji `case_when` możliwe jest podanie wartości `.default` w celu określenia co ma się stać z wartościami niepasującymi do żadnego warunku.
+
+
+
 ## Pętle
 
-Pętlę są wykorzystywane w sytuacji, w której chcemy powtórzyć wykonanie kodu.
+Pętle pozwalają na wielokrotne wykonanie tego samego kodu dla różnych wartości. W R często można uniknąć używania pętli poprzez operacje wektorowe, ale ich znajomość jest kluczowa.
+
+Podstawowa składnia pętli for:
+
+```r
+for (zmienna in sekwencja) {
+  # instrukcje wykonywane dla każdej wartości zmiennej
+}
+```
+
+Iteracja po indeksach - musimy wskazać ile razy pętla ma się wykonać
+
+```r
+for (month in 1:12) {
+  print(month.name[month])
+}
+```
+
+Zamiast korzystać z 'magicznych liczb' można użyć funkcji `seq_along()`, która generuje sekwencję indeksów o długości danego wektora:
+
+```r
+for (month in seq_along(month.name)) {
+  print(month.name[month])
+}
+```
+
+W zależności od potrzeb możemy też przeprowadzić iterację po wektorze wartości
+
+```r
+for (month in month.name) {
+  print(month)
+}
+```
+
+Przykład tworzenia nowego wektora na podstawie istniejącego:
+
+```r
+month_upper <- character(length = length(month.name))  # inicjalizacja pustego wektora
+
+for (month in seq_along(month.name)) {
+  month_upper[month] <- toupper(month.name[month])
+}
+
+month_upper  # wektor z nazwami miesięcy dużymi literami
+```
+
+Warto zauważyć, że w R często można uniknąć pętli, stosując operacje wektorowe:
+
+```r
+month_upper <- toupper(month.name)  # to samo co powyższa pętla, ale szybsze i bardziej eleganckie
+```
+
+Pętle są szczególnie przydatne w przypadku symulacji różnych zdarzeń np. rzutów kostką:
+
+```r
+# Podejście z pętlą
+rzut_kostka <- numeric(10000)
+
+for (rzut in seq_along(rzut_kostka)) {
+  rzut_kostka[rzut] <- sample(1:6, 1)
+}
+
+# Statystyki
+mean(rzut_kostka)
+table(rzut_kostka)
+```
+
+Chociaż często tutaj także można zastosować podejście wektorowe:
+
+```r
+# Podejście wektorowe - bardziej wydajne
+rzut_kostka_vec <- sample(1:6, 10000, replace = TRUE)
+
+mean(rzut_kostka_vec)
+table(rzut_kostka_vec)
+```
+
+Choć R jest zoptymalizowany pod kątem operacji wektorowych, pętle są przydatne gdy:
+
+1. Algorytm wymaga dostępu do poprzednich wyników (np. symulacje szeregów czasowych)
+2. Operacje są zbyt złożone, aby wyrazić je w formie wektorowej
+3. Iterujemy po strukturach danych, które nie są wektorami (np. listy elementów o różnej strukturze)
+4. Przeprowadzamy operacje sekwencyjne (np. import wielu plików)
+
+Warto jednak zawsze rozważyć, czy operacja nie może być wykonana bardziej efektywnie za pomocą podejścia wektorowego lub funkcji takich jak `apply`, `lapply`, `sapply`, `vapply`, czy funkcji z pakietu `purrr`.
 
 ## Zadania
 
-Wykonaj polecenia znajdujące się na [stronie](presentations/05_programowanie_zadania.html).
+### Paradoks dnia urodzin
+
+[Artykuł na wikipedii](https://pl.wikipedia.org/wiki/Paradoks_dnia_urodzin)
+
+Ile minimalnie osób należy wybrać, żeby prawdopodobieństwo znalezienia wśród nich co najmniej dwóch osób obchodzących urodziny tego samego dnia było większe od 0,5.
+
+Rozwiązaniem problemu jest liczba 23. Ta zaskakująco mała liczba osób jest przyczyną określenia „Paradoks dnia urodzin”.
+
+Napisz funkcję, która jako argument będzie przyjmowała liczbę osób (max. 100), dla których ma wylosować datę urodzenia (bez roku). Następnie sprawdź czy któraś data powtarza się w ramach wylosowanych wartości i zapisz wynik (prawda lub fałsz). Powtórz losowanie 100000 razy. Wynikiem jest prawdopodobieństwo wyznaczone poprzez podzielenie liczby przypadków, gdzie data się powtórzyła przez liczbę wszystkich losowań. 
+
+```{r}
+#| eval: false
+
+paradoks_urodzin(23)
+```
+
+`W grupie 23 osób prawdopodobieństwo, że dwie osoby będą miały urodziny tego samego dnia wynosi 50.95%.`
+
+### Poszukiwacz dzielników
+
+Termin dzielnik liczby oznacza liczbę, która dzieli ją bez reszty.
+
+Napisz funkcję, która dla podanej liczby będzie zwracała jej dzielniki. Użyj pętli do sprawdzenia czy potencjalny dzielnik faktycznie dzieli się bez reszty.
+
+```{r}
+#| eval: false
+
+dzielnik_liczby(26)
+
+```
+
+`Dzielniki liczby 26 to: 1, 2, 13, 26.`
+
+### Papier, kamień, nożyce, 
+
+[Artykuł na wikipedii](https://pl.wikipedia.org/wiki/Papier,_kamie%C5%84,_no%C5%BCyce)
+
+Napisz funkcję, która jako argument przyjmuje jeden z trzech symboli (kamień/nożyce/papier). Komputer może objąć trzy strategię: losowo wybierać symbol, zawsze wygrywać lub zawsze przegrywać. Możesz użyć funkcji opóźniającej podanie wyniki, aby zwiększyć emocje.
+
+```{r}
+#| eval: false
+
+pkn(symbol="kamień", tryb="losowy")
+```
+
+`kamień vs. nożyce - wygrałeś!`

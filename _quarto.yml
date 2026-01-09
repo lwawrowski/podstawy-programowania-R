@@ -5,7 +5,7 @@ book:
   favicon: favicon.png
   title: "Podstawy programowania w R"
   author: "Łukasz Wawrowski"
-  date: "02/24/2023"
+  date: ""
   chapters:
     - index.qmd
     - 01-intro.qmd
@@ -13,6 +13,7 @@ book:
     - 03-przetwarzanie.qmd
     - 04-wizualizacja.qmd
     - 05-programowanie.qmd
+    - 06-testy.qmd
 
 format:
   html:

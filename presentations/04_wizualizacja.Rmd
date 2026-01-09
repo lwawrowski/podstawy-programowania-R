@@ -27,7 +27,7 @@ library(countdown)
 
 - [Wykresy od kuchni](https://betaandbit.github.io/Wykresy/)
 
-- [Najgorszy wykres roku](https://danetyka.com/najgorszy-wykres-2024/)
+- [Najgorszy wykres roku](https://danetyka.com/plebiscyt-na-najgorszy-wykres-roku-2025/)
 
 Kolory
 
@@ -609,6 +609,30 @@ plotly::ggplotly(p)
 ```
 
 ]
+
+---
+
+class: inverse
+
+# Zadanie
+
+`r countdown(minutes = 10, seconds = 0, top = 0)`
+
+Na podstawie zbioru [temperatura w maju](http://wawrowski.edu.pl/data/temp_maj.csv) wygeneruj poniższy wykres.
+
+```{r echo=FALSE, message=FALSE, fig.width=8, fig.height=5}
+
+temp_maj <- read_csv("http://wawrowski.edu.pl/data/temp_maj.csv")
+
+ggplot(data = temp_maj, aes(x=lon, y=lat, color=temp)) +
+  geom_point() +
+  scale_color_gradient2(name = "Temperatura", low = "#2166ac", mid = "#f7f7f7", high = "#b2182b") +
+  theme_void() +
+  theme(legend.position = "top")
+
+
+```
+
 ---
 
 # Histogram - `geom_histogram`
@@ -843,6 +867,85 @@ ggplot(sklep_promocja, aes(x = czy_promocja,
 
 ---
 
+# Wykres pudełkowy - `geom_boxplot`
+
+Obowiązkowe argumenty `aes`:
+
+- x - zmienna grupująca (tekstowa/faktor)
+
+- y - zmienna analizowana
+
+---
+
+# Wykres pudełkowy
+
+.pull-left[
+
+```{r eval=FALSE}
+ggplot(sklep11, aes(x=czy_promocja, y=sprzedaz)) +
+  geom_boxplot()
+```
+
+]
+
+.pull-right[
+
+```{r echo=FALSE}
+ggplot(sklep11, aes(x=czy_promocja, y=sprzedaz)) +
+  geom_boxplot()
+```
+
+
+]
+
+---
+
+# Wykres pudełkowy
+
+.pull-left[
+
+```{r eval=FALSE}
+ggplot(sklep11, aes(x=czy_promocja, y=sprzedaz)) +
+  geom_boxplot()
+```
+
+]
+
+.pull-right[
+
+```{r echo=FALSE}
+ggplot(sklep11, aes(y=czy_promocja, x=sprzedaz)) +
+  geom_boxplot()
+```
+
+]
+
+---
+
+class: inverse
+
+# Zadanie
+
+Stwórz następujący wykres
+
+```{r echo=FALSE, fig.height=4}
+
+sklep11 %>%
+  ggplot(aes(x=as.character(dzien_tyg), y=liczba_klientow)) +
+  geom_boxplot() +
+  coord_flip() + 
+  theme_light() +
+  xlab("Dzień tygodnia") +
+  ylab("Liczba klientów")
+  
+```
+
+`r countdown(minutes = 10, seconds = 0, top = 0)`
+
+---
+
+---
+
 # `facet_wrap`
 
 .pull-left[
@@ -942,85 +1045,6 @@ ggplot(sklep11, aes(x=liczba_klientow,
   facet_grid(dzien_tyg ~ czy_promocja)
 ```
 ]
-
----
-
-# Wykres pudełkowy - `geom_boxplot`
-
-Obowiązkowe argumenty `aes`:
-
-- x - zmienna grupująca (tekstowa/faktor)
-
-- y - zmienna analizowana
-
----
-
-# Wykres pudełkowy
-
-.pull-left[
-
-```{r eval=FALSE}
-ggplot(sklep11, aes(x=czy_promocja, y=sprzedaz)) +
-  geom_boxplot()
-```
-
-]
-
-.pull-right[
-
-```{r echo=FALSE}
-ggplot(sklep11, aes(x=czy_promocja, y=sprzedaz)) +
-  geom_boxplot()
-```
-
-
-]
-
----
-
-# Wykres pudełkowy
-
-.pull-left[
-
-```{r eval=FALSE}
-ggplot(sklep11, aes(x=czy_promocja, y=sprzedaz)) +
-  geom_boxplot() +
-  coord_flip()
-```
-
-]
-
-.pull-right[
-
-```{r echo=FALSE}
-ggplot(sklep11, aes(x=czy_promocja, y=sprzedaz)) +
-  geom_boxplot() +
-  coord_flip()
-```
-
-]
-
----
-
-class: inverse
-
-# Zadanie
-
-Stwórz następujący wykres
-
-```{r echo=FALSE, fig.height=4}
-
-sklep11 %>%
-  ggplot(aes(x=as.character(dzien_tyg), y=liczba_klientow)) +
-  geom_boxplot() +
-  coord_flip() + 
-  theme_light() +
-  xlab("Dzień tygodnia") +
-  ylab("Liczba klientów")
-  
-```
-
-`r countdown(minutes = 10, seconds = 0, top = 0)`
 
 ---
 
