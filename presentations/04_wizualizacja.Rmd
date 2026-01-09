@@ -905,7 +905,7 @@ ggplot(sklep11, aes(x=czy_promocja, y=sprzedaz)) +
 .pull-left[
 
 ```{r eval=FALSE}
-ggplot(sklep11, aes(x=czy_promocja, y=sprzedaz)) +
+ggplot(sklep11, aes(y=czy_promocja, x=sprzedaz)) +
   geom_boxplot()
 ```
 
@@ -941,8 +941,6 @@ sklep11 %>%
 ```
 
 `r countdown(minutes = 10, seconds = 0, top = 0)`
-
----
 
 ---
 
@@ -1048,8 +1046,16 @@ ggplot(sklep11, aes(x=liczba_klientow,
 
 ---
 
+class: inverse
+
 # Zadania
 
 Wykonaj zadania zamieszczone na [stronie](http://www.wawrowski.edu.pl/ppr/presentations/04_wizualizacja_zadania.html).
 
 Bootcamp z zadaniami z przetwarzania i wizualizacji: https://r-bootcamp.netlify.app/
+
+---
+
+class: inverse, center, middle
+
+# Pytania?
