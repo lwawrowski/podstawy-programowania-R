@@ -33,7 +33,7 @@ Kolory
 
 - [Color Brewer](http://colorbrewer2.org)
 
-- [Nazwy kolorów do użycia w R](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
+- [Nazwy kolorów do użycia w R](https://r-charts.com/colors/)
 
 - [Pakiet paleteer](https://r-graph-gallery.com/color-palette-finder)
 
