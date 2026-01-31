@@ -1,6 +1,6 @@
 # Struktury danych
 
-[Prezentacja](presentations/01a_typy_danych.html)
+[Prezentacja](presentations/02_typy_danych.html)
 
 ## Obiekty
 

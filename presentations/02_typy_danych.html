@@ -4,7 +4,7 @@
     <title>Podstawy programowania</title>
     <meta charset="utf-8" />
     <meta name="author" content="© Łukasz Wawrowski" />
-    <script src="libs/header-attrs-2.22/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
     <link href="libs/countdown-0.4.0/countdown.css" rel="stylesheet" />
     <script src="libs/countdown-0.4.0/countdown.js"></script>
     <link rel="stylesheet" href="default.css" type="text/css" />
@@ -174,9 +174,9 @@ class: inverse
 
 # Zadania
 
-Oblicz `\(log_{10}100 + \sqrt{121}\)`
+Oblicz wartość wyrażenia `\(log_{10}100 + \sqrt{121}\)` na dwa różne sposoby
 
-<div class="countdown" id="timer_3a301ab5" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_3a6f19ce" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -208,6 +208,8 @@ nazwa &lt;- obiekt
 ```
 
 Można także korzystać ze znaku równości `=`, ale nie jest to zalecane, ponieważ ten znak pojawia się w wielu innych miejscach, a `&lt;-` oznacza wyłącznie stworzenie obiektu.
+
+Skrót klawiszowy: alt + -
 
 ---
 
@@ -300,22 +302,6 @@ Indeksowanie wektora `wektor[numer_elementu]`
 
 ---
 
-# Generowanie wartości
-
-- losowanie wartości z podanego zakresu - funkcja `sample()`
-
-- losowanie wartości z rozkładu:
-
-  - jednostajnego - funkcja `runif()`
-  
-  - normalnego - funkcja `rnorm()`
-  
---
-  
-ziarno generatora: `set.seed()`
-
----
-
 # Funkcje agregujące
 
 - `mean()` - średnia
@@ -367,7 +353,7 @@ Aby policzyć skośność lub kurtozę trzeba zainstalować pakiet _e1071_.
 Służy do przechowywania danych jakościowych o mało licznej liczbie kategorii, mierzonych na skali nominalnej i porządkowej.
 
 
-```r
+``` r
 wyk &lt;- rep(c("podstawowe", "średnie", "wyższe"), c(5,3,2))
 wyk
 ```
@@ -378,7 +364,7 @@ wyk
 ```
 
 
-```r
+``` r
 wyk_f &lt;- factor(wyk)
 wyk_f
 ```
@@ -406,7 +392,7 @@ Indeksowanie macierzy `macierz[numer_wiersza, numer_kolumny]`
 Tworzona za pomocą funkcji `data.frame()`
 
 
-```r
+``` r
 df &lt;- data.frame(plec=c("m", "k", "k", "m", "k", "m", "m", "m"),
                  wzrost=c(173, 170, 163, 178, 169, 180, 175, NA),
                  wydatki=c(1200, 2340, 1900, 890, 1010, 3099, 1478, 2030),
@@ -446,10 +432,10 @@ class: inverse, center, middle
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"ratio": "16:9",
-"highlightStyle": "github",
-"highlightLines": true,
-"countIncrementalSlides": false
+  "ratio": "16:9",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));

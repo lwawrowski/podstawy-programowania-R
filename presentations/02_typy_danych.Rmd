@@ -164,7 +164,7 @@ class: inverse
 
 # Zadania
 
-Oblicz $log_{10}100 + \sqrt{121}$
+Oblicz wartość wyrażenia $log_{10}100 + \sqrt{121}$ na dwa różne sposoby
 
 `r countdown(minutes = 4, seconds = 0, top = 0)`
 
@@ -195,6 +195,8 @@ nazwa <- obiekt
 ```
 
 Można także korzystać ze znaku równości `=`, ale nie jest to zalecane, ponieważ ten znak pojawia się w wielu innych miejscach, a `<-` oznacza wyłącznie stworzenie obiektu.
+
+Skrót klawiszowy: alt + -
 
 ---
 
@@ -284,22 +286,6 @@ Indeksowanie wektora `wektor[numer_elementu]`
 - `rep()` - tworzy wektor poprzez replikację podanego argumentu
 
 - `seq()` - tworzy wektor jako sekwencję o podanym początku i końcu
-
----
-
-# Generowanie wartości
-
-- losowanie wartości z podanego zakresu - funkcja `sample()`
-
-- losowanie wartości z rozkładu:
-
-  - jednostajnego - funkcja `runif()`
-  
-  - normalnego - funkcja `rnorm()`
-  
---
-  
-ziarno generatora: `set.seed()`
 
 ---
 

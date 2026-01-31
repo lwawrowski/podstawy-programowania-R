@@ -1,8 +1,6 @@
 # Przetwarzanie danych 
 
-[Prezentacja - wczytywanie danych](presentations/02_wczytywanie.html)
-
-[Prezentacja - przetwarzanie](presentations/03_przetwarzanie.html)
+[Prezentacja](presentations/03_przetwarzanie.html)
 
 ## Wprowadzenie - pakiet tidyverse
 

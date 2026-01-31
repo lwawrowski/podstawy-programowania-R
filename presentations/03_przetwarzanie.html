@@ -29,6 +29,200 @@ class: center, middle, inverse, title-slide
 
 
 
+# Zestaw analityka - tidyverse
+
+.pull-left[
+```
+install.packages("tidyverse")
+```
+
+- readxl - wczytywanie plików Excela
+- haven - wczytywanie plików SAS, SPSS, Stata
+- jsonlite - wczytywanie JSON
+- xml2 - wczytywanie XML
+- httr - dostęp do stron html
+- rvest - web scraping
+- DBI - dostęp do baz danych
+- hms - operacje na czasie dnia
+- blob - przechowywanie danych binarnych
+- magrittr - przetwarzanie potokowe `%&gt;%`
+- glue - łączenie tekstów
+
+]
+
+.pull-right[
+```
+library("tidyverse")
+```
+
+- dplyr - przetwarzanie danych tabelarycznych
+- forcats - operacje na czynnikach
+- ggplot2 - wykresy
+- lubridate - operacje na datach
+- purrr - programowanie funkcyjne
+- readr - wczytywanie plików tekstowych
+- stringr - operacje na tekstach
+- tibble - nowoczesny data.frame
+- tidyr - porządkowanie danych
+
+]
+
+[Strona projektu Tidyverse](https://www.tidyverse.org/)
+
+---
+
+# Instalacja vs. wczytywanie
+
+![](img/packages.jpg)
+---
+
+# Struktura projektu
+
+```
+project/
+├── data/
+├── docs/
+├── figs/
+├── output/
+├── 01_input.R
+└── 02_analysis.R
+```
+
+---
+
+# Pliki tekstowe i csv
+
+Pakiet _readr_:
+
+- `read_delim()` - ogólna funkcja do plików tekstowych
+
+- `read_csv()` - uwzględnia nagłówek, separator kolumn to przecinek, separator miejsc dziesiętnych to kropka
+
+- `read_csv2()` - uwzględnia nagłówek, separator kolumn to średnik, separator miejsc dziesiętnych to przecinek
+
+-- 
+
+R dostarcza także funkcje `read.csv()`, `read.csv2()`, `read.delim()`, które są starszymi odpowiednikami funkcji z pakietu _readr_.
+
+---
+
+# Pliki Excela
+
+Pakiet _readxl_:
+
+- `read_excel()` - określa format na podstawie pliku
+
+- `read_xls()` - wczytuje pliki .xls
+
+- `read_xlsx()` - wczytuje pliki .xlsx
+
+---
+
+# Pliki SAS, SPSS, Stata
+
+Pakiet _haven_:
+
+- `read_sas()` - wczytuje pliki .sas
+
+- `read_sav()` - wczytuje pliki .sav
+
+- `read_stata()` - wczytuje pliki .dta
+
+
+---
+
+## Wczytywanie danych o formacie R
+
+- `load("zbior.RData")`
+
+- `dane &lt;- readRDS("zbior.RDS")`
+
+---
+
+## Zapisywanie danych o formacie R
+
+Zapisywanie do formatu R:
+
+- `save(dane, file = "zbior.RData")`
+
+- `save(dane1, dane2, file = "zbior.RData")`
+
+- `saveRDS(dane, file = "zbior.RDS")`
+
+---
+
+# Zapisywanie danych
+
+Zapisywanie do pliku tekstowego (txt, csv):
+
+- `write_csv(x = obiekt, file = "plik.csv")`
+
+- `write_csv2(x = obiekt, file = "plik.csv")`
+
+Zapisywanie do pliku Excela z pakietem _openxlsx_:
+
+- `write.xlsx(x = obiekt, file = "plik.xlsx")`
+
+---
+
+# Wczytanie zbioru danych
+
+Importujemy zbiór danych dotyczący wyników wyborów w 2025 roku.
+
+Plik z danymi: http://wawrowski.edu.pl/data/wybory2025.csv
+
+[Źródło](https://prezydent2025.pkw.gov.pl/prezydent2025/pl/dane_w_arkuszach)
+
+Alternatywnie: [(https://github.com/lwawrowski/blog-quarto/tree/master/_site/data)](https://github.com/lwawrowski/blog-quarto/tree/master/_site/data)
+
+---
+
+class: inverse
+
+# Zadanie
+
+Wywołaj funkcję `summary()` na wczytanym zbiorze danych.
+
+<div class="countdown" id="timer_acef3a67" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
+# Pakiet _janitor_ 
+
+Surowe dane zwykle nie posiadają nazw kolumn przystosowanych do przetwarzania przez komputer
+
+- nazwy zmiennych nie powinny zawierać polskich liter i spacji
+
+- nazwy zmiennych nie powinny zaczynać się od liczby
+
+Te problemy rozwiązuje pakiet _janitor_ (dozorca, woźny) i funkcja `clean_names()`:
+
+```r
+
+zbior &lt;- janitor::clean_names(zbior)
+
+```
+
+- funkcja ta zamienia wielkie litery na małe, spacje na podkreślniki i znaki transliteruje do ASCII.
+
+---
+
+class: inverse
+
+# Zadanie
+
+Wczytaj do R plik movies: http://wawrowski.edu.pl/data/movies.csv i wywołaj na nim funkcję `summary()`.
+
+<div class="countdown" id="timer_449db96e" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
 # Rozpoczynanie pracy z R
 
 .pull-left[
@@ -63,7 +257,7 @@ class: inverse
 
 Wczytaj zbiór danych dotyczący wyników wyborów.
 
-<div class="countdown" id="timer_84b160c1" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_fcf0e599" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">02</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -219,7 +413,7 @@ class: inverse
 
 Utwórz zbiór danych zawierający filmy, które są filmami akcji, miały swoją premierę po 2010 roku i trwały co najmniej 120 minut lub miały ocenę powyżej 8.0. Alternatywa ma dotyczyć tylko dwóch ostatnich warunków.
 
-<div class="countdown" id="timer_4d84fde6" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_6ded3204" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -244,7 +438,7 @@ tylko z wykorzystaniem funkcji `is.na()`:
 
 - `!is.na(zmienna)`
 
-Funkcja `complete.cases()` służy do identyfikacji obserwacji, które nie zawierają braków danych w całym zbiorze danych.
+Funkcja `complete.cases()` lub `drop_na()` służy do identyfikacji obserwacji, które nie zawierają braków danych w całym zbiorze danych.
 
 ---
 
@@ -254,7 +448,7 @@ class: inverse
 
 Ile obwodów głosowania znajduje się w Poznaniu?
 
-<div class="countdown" id="timer_5ee174d9" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_03ff217c" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -302,6 +496,7 @@ iris %&gt;%
   select(Species, Sepal.Length, Sepal.Width)
 ```
 
+
 ```
 ##   Species Sepal.Length Sepal.Width
 ## 1  setosa          5.1         3.5
@@ -348,6 +543,19 @@ Funkcja `rename_with()` umożliwia zmianę nazw z wykorzystaniem funkcji np. zam
 
 ---
 
+class: inverse
+
+# Zadanie
+
+Sprawdź jak działa funkcja `rename` - zmień nazwę kolumny w zbiorze danych z `siedziba` na `siedziba_komisji`.
+
+<div class="countdown" id="timer_43da4743" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+
 # Nowa zmienna/modyfikacja - `mutate()`
 
 
@@ -376,7 +584,7 @@ class: inverse
 
 W zbiorze dotyczącym wyborów stwórz nowe zmienne, które będą zawierały procentowy wynik kandydatów. Gdzie była największa różnica pomiędzy wybranymi kandydatami?
 
-<div class="countdown" id="timer_431ec678" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_5f948ab2" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -399,7 +607,7 @@ class: inverse
 
 Ile obwodów głosowania miało frekwencję powyżej 80%?
 
-<div class="countdown" id="timer_e88fc2a0" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_3c00ccf5" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -429,7 +637,7 @@ class: inverse
 
 Ile wynosiła średnia, mediana i odchylenie standardowe wartości frekwencji?
 
-<div class="countdown" id="timer_c960d5fb" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_deada8cc" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -509,7 +717,7 @@ class: inverse
 
 Oblicz liczbę komisji w poszczególnych województwach oraz średnią liczbę nieważnych głosów.
 
-<div class="countdown" id="timer_b11bfed1" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_888b5119" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -520,7 +728,7 @@ class: inverse
 
 # Zadanie
 
-<div class="countdown" id="timer_3edc6941" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_68b2e4f4" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -546,7 +754,7 @@ class: inverse
 
 Po wczytaniu zbioru danych [gus.RData](http://wawrowski.edu.pl/data/gus.RData) połącz ze sobą zbiory danych zawierające informacje o liczbie przedsiębiorstw na 10 tys. mieszkańców (zbiór _pod_10tys_), stopie bezrobocia (zbiór _bezrobocie_) oraz wynagrodzeniu (zbiór _wyn_).
 
-<div class="countdown" id="timer_0ad0db26" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_f6cd791b" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -644,7 +852,7 @@ class: inverse
 
 Stwórz zbiór danych, który będzie zawierał średni wynik kandydatów w przekroju województw, na następnie zamień reprezentację tego zbioru na reprezentację długą.
 
-<div class="countdown" id="timer_ca8f39c0" data-update-every="1" tabindex="0" style="top:0;right:0;">
+<div class="countdown" id="timer_0db54858" data-update-every="1" tabindex="0" style="top:0;right:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
