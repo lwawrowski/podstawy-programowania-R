@@ -1,0 +1,161 @@
+---
+pagetitle: "Organizacja zajęć · Podstawy programowania w R"
+---
+
+## {.cdv-title background-image="assets/cdv_tytul.png" background-size="cover" background-position="center"}
+
+<img src="assets/cdv_logo.png" class="cdv-logo" alt="Collegium Da Vinci">
+
+::: {.cdv-title-text}
+[Podstawy programowania w R]{.cdv-kicker}
+
+# Organizacja zajęć
+
+[Łukasz Wawrowski]{.cdv-author}
+
+[Studia podyplomowe Big Data & Society]{.cdv-meta}
+:::
+
+## dr Łukasz Wawrowski {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+Strona z materiałami: [wawrowski.edu.pl](http://www.wawrowski.edu.pl/)
+
+E-mail: [lukasz.wawrowski@cdv.pl](mailto:lukasz.wawrowski@cdv.pl)
+
+**Aktualne zatrudnienie:**
+
+- [Łukasiewicz - AI](https://ai.lukasiewicz.gov.pl/pl/)
+
+:::
+::: {.column width="50%"}
+**Poprzednio:**
+
+- [Urząd Statystyczny w Poznaniu](https://poznan.stat.gov.pl/osrodki/osrodek-statystyki-malych-obszarow-1088/)
+- [DOJI S.A.](https://doji.com.pl/)
+- [Uniwersytet Ekonomiczny w Poznaniu](https://ue.poznan.pl/uniwersytet/instytuty-i-katedry/instytut-informatyki-i-ekonomii-ilosciowej/katedra-statystyki/)
+- [QED Software](https://qedsoftware.com/)
+- [Uniwersytet Śląski](https://us.edu.pl/instytut/ii)
+:::
+:::
+
+
+## Cel kursu
+
+::: {.columns}
+::: {.column width="55%"}
+### Mój pierwszy raport z własnych danych
+
+Na koniec kursu każdy ma krótki raport w Quarto:
+
+- dane, które **Ciebie** interesują
+- zestawienia i wykresy, które odpowiadają na Twoje pytania
+- wnioski poparte prostym testem statystycznym
+:::
+::: {.column width="45%"}
+::: {.callout-note}
+## Jak do tego dojdziemy
+Każdy zjazd to **jeden temat** i jeden przykładowy zbiór danych.
+
+Po każdym zjeździe robisz ten sam krok na **swoich** danych.
+
+Na zjeździe 4 kroki składają się w raport.
+:::
+:::
+:::
+
+## Program zajęć: 4 zjazdy {.smaller .w-plan}
+
+| Zjazd | Temat | Po zjeździe potrafisz | Krok do raportu |
+|:-:|------------|------------------|----------|
+| 1 | **Pierwsze kroki: R, projekt i dane w tabeli** | uruchomić skrypt, wczytać plik CSV lub Excel, odczytać komunikat o błędzie | wczytane własne dane |
+| 2 | **Przetwarzanie danych** (dplyr) | wybrać wiersze i kolumny, policzyć zestawienie w grupach, połączyć tabele | tabela odpowiadająca na pytanie |
+| 3 | **Wizualizacja danych** (ggplot2) | dobrać wykres do pytania, zbudować go warstwami, zapisać do pliku | 3 wykresy |
+| 4 | **Od danych do wniosków: testy i raport** | wybrać test, zinterpretować wartość p, złożyć raport w Quarto | gotowy raport |
+
+Każdy zjazd to 6 godzin lekcyjnych. Programowanie w ścisłym sensie (funkcje, pętle, instrukcje warunkowe) jest w dodatku do podręcznika dla chętnych.
+
+
+## Narzędzia {.smaller}
+
+| Narzędzie | Do czego | Co trzeba zrobić |
+|---|---|---|
+| **Posit Cloud** ([posit.cloud](https://posit.cloud)) | RStudio w przeglądarce, na nim pracujemy na zajęciach | założyć darmowe konto (najlepiej przed zjazdem 1) |
+| **R i RStudio Desktop** | ta sama praca na własnym komputerze | zainstalować **po zjeździe 1** (zadanie domowe, ok. 15 min) |
+| **Poll Everywhere** | głosowania, quizy, status ćwiczeń | nic, wystarczy link lub kod QR ze slajdu |
+| **Gemini** ([gemini.google.com](https://gemini.google.com)) | asystent AI: wyjaśnia kod i błędy, pisze pierwszą wersję | zalogować się kontem uczelnianym |
+| **Materiały** ([wawrowski.edu.pl](http://www.wawrowski.edu.pl/)) | prezentacje, podręcznik, dane | nic, wszystko dostępne w przeglądarce |
+
+RStudio w Posit Cloud i na komputerze wygląda tak samo, więc wszystko, czego nauczysz się na zajęciach, przeniesiesz 1:1 na swój komputer.
+
+## Między zjazdami {.smaller}
+
+::: {.columns}
+::: {.column width="50%"}
+**Po zjeździe 1: R na własnym komputerze**
+
+1. Zainstaluj **R**: [cran.r-project.org](https://cran.r-project.org/)
+2. Zainstaluj **RStudio Desktop**: [posit.co/download/rstudio-desktop](https://posit.co/download/rstudio-desktop/)
+3. Sprawdź, że działa: utwórz projekt i wczytaj plik z zajęć
+
+Szczegółowa instrukcja będzie na ostatnim slajdzie zjazdu 1.
+:::
+::: {.column width="50%"}
+**Przez cały kurs: Twoje dane**
+
+1. Wybierz zbiór, który Cię interesuje: z pracy (bez danych osobowych) albo publiczny, np. [GUS BDL](https://bdl.stat.gov.pl/), [dane.gov.pl](https://dane.gov.pl/), [Kaggle](https://www.kaggle.com/datasets).
+2. Po każdym zjeździe powtórz na nim to, co robiliśmy na zajęciach (ok. 30–60 min).
+:::
+:::
+
+::: {.callout-tip}
+## Dobry zbiór na start
+Jedna tabela, kilkaset do kilku tysięcy wierszy, kilka kolumn liczbowych i kilka tekstowych (np. region, kategoria, płeć).
+:::
+
+## AI na zajęciach {.smaller}
+
+::: {.columns}
+::: {.column width="55%"}
+**Zasada kursu:** AI pisze pierwszą wersję kodu, a Ty ją czytasz, uruchamiasz i sprawdzasz.
+
+Dlatego nie musisz pamiętać składni, ale musisz:
+
+- rozumieć, co robi kod, który uruchamiasz
+- umieć sprawdzić, czy wynik ma sens
+- rozpoznać, kiedy AI się pomyliło (a myli się często)
+
+Na zjeździe 1 najpierw uczymy się czytać kod sami, AI dołącza od zjazdu 2.
+:::
+::: {.column width="45%"}
+::: {.callout-warning}
+## Bezpieczeństwo danych
+Do czatu wklejamy **strukturę danych i kod**, a nie same dane.
+
+Nigdy nie wklejamy danych osobowych ani poufnych danych firmowych.
+:::
+
+:::
+:::
+
+## Program zajęć: Metody przetwarzania i analizy danych {.smaller}
+
+Kontynuacja na kolejnym przedmiocie:
+
+1. Eksploracyjna analiza danych
+2. Metody regresji (różne algorytmy, ocena jakości modeli)
+3. Metody klasyfikacji (modele white-box i black-box)
+4. Wyjaśnialna sztuczna inteligencja (XAI)
+5. Klasteryzacja i segmentacja danych
+6. Redukcja wymiarowości
+
+Przełączamy się na pythona. 
+
+## {.cdv-title background-color="#1E252D"}
+
+::: {style="color: #fff; font-size: 1.3em; margin-top: 120px; text-align: center;"}
+[Pytania?]{style="font-size: 2em; font-weight: 700;"}
+
+[lukasz.wawrowski@cdv.pl](mailto:lukasz.wawrowski@cdv.pl){style="color: #A699FC;"}
+:::

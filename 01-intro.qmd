@@ -1,6 +1,6 @@
 # Wprowadzenie do R
 
-[Prezentacja](presentations/01_wprowadzenie.html)
+[Prezentacja](presentations_v2/01_wprowadzenie.html)
 
 ## Wprowadzenie
 

@@ -1,0 +1,193 @@
+---
+pagetitle: "Przetwarzanie danych · Zjazd 2"
+---
+
+## {.cdv-title background-image="assets/cdv_tytul.png" background-size="cover" background-position="center"}
+
+<img src="assets/cdv_logo.png" class="cdv-logo" alt="Collegium Da Vinci">
+
+::: {.cdv-title-text}
+[Zjazd 2 · Podstawy programowania w R]{.cdv-kicker}
+
+# Przetwarzanie danych
+
+[Łukasz Wawrowski]{.cdv-author}
+
+[Studia podyplomowe Big Data & Society]{.cdv-meta}
+:::
+
+## Plan zjazdu {.smaller .w-plan}
+
+::: {.columns}
+::: {.column width="55%"}
+**Cel kursu:** mój pierwszy raport z własnych danych.
+
+**Cel zjazdu:** z surowej tabeli zrobić zestawienie, które odpowiada na pytanie.
+
+Dzisiejsze dane: **bank**, czyli klienci banku i kampania lokat.
+
+Po zjeździe: to samo na **Twoich** danych.
+:::
+::: {.column width="45%"}
+| Czas | Blok |
+|---|---|
+| 15 min | rozgrzewka w Poll Everywhere |
+| 70 min | blok A: pięć czasowników dplyr |
+| 15 min | przerwa |
+| 70 min | blok B: grupowanie i złączenia |
+| 10 min | przerwa |
+| 60 min | blok AI: Gemini pisze, Ty sprawdzasz |
+| 30 min | podsumowanie i karta wyjścia |
+:::
+:::
+
+::: notes
+Pokaż cel kursu i przypomnij, że każdy zjazd kończy się krokiem na własnych danych.
+:::
+
+## Rozgrzewka: przewidź wynik
+
+```r
+wiek <- c(34, 51, NA, 52)
+mean(wiek)
+```
+
+::: {.columns}
+::: {.column width="50%"}
+Głosujemy w **Poll Everywhere**:
+
+- A. `45.67`
+- B. `NA`
+- C. błąd
+- D. `137`
+:::
+::: {.column width="50%"}
+::: {.reveal-box}
+<button class="w-btn" data-reveal-target="ans-warmup">Pokaż odpowiedź</button>
+::: {#ans-warmup .w-hidden .w-feedback .ok}
+**B. `NA`**. Jeden brak danych „psuje” średnią. Poprawka: `mean(wiek, na.rm = TRUE)` daje `45.67`.
+:::
+:::
+:::
+:::
+
+<!-- Tu można wkleić aktywność Poll Everywhere, np.:
+<iframe src="https://embed.polleverywhere.com/multiple_choice_polls/TWOJ_KOD?controls=none&short_poll=true" width="800" height="500" frameborder="0"></iframe>
+-->
+
+::: notes
+Najpierw głosowanie, potem przycisk. Pytanie wraca w karcie wyjścia.
+:::
+
+## Pięć czasowników dplyr {.smaller}
+
+::: {.columns}
+::: {.column width="55%"}
+| Czasownik | Co robi | Excel |
+|---|---|---|
+| `filter()` | wybiera **wiersze** | filtr |
+| `select()` | wybiera **kolumny** | ukryj kolumny |
+| `mutate()` | dodaje **nową kolumnę** | nowa formuła |
+| `summarise()` | **podsumowuje** | tabela przestawna |
+| `arrange()` | **sortuje** | sortowanie |
+:::
+::: {.column width="45%"}
+Potok `|>` czytamy jako **„a potem”**:
+
+```r
+bank |>
+  filter(hipoteka == "tak") |>
+  select(wiek, saldo) |>
+  arrange(desc(saldo))
+```
+
+„Weź bank, **a potem** zostaw klientów z hipoteką, **a potem** zostaw wiek i saldo, **a potem** posortuj malejąco po saldzie.”
+:::
+:::
+
+## Budowniczy potoku {.w-interactive}
+
+<span class="w-tag">Przykład interaktywny</span> Włączaj kolejne kroki i obserwuj, jak zmienia się tabela.
+
+<div class="w-pipeline" id="pipeline"></div>
+
+::: notes
+Zacznij od samego filter, potem dokładaj kroki. Zapytaj: dlaczego po summarise znikają wiek i hipoteka?
+:::
+
+## Sprawdź się: który czasownik? {.w-interactive}
+
+<span class="w-tag">Sprawdź się</span> Wylosuj zadanie i wybierz funkcję, która je wykona.
+
+<div class="w-quiz" id="verbquiz"></div>
+
+## Ułóż potok {.w-interactive}
+
+<span class="w-tag">Sprawdź się</span> **Zadanie:** średnie saldo w każdej grupie wykształcenia, tylko dla klientów w wieku 30+, od najwyższego.
+Przesuwaj linie strzałkami.
+
+<div class="w-parsons" id="parsons"></div>
+
+::: notes
+Ważne: filter przed summarise, bo po podsumowaniu kolumny wiek już nie ma. arrange na końcu, bo srednie_saldo powstaje dopiero w summarise.
+:::
+
+## Znajdź błąd {.w-interactive}
+
+<span class="w-tag">Sprawdź się</span> Kliknij linię, w której jest błąd. Każde losowanie to inny typowy problem.
+
+<div class="w-bug" id="bughunt"></div>
+
+## Złączenia na kolorach {.w-interactive}
+
+<span class="w-tag">Przykład interaktywny</span> Wybierz rodzaj złączenia i zobacz, które wiersze zostają.
+
+<div class="w-join" id="joins"></div>
+
+::: notes
+Najczęściej w praktyce: left_join. Pokaż, że klient z oddziałem 4 dostaje NA, a oddział w Gdańsku znika.
+:::
+
+## Blok AI: Gemini pisze, Ty sprawdzasz {.smaller}
+
+**Szablon promptu** (do skopiowania):
+
+```text
+Pracuję w R z pakietem tidyverse. Moje dane `bank` mają kolumny:
+<wklej wynik glimpse(bank)>
+
+Cel: <co ma wyjść, np. średnie saldo w grupach wykształcenia, malejąco>.
+Ograniczenia: użyj potoku |>, bez pętli, dodaj komentarze po polsku.
+Na końcu napisz, jak mogę sprawdzić, że wynik jest poprawny.
+```
+
+**Zasady:**
+
+1. Wklejamy **strukturę** danych (`glimpse()`), nie dane osobowe.
+2. Kod od AI zawsze **uruchamiamy i sprawdzamy** na 2–3 wierszach.
+3. Jeśli czegoś nie rozumiesz, poproś: „wyjaśnij linia po linii po polsku”.
+
+## Polowanie na błędy AI {.w-interactive}
+
+<span class="w-tag">Sprawdź się</span> Poproszono AI: *„Policz średnie saldo w grupach wykształcenia i hipoteki, pomiń braki wykształcenia, hipoteka w kolumnach”*. Znajdź **2 problemy**, klikając linie.
+
+<div class="w-aihunt" id="aihunt"></div>
+
+::: notes
+Odpowiedź jest przygotowana do ćwiczenia (nie jest prawdziwym zapisem rozmowy). Problem 1 to filter(wykszt != NA), który daje pustą tabelę. Problem 2 to przestarzałe spread().
+:::
+
+## Uruchom R w przeglądarce {.w-interactive}
+
+<span class="w-tag">Przykład interaktywny</span> Prawdziwy R (webR) działa w tej prezentacji. Pierwsze uruchomienie trwa kilkanaście sekund i wymaga internetu.
+
+<div class="w-webr" id="webr"></div>
+
+## Na następny zjazd: Twoje dane {.smaller}
+
+1. Wczytaj swój zbiór (`read_csv()` lub `read_excel()`) i zrób `glimpse()`.
+2. Zadaj danym **jedno pytanie** i odpowiedz potokiem: `filter()` → `summarise(.by = )` → `arrange()`.
+3. Jeśli utkniesz, użyj szablonu promptu z Gemini i **sprawdź wynik** na kilku wierszach.
+4. Zapisz wynik: `writexl::write_xlsx(wynik, "wynik.xlsx")`.
+
+**Karta wyjścia** w Poll Everywhere: *„Co dziś było najmniej jasne?”* (chmura słów)

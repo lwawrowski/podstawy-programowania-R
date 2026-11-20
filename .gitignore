@@ -8,3 +8,5 @@ rsconnect
 notatki.R
 
 /.quarto/
+
+**/*.quarto_ipynb

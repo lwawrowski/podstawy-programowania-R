@@ -1,0 +1,25 @@
+# Wspólne ustawienia dla wszystkich prezentacji w tym folderze.
+# Renderowanie: quarto render (wszystkie) lub quarto render nazwa.qmd (jedna).
+project:
+  type: default
+
+lang: pl
+author: "Łukasz Wawrowski"
+
+format:
+  revealjs:
+    theme: default
+    css: assets/widgets.css
+    include-after-body: assets/widgets-include.html
+    mainfont: Arial
+    auto-stretch: false
+    slide-number: c/t
+    controls: true
+    progress: true
+    hash: true
+    width: 1100
+    height: 720
+    embed-resources: true
+    code-copy: true
+    menu:
+      side: left
